@@ -1,0 +1,8 @@
+[mysql]
+  dbname  = "strings_history"
+  host    = "localhost"
+  port    = 3306
+  user    = "root"
+  pass    = "pass"
+  sslmode = "false"
+  blacklist = ["gorp_migrations"]
