@@ -1,5 +1,5 @@
 package output
 
 type UserAddOutputData struct {
-	CreatedToken string
+	CreatedToken string `json:"created_token"`
 }

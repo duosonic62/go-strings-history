@@ -11,6 +11,10 @@ mockgen \
 -source=internal/usecase/outputboundary/user_command.go \
 -destination=internal/usecase/outputboundary/mock_outputboundary/mock_user_command.go
 
+mockgen \
+-source=internal/usecase/outputboundary/error.go \
+-destination=internal/usecase/outputboundary/mock_outputboundary/mock_error.go
+
 # input
 mockgen \
 -source=pkg/usecase/input/context.go  \
