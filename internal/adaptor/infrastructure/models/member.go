@@ -29,7 +29,7 @@ type Member struct {
 	Name         string    `boil:"name" json:"name" toml:"name" yaml:"name"`
 	Token        string    `boil:"token" json:"token" toml:"token" yaml:"token"`
 	TokenExpired time.Time `boil:"token_expired" json:"token_expired" toml:"token_expired" yaml:"token_expired"`
-	IsDeleted    string    `boil:"is_deleted" json:"is_deleted" toml:"is_deleted" yaml:"is_deleted"`
+	IsDeleted    bool      `boil:"is_deleted" json:"is_deleted" toml:"is_deleted" yaml:"is_deleted"`
 	Version      int       `boil:"version" json:"version" toml:"version" yaml:"version"`
 	CreatedAt    time.Time `boil:"created_at" json:"created_at" toml:"created_at" yaml:"created_at"`
 	UpdatedAt    null.Time `boil:"updated_at" json:"updated_at,omitempty" toml:"updated_at" yaml:"updated_at,omitempty"`
@@ -68,7 +68,7 @@ var MemberWhere = struct {
 	Name         whereHelperstring
 	Token        whereHelperstring
 	TokenExpired whereHelpertime_Time
-	IsDeleted    whereHelperstring
+	IsDeleted    whereHelperbool
 	Version      whereHelperint
 	CreatedAt    whereHelpertime_Time
 	UpdatedAt    whereHelpernull_Time
@@ -78,7 +78,7 @@ var MemberWhere = struct {
 	Name:         whereHelperstring{field: "`member`.`name`"},
 	Token:        whereHelperstring{field: "`member`.`token`"},
 	TokenExpired: whereHelpertime_Time{field: "`member`.`token_expired`"},
-	IsDeleted:    whereHelperstring{field: "`member`.`is_deleted`"},
+	IsDeleted:    whereHelperbool{field: "`member`.`is_deleted`"},
 	Version:      whereHelperint{field: "`member`.`version`"},
 	CreatedAt:    whereHelpertime_Time{field: "`member`.`created_at`"},
 	UpdatedAt:    whereHelpernull_Time{field: "`member`.`updated_at`"},
@@ -398,10 +398,10 @@ func (o *Member) Guitars(mods ...qm.QueryMod) guitarQuery {
 	)
 
 	query := Guitars(queryMods...)
-	queries.SetFrom(Query, "`guitar`")
+	queries.SetFrom(query.Query, "`guitar`")
 
-	if len(queries.GetSelect(Query)) == 0 {
-		queries.SetSelect(Query, []string{"`guitar`.*"})
+	if len(queries.GetSelect(query.Query)) == 0 {
+		queries.SetSelect(query.Query, []string{"`guitar`.*"})
 	}
 
 	return query

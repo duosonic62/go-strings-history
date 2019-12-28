@@ -1,7 +1,7 @@
 package factoryimple
 
 import (
-	"github.com/duosonic/go-strings-history/internal/domain/factory"
+	"github.com/duosonic62/go-strings-history/internal/domain/factory"
 	"github.com/google/uuid"
 )
 

@@ -27,8 +27,8 @@ type StringExchangeLog struct {
 	ID          string    `boil:"id" json:"id" toml:"id" yaml:"id"`
 	StringID    string    `boil:"string_id" json:"string_id" toml:"string_id" yaml:"string_id"`
 	GuitarID    string    `boil:"guitar_id" json:"guitar_id" toml:"guitar_id" yaml:"guitar_id"`
-	IsExchanged string    `boil:"is_exchanged" json:"is_exchanged" toml:"is_exchanged" yaml:"is_exchanged"`
-	IsDeleted   string    `boil:"is_deleted" json:"is_deleted" toml:"is_deleted" yaml:"is_deleted"`
+	IsExchanged bool      `boil:"is_exchanged" json:"is_exchanged" toml:"is_exchanged" yaml:"is_exchanged"`
+	IsDeleted   bool      `boil:"is_deleted" json:"is_deleted" toml:"is_deleted" yaml:"is_deleted"`
 	Version     int       `boil:"version" json:"version" toml:"version" yaml:"version"`
 	CreatedAt   time.Time `boil:"created_at" json:"created_at" toml:"created_at" yaml:"created_at"`
 	UpdatedAt   null.Time `boil:"updated_at" json:"updated_at,omitempty" toml:"updated_at" yaml:"updated_at,omitempty"`
@@ -63,8 +63,8 @@ var StringExchangeLogWhere = struct {
 	ID          whereHelperstring
 	StringID    whereHelperstring
 	GuitarID    whereHelperstring
-	IsExchanged whereHelperstring
-	IsDeleted   whereHelperstring
+	IsExchanged whereHelperbool
+	IsDeleted   whereHelperbool
 	Version     whereHelperint
 	CreatedAt   whereHelpertime_Time
 	UpdatedAt   whereHelpernull_Time
@@ -72,8 +72,8 @@ var StringExchangeLogWhere = struct {
 	ID:          whereHelperstring{field: "`string_exchange_log`.`id`"},
 	StringID:    whereHelperstring{field: "`string_exchange_log`.`string_id`"},
 	GuitarID:    whereHelperstring{field: "`string_exchange_log`.`guitar_id`"},
-	IsExchanged: whereHelperstring{field: "`string_exchange_log`.`is_exchanged`"},
-	IsDeleted:   whereHelperstring{field: "`string_exchange_log`.`is_deleted`"},
+	IsExchanged: whereHelperbool{field: "`string_exchange_log`.`is_exchanged`"},
+	IsDeleted:   whereHelperbool{field: "`string_exchange_log`.`is_deleted`"},
 	Version:     whereHelperint{field: "`string_exchange_log`.`version`"},
 	CreatedAt:   whereHelpertime_Time{field: "`string_exchange_log`.`created_at`"},
 	UpdatedAt:   whereHelpernull_Time{field: "`string_exchange_log`.`updated_at`"},
@@ -393,7 +393,7 @@ func (o *StringExchangeLog) Guitar(mods ...qm.QueryMod) guitarQuery {
 	queryMods = append(queryMods, mods...)
 
 	query := Guitars(queryMods...)
-	queries.SetFrom(Query, "`guitar`")
+	queries.SetFrom(query.Query, "`guitar`")
 
 	return query
 }
@@ -407,7 +407,7 @@ func (o *StringExchangeLog) String(mods ...qm.QueryMod) guitarStringQuery {
 	queryMods = append(queryMods, mods...)
 
 	query := GuitarStrings(queryMods...)
-	queries.SetFrom(Query, "`guitar_string`")
+	queries.SetFrom(query.Query, "`guitar_string`")
 
 	return query
 }

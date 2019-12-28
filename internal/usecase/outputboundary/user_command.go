@@ -1,8 +1,8 @@
 package outputboundary
 
 import (
-	"github.com/duosonic/go-strings-history/pkg/usecase/input"
-	"github.com/duosonic/go-strings-history/pkg/usecase/output"
+	"github.com/duosonic62/go-strings-history/pkg/usecase/input"
+	"github.com/duosonic62/go-strings-history/pkg/usecase/output"
 )
 
 type UserCommandPresenter interface {

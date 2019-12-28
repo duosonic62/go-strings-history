@@ -26,7 +26,7 @@ func testStringExchangeLogs(t *testing.T) {
 
 	query := StringExchangeLogs()
 
-	if Query == nil {
+	if query.Query == nil {
 		t.Error("expected a query, got nothing")
 	}
 }
@@ -785,7 +785,7 @@ func testStringExchangeLogsSelect(t *testing.T) {
 }
 
 var (
-	stringExchangeLogDBTypes = map[string]string{`ID`: `varchar`, `StringID`: `varchar`, `GuitarID`: `varchar`, `IsExchanged`: `bit`, `IsDeleted`: `bit`, `Version`: `int`, `CreatedAt`: `datetime`, `UpdatedAt`: `datetime`}
+	stringExchangeLogDBTypes = map[string]string{`ID`: `varchar`, `StringID`: `varchar`, `GuitarID`: `varchar`, `IsExchanged`: `tinyint`, `IsDeleted`: `tinyint`, `Version`: `int`, `CreatedAt`: `datetime`, `UpdatedAt`: `datetime`}
 	_                        = bytes.MinRead
 )
 

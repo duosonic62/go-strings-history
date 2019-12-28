@@ -13,3 +13,17 @@ docker run --name strings-mysql \
  --character-set-server=utf8mb4 \ 
  --collation-server=utf8mb4_general_ci
 ```
+
+```sql 
+drop table gorp_migrations;
+drop table string_exchange_log;
+drop table guitar_string;
+drop table guitar;
+drop table member;
+```
+
+### sqlboiler
+モデルを自動生成
+```
+sqlboiler mysql
+```

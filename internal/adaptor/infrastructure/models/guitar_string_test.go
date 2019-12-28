@@ -21,24 +21,24 @@ var (
 	_ = queries.Equal
 )
 
-func testMembers(t *testing.T) {
+func testGuitarStrings(t *testing.T) {
 	t.Parallel()
 
-	query := Members()
+	query := GuitarStrings()
 
-	if Query == nil {
+	if query.Query == nil {
 		t.Error("expected a query, got nothing")
 	}
 }
 
-func testMembersDelete(t *testing.T) {
+func testGuitarStringsDelete(t *testing.T) {
 	t.Parallel()
 
 	seed := randomize.NewSeed()
 	var err error
-	o := &Member{}
-	if err = randomize.Struct(seed, o, memberDBTypes, true, memberColumnsWithDefault...); err != nil {
-		t.Errorf("Unable to randomize Member struct: %s", err)
+	o := &GuitarString{}
+	if err = randomize.Struct(seed, o, guitarStringDBTypes, true, guitarStringColumnsWithDefault...); err != nil {
+		t.Errorf("Unable to randomize GuitarString struct: %s", err)
 	}
 
 	ctx := context.Background()
@@ -54,7 +54,7 @@ func testMembersDelete(t *testing.T) {
 		t.Error("should only have deleted one row, but affected:", rowsAff)
 	}
 
-	count, err := Members().Count(ctx, tx)
+	count, err := GuitarStrings().Count(ctx, tx)
 	if err != nil {
 		t.Error(err)
 	}
@@ -64,14 +64,14 @@ func testMembersDelete(t *testing.T) {
 	}
 }
 
-func testMembersQueryDeleteAll(t *testing.T) {
+func testGuitarStringsQueryDeleteAll(t *testing.T) {
 	t.Parallel()
 
 	seed := randomize.NewSeed()
 	var err error
-	o := &Member{}
-	if err = randomize.Struct(seed, o, memberDBTypes, true, memberColumnsWithDefault...); err != nil {
-		t.Errorf("Unable to randomize Member struct: %s", err)
+	o := &GuitarString{}
+	if err = randomize.Struct(seed, o, guitarStringDBTypes, true, guitarStringColumnsWithDefault...); err != nil {
+		t.Errorf("Unable to randomize GuitarString struct: %s", err)
 	}
 
 	ctx := context.Background()
@@ -81,13 +81,13 @@ func testMembersQueryDeleteAll(t *testing.T) {
 		t.Error(err)
 	}
 
-	if rowsAff, err := Members().DeleteAll(ctx, tx); err != nil {
+	if rowsAff, err := GuitarStrings().DeleteAll(ctx, tx); err != nil {
 		t.Error(err)
 	} else if rowsAff != 1 {
 		t.Error("should only have deleted one row, but affected:", rowsAff)
 	}
 
-	count, err := Members().Count(ctx, tx)
+	count, err := GuitarStrings().Count(ctx, tx)
 	if err != nil {
 		t.Error(err)
 	}
@@ -97,14 +97,14 @@ func testMembersQueryDeleteAll(t *testing.T) {
 	}
 }
 
-func testMembersSliceDeleteAll(t *testing.T) {
+func testGuitarStringsSliceDeleteAll(t *testing.T) {
 	t.Parallel()
 
 	seed := randomize.NewSeed()
 	var err error
-	o := &Member{}
-	if err = randomize.Struct(seed, o, memberDBTypes, true, memberColumnsWithDefault...); err != nil {
-		t.Errorf("Unable to randomize Member struct: %s", err)
+	o := &GuitarString{}
+	if err = randomize.Struct(seed, o, guitarStringDBTypes, true, guitarStringColumnsWithDefault...); err != nil {
+		t.Errorf("Unable to randomize GuitarString struct: %s", err)
 	}
 
 	ctx := context.Background()
@@ -114,7 +114,7 @@ func testMembersSliceDeleteAll(t *testing.T) {
 		t.Error(err)
 	}
 
-	slice := MemberSlice{o}
+	slice := GuitarStringSlice{o}
 
 	if rowsAff, err := slice.DeleteAll(ctx, tx); err != nil {
 		t.Error(err)
@@ -122,7 +122,7 @@ func testMembersSliceDeleteAll(t *testing.T) {
 		t.Error("should only have deleted one row, but affected:", rowsAff)
 	}
 
-	count, err := Members().Count(ctx, tx)
+	count, err := GuitarStrings().Count(ctx, tx)
 	if err != nil {
 		t.Error(err)
 	}
@@ -132,14 +132,14 @@ func testMembersSliceDeleteAll(t *testing.T) {
 	}
 }
 
-func testMembersExists(t *testing.T) {
+func testGuitarStringsExists(t *testing.T) {
 	t.Parallel()
 
 	seed := randomize.NewSeed()
 	var err error
-	o := &Member{}
-	if err = randomize.Struct(seed, o, memberDBTypes, true, memberColumnsWithDefault...); err != nil {
-		t.Errorf("Unable to randomize Member struct: %s", err)
+	o := &GuitarString{}
+	if err = randomize.Struct(seed, o, guitarStringDBTypes, true, guitarStringColumnsWithDefault...); err != nil {
+		t.Errorf("Unable to randomize GuitarString struct: %s", err)
 	}
 
 	ctx := context.Background()
@@ -149,23 +149,23 @@ func testMembersExists(t *testing.T) {
 		t.Error(err)
 	}
 
-	e, err := MemberExists(ctx, tx, o.ID)
+	e, err := GuitarStringExists(ctx, tx, o.ID)
 	if err != nil {
-		t.Errorf("Unable to check if Member exists: %s", err)
+		t.Errorf("Unable to check if GuitarString exists: %s", err)
 	}
 	if !e {
-		t.Errorf("Expected MemberExists to return true, but got false.")
+		t.Errorf("Expected GuitarStringExists to return true, but got false.")
 	}
 }
 
-func testMembersFind(t *testing.T) {
+func testGuitarStringsFind(t *testing.T) {
 	t.Parallel()
 
 	seed := randomize.NewSeed()
 	var err error
-	o := &Member{}
-	if err = randomize.Struct(seed, o, memberDBTypes, true, memberColumnsWithDefault...); err != nil {
-		t.Errorf("Unable to randomize Member struct: %s", err)
+	o := &GuitarString{}
+	if err = randomize.Struct(seed, o, guitarStringDBTypes, true, guitarStringColumnsWithDefault...); err != nil {
+		t.Errorf("Unable to randomize GuitarString struct: %s", err)
 	}
 
 	ctx := context.Background()
@@ -175,24 +175,24 @@ func testMembersFind(t *testing.T) {
 		t.Error(err)
 	}
 
-	memberFound, err := FindMember(ctx, tx, o.ID)
+	guitarStringFound, err := FindGuitarString(ctx, tx, o.ID)
 	if err != nil {
 		t.Error(err)
 	}
 
-	if memberFound == nil {
+	if guitarStringFound == nil {
 		t.Error("want a record, got nil")
 	}
 }
 
-func testMembersBind(t *testing.T) {
+func testGuitarStringsBind(t *testing.T) {
 	t.Parallel()
 
 	seed := randomize.NewSeed()
 	var err error
-	o := &Member{}
-	if err = randomize.Struct(seed, o, memberDBTypes, true, memberColumnsWithDefault...); err != nil {
-		t.Errorf("Unable to randomize Member struct: %s", err)
+	o := &GuitarString{}
+	if err = randomize.Struct(seed, o, guitarStringDBTypes, true, guitarStringColumnsWithDefault...); err != nil {
+		t.Errorf("Unable to randomize GuitarString struct: %s", err)
 	}
 
 	ctx := context.Background()
@@ -202,19 +202,19 @@ func testMembersBind(t *testing.T) {
 		t.Error(err)
 	}
 
-	if err = Members().Bind(ctx, tx, o); err != nil {
+	if err = GuitarStrings().Bind(ctx, tx, o); err != nil {
 		t.Error(err)
 	}
 }
 
-func testMembersOne(t *testing.T) {
+func testGuitarStringsOne(t *testing.T) {
 	t.Parallel()
 
 	seed := randomize.NewSeed()
 	var err error
-	o := &Member{}
-	if err = randomize.Struct(seed, o, memberDBTypes, true, memberColumnsWithDefault...); err != nil {
-		t.Errorf("Unable to randomize Member struct: %s", err)
+	o := &GuitarString{}
+	if err = randomize.Struct(seed, o, guitarStringDBTypes, true, guitarStringColumnsWithDefault...); err != nil {
+		t.Errorf("Unable to randomize GuitarString struct: %s", err)
 	}
 
 	ctx := context.Background()
@@ -224,38 +224,38 @@ func testMembersOne(t *testing.T) {
 		t.Error(err)
 	}
 
-	if x, err := Members().One(ctx, tx); err != nil {
+	if x, err := GuitarStrings().One(ctx, tx); err != nil {
 		t.Error(err)
 	} else if x == nil {
 		t.Error("expected to get a non nil record")
 	}
 }
 
-func testMembersAll(t *testing.T) {
+func testGuitarStringsAll(t *testing.T) {
 	t.Parallel()
 
 	seed := randomize.NewSeed()
 	var err error
-	memberOne := &Member{}
-	memberTwo := &Member{}
-	if err = randomize.Struct(seed, memberOne, memberDBTypes, false, memberColumnsWithDefault...); err != nil {
-		t.Errorf("Unable to randomize Member struct: %s", err)
+	guitarStringOne := &GuitarString{}
+	guitarStringTwo := &GuitarString{}
+	if err = randomize.Struct(seed, guitarStringOne, guitarStringDBTypes, false, guitarStringColumnsWithDefault...); err != nil {
+		t.Errorf("Unable to randomize GuitarString struct: %s", err)
 	}
-	if err = randomize.Struct(seed, memberTwo, memberDBTypes, false, memberColumnsWithDefault...); err != nil {
-		t.Errorf("Unable to randomize Member struct: %s", err)
+	if err = randomize.Struct(seed, guitarStringTwo, guitarStringDBTypes, false, guitarStringColumnsWithDefault...); err != nil {
+		t.Errorf("Unable to randomize GuitarString struct: %s", err)
 	}
 
 	ctx := context.Background()
 	tx := MustTx(boil.BeginTx(ctx, nil))
 	defer func() { _ = tx.Rollback() }()
-	if err = memberOne.Insert(ctx, tx, boil.Infer()); err != nil {
+	if err = guitarStringOne.Insert(ctx, tx, boil.Infer()); err != nil {
 		t.Error(err)
 	}
-	if err = memberTwo.Insert(ctx, tx, boil.Infer()); err != nil {
+	if err = guitarStringTwo.Insert(ctx, tx, boil.Infer()); err != nil {
 		t.Error(err)
 	}
 
-	slice, err := Members().All(ctx, tx)
+	slice, err := GuitarStrings().All(ctx, tx)
 	if err != nil {
 		t.Error(err)
 	}
@@ -265,31 +265,31 @@ func testMembersAll(t *testing.T) {
 	}
 }
 
-func testMembersCount(t *testing.T) {
+func testGuitarStringsCount(t *testing.T) {
 	t.Parallel()
 
 	var err error
 	seed := randomize.NewSeed()
-	memberOne := &Member{}
-	memberTwo := &Member{}
-	if err = randomize.Struct(seed, memberOne, memberDBTypes, false, memberColumnsWithDefault...); err != nil {
-		t.Errorf("Unable to randomize Member struct: %s", err)
+	guitarStringOne := &GuitarString{}
+	guitarStringTwo := &GuitarString{}
+	if err = randomize.Struct(seed, guitarStringOne, guitarStringDBTypes, false, guitarStringColumnsWithDefault...); err != nil {
+		t.Errorf("Unable to randomize GuitarString struct: %s", err)
 	}
-	if err = randomize.Struct(seed, memberTwo, memberDBTypes, false, memberColumnsWithDefault...); err != nil {
-		t.Errorf("Unable to randomize Member struct: %s", err)
+	if err = randomize.Struct(seed, guitarStringTwo, guitarStringDBTypes, false, guitarStringColumnsWithDefault...); err != nil {
+		t.Errorf("Unable to randomize GuitarString struct: %s", err)
 	}
 
 	ctx := context.Background()
 	tx := MustTx(boil.BeginTx(ctx, nil))
 	defer func() { _ = tx.Rollback() }()
-	if err = memberOne.Insert(ctx, tx, boil.Infer()); err != nil {
+	if err = guitarStringOne.Insert(ctx, tx, boil.Infer()); err != nil {
 		t.Error(err)
 	}
-	if err = memberTwo.Insert(ctx, tx, boil.Infer()); err != nil {
+	if err = guitarStringTwo.Insert(ctx, tx, boil.Infer()); err != nil {
 		t.Error(err)
 	}
 
-	count, err := Members().Count(ctx, tx)
+	count, err := GuitarStrings().Count(ctx, tx)
 	if err != nil {
 		t.Error(err)
 	}
@@ -299,155 +299,155 @@ func testMembersCount(t *testing.T) {
 	}
 }
 
-func memberBeforeInsertHook(ctx context.Context, e boil.ContextExecutor, o *Member) error {
-	*o = Member{}
+func guitarStringBeforeInsertHook(ctx context.Context, e boil.ContextExecutor, o *GuitarString) error {
+	*o = GuitarString{}
 	return nil
 }
 
-func memberAfterInsertHook(ctx context.Context, e boil.ContextExecutor, o *Member) error {
-	*o = Member{}
+func guitarStringAfterInsertHook(ctx context.Context, e boil.ContextExecutor, o *GuitarString) error {
+	*o = GuitarString{}
 	return nil
 }
 
-func memberAfterSelectHook(ctx context.Context, e boil.ContextExecutor, o *Member) error {
-	*o = Member{}
+func guitarStringAfterSelectHook(ctx context.Context, e boil.ContextExecutor, o *GuitarString) error {
+	*o = GuitarString{}
 	return nil
 }
 
-func memberBeforeUpdateHook(ctx context.Context, e boil.ContextExecutor, o *Member) error {
-	*o = Member{}
+func guitarStringBeforeUpdateHook(ctx context.Context, e boil.ContextExecutor, o *GuitarString) error {
+	*o = GuitarString{}
 	return nil
 }
 
-func memberAfterUpdateHook(ctx context.Context, e boil.ContextExecutor, o *Member) error {
-	*o = Member{}
+func guitarStringAfterUpdateHook(ctx context.Context, e boil.ContextExecutor, o *GuitarString) error {
+	*o = GuitarString{}
 	return nil
 }
 
-func memberBeforeDeleteHook(ctx context.Context, e boil.ContextExecutor, o *Member) error {
-	*o = Member{}
+func guitarStringBeforeDeleteHook(ctx context.Context, e boil.ContextExecutor, o *GuitarString) error {
+	*o = GuitarString{}
 	return nil
 }
 
-func memberAfterDeleteHook(ctx context.Context, e boil.ContextExecutor, o *Member) error {
-	*o = Member{}
+func guitarStringAfterDeleteHook(ctx context.Context, e boil.ContextExecutor, o *GuitarString) error {
+	*o = GuitarString{}
 	return nil
 }
 
-func memberBeforeUpsertHook(ctx context.Context, e boil.ContextExecutor, o *Member) error {
-	*o = Member{}
+func guitarStringBeforeUpsertHook(ctx context.Context, e boil.ContextExecutor, o *GuitarString) error {
+	*o = GuitarString{}
 	return nil
 }
 
-func memberAfterUpsertHook(ctx context.Context, e boil.ContextExecutor, o *Member) error {
-	*o = Member{}
+func guitarStringAfterUpsertHook(ctx context.Context, e boil.ContextExecutor, o *GuitarString) error {
+	*o = GuitarString{}
 	return nil
 }
 
-func testMembersHooks(t *testing.T) {
+func testGuitarStringsHooks(t *testing.T) {
 	t.Parallel()
 
 	var err error
 
 	ctx := context.Background()
-	empty := &Member{}
-	o := &Member{}
+	empty := &GuitarString{}
+	o := &GuitarString{}
 
 	seed := randomize.NewSeed()
-	if err = randomize.Struct(seed, o, memberDBTypes, false); err != nil {
-		t.Errorf("Unable to randomize Member object: %s", err)
+	if err = randomize.Struct(seed, o, guitarStringDBTypes, false); err != nil {
+		t.Errorf("Unable to randomize GuitarString object: %s", err)
 	}
 
-	AddMemberHook(boil.BeforeInsertHook, memberBeforeInsertHook)
+	AddGuitarStringHook(boil.BeforeInsertHook, guitarStringBeforeInsertHook)
 	if err = o.doBeforeInsertHooks(ctx, nil); err != nil {
 		t.Errorf("Unable to execute doBeforeInsertHooks: %s", err)
 	}
 	if !reflect.DeepEqual(o, empty) {
 		t.Errorf("Expected BeforeInsertHook function to empty object, but got: %#v", o)
 	}
-	memberBeforeInsertHooks = []MemberHook{}
+	guitarStringBeforeInsertHooks = []GuitarStringHook{}
 
-	AddMemberHook(boil.AfterInsertHook, memberAfterInsertHook)
+	AddGuitarStringHook(boil.AfterInsertHook, guitarStringAfterInsertHook)
 	if err = o.doAfterInsertHooks(ctx, nil); err != nil {
 		t.Errorf("Unable to execute doAfterInsertHooks: %s", err)
 	}
 	if !reflect.DeepEqual(o, empty) {
 		t.Errorf("Expected AfterInsertHook function to empty object, but got: %#v", o)
 	}
-	memberAfterInsertHooks = []MemberHook{}
+	guitarStringAfterInsertHooks = []GuitarStringHook{}
 
-	AddMemberHook(boil.AfterSelectHook, memberAfterSelectHook)
+	AddGuitarStringHook(boil.AfterSelectHook, guitarStringAfterSelectHook)
 	if err = o.doAfterSelectHooks(ctx, nil); err != nil {
 		t.Errorf("Unable to execute doAfterSelectHooks: %s", err)
 	}
 	if !reflect.DeepEqual(o, empty) {
 		t.Errorf("Expected AfterSelectHook function to empty object, but got: %#v", o)
 	}
-	memberAfterSelectHooks = []MemberHook{}
+	guitarStringAfterSelectHooks = []GuitarStringHook{}
 
-	AddMemberHook(boil.BeforeUpdateHook, memberBeforeUpdateHook)
+	AddGuitarStringHook(boil.BeforeUpdateHook, guitarStringBeforeUpdateHook)
 	if err = o.doBeforeUpdateHooks(ctx, nil); err != nil {
 		t.Errorf("Unable to execute doBeforeUpdateHooks: %s", err)
 	}
 	if !reflect.DeepEqual(o, empty) {
 		t.Errorf("Expected BeforeUpdateHook function to empty object, but got: %#v", o)
 	}
-	memberBeforeUpdateHooks = []MemberHook{}
+	guitarStringBeforeUpdateHooks = []GuitarStringHook{}
 
-	AddMemberHook(boil.AfterUpdateHook, memberAfterUpdateHook)
+	AddGuitarStringHook(boil.AfterUpdateHook, guitarStringAfterUpdateHook)
 	if err = o.doAfterUpdateHooks(ctx, nil); err != nil {
 		t.Errorf("Unable to execute doAfterUpdateHooks: %s", err)
 	}
 	if !reflect.DeepEqual(o, empty) {
 		t.Errorf("Expected AfterUpdateHook function to empty object, but got: %#v", o)
 	}
-	memberAfterUpdateHooks = []MemberHook{}
+	guitarStringAfterUpdateHooks = []GuitarStringHook{}
 
-	AddMemberHook(boil.BeforeDeleteHook, memberBeforeDeleteHook)
+	AddGuitarStringHook(boil.BeforeDeleteHook, guitarStringBeforeDeleteHook)
 	if err = o.doBeforeDeleteHooks(ctx, nil); err != nil {
 		t.Errorf("Unable to execute doBeforeDeleteHooks: %s", err)
 	}
 	if !reflect.DeepEqual(o, empty) {
 		t.Errorf("Expected BeforeDeleteHook function to empty object, but got: %#v", o)
 	}
-	memberBeforeDeleteHooks = []MemberHook{}
+	guitarStringBeforeDeleteHooks = []GuitarStringHook{}
 
-	AddMemberHook(boil.AfterDeleteHook, memberAfterDeleteHook)
+	AddGuitarStringHook(boil.AfterDeleteHook, guitarStringAfterDeleteHook)
 	if err = o.doAfterDeleteHooks(ctx, nil); err != nil {
 		t.Errorf("Unable to execute doAfterDeleteHooks: %s", err)
 	}
 	if !reflect.DeepEqual(o, empty) {
 		t.Errorf("Expected AfterDeleteHook function to empty object, but got: %#v", o)
 	}
-	memberAfterDeleteHooks = []MemberHook{}
+	guitarStringAfterDeleteHooks = []GuitarStringHook{}
 
-	AddMemberHook(boil.BeforeUpsertHook, memberBeforeUpsertHook)
+	AddGuitarStringHook(boil.BeforeUpsertHook, guitarStringBeforeUpsertHook)
 	if err = o.doBeforeUpsertHooks(ctx, nil); err != nil {
 		t.Errorf("Unable to execute doBeforeUpsertHooks: %s", err)
 	}
 	if !reflect.DeepEqual(o, empty) {
 		t.Errorf("Expected BeforeUpsertHook function to empty object, but got: %#v", o)
 	}
-	memberBeforeUpsertHooks = []MemberHook{}
+	guitarStringBeforeUpsertHooks = []GuitarStringHook{}
 
-	AddMemberHook(boil.AfterUpsertHook, memberAfterUpsertHook)
+	AddGuitarStringHook(boil.AfterUpsertHook, guitarStringAfterUpsertHook)
 	if err = o.doAfterUpsertHooks(ctx, nil); err != nil {
 		t.Errorf("Unable to execute doAfterUpsertHooks: %s", err)
 	}
 	if !reflect.DeepEqual(o, empty) {
 		t.Errorf("Expected AfterUpsertHook function to empty object, but got: %#v", o)
 	}
-	memberAfterUpsertHooks = []MemberHook{}
+	guitarStringAfterUpsertHooks = []GuitarStringHook{}
 }
 
-func testMembersInsert(t *testing.T) {
+func testGuitarStringsInsert(t *testing.T) {
 	t.Parallel()
 
 	seed := randomize.NewSeed()
 	var err error
-	o := &Member{}
-	if err = randomize.Struct(seed, o, memberDBTypes, true, memberColumnsWithDefault...); err != nil {
-		t.Errorf("Unable to randomize Member struct: %s", err)
+	o := &GuitarString{}
+	if err = randomize.Struct(seed, o, guitarStringDBTypes, true, guitarStringColumnsWithDefault...); err != nil {
+		t.Errorf("Unable to randomize GuitarString struct: %s", err)
 	}
 
 	ctx := context.Background()
@@ -457,7 +457,7 @@ func testMembersInsert(t *testing.T) {
 		t.Error(err)
 	}
 
-	count, err := Members().Count(ctx, tx)
+	count, err := GuitarStrings().Count(ctx, tx)
 	if err != nil {
 		t.Error(err)
 	}
@@ -467,24 +467,24 @@ func testMembersInsert(t *testing.T) {
 	}
 }
 
-func testMembersInsertWhitelist(t *testing.T) {
+func testGuitarStringsInsertWhitelist(t *testing.T) {
 	t.Parallel()
 
 	seed := randomize.NewSeed()
 	var err error
-	o := &Member{}
-	if err = randomize.Struct(seed, o, memberDBTypes, true); err != nil {
-		t.Errorf("Unable to randomize Member struct: %s", err)
+	o := &GuitarString{}
+	if err = randomize.Struct(seed, o, guitarStringDBTypes, true); err != nil {
+		t.Errorf("Unable to randomize GuitarString struct: %s", err)
 	}
 
 	ctx := context.Background()
 	tx := MustTx(boil.BeginTx(ctx, nil))
 	defer func() { _ = tx.Rollback() }()
-	if err = o.Insert(ctx, tx, boil.Whitelist(memberColumnsWithoutDefault...)); err != nil {
+	if err = o.Insert(ctx, tx, boil.Whitelist(guitarStringColumnsWithoutDefault...)); err != nil {
 		t.Error(err)
 	}
 
-	count, err := Members().Count(ctx, tx)
+	count, err := GuitarStrings().Count(ctx, tx)
 	if err != nil {
 		t.Error(err)
 	}
@@ -494,33 +494,33 @@ func testMembersInsertWhitelist(t *testing.T) {
 	}
 }
 
-func testMemberToManyGuitars(t *testing.T) {
+func testGuitarStringToManyStringStringExchangeLogs(t *testing.T) {
 	var err error
 	ctx := context.Background()
 	tx := MustTx(boil.BeginTx(ctx, nil))
 	defer func() { _ = tx.Rollback() }()
 
-	var a Member
-	var b, c Guitar
+	var a GuitarString
+	var b, c StringExchangeLog
 
 	seed := randomize.NewSeed()
-	if err = randomize.Struct(seed, &a, memberDBTypes, true, memberColumnsWithDefault...); err != nil {
-		t.Errorf("Unable to randomize Member struct: %s", err)
+	if err = randomize.Struct(seed, &a, guitarStringDBTypes, true, guitarStringColumnsWithDefault...); err != nil {
+		t.Errorf("Unable to randomize GuitarString struct: %s", err)
 	}
 
 	if err := a.Insert(ctx, tx, boil.Infer()); err != nil {
 		t.Fatal(err)
 	}
 
-	if err = randomize.Struct(seed, &b, guitarDBTypes, false, guitarColumnsWithDefault...); err != nil {
+	if err = randomize.Struct(seed, &b, stringExchangeLogDBTypes, false, stringExchangeLogColumnsWithDefault...); err != nil {
 		t.Fatal(err)
 	}
-	if err = randomize.Struct(seed, &c, guitarDBTypes, false, guitarColumnsWithDefault...); err != nil {
+	if err = randomize.Struct(seed, &c, stringExchangeLogDBTypes, false, stringExchangeLogColumnsWithDefault...); err != nil {
 		t.Fatal(err)
 	}
 
-	b.MemberID = a.ID
-	c.MemberID = a.ID
+	b.StringID = a.ID
+	c.StringID = a.ID
 
 	if err = b.Insert(ctx, tx, boil.Infer()); err != nil {
 		t.Fatal(err)
@@ -529,17 +529,17 @@ func testMemberToManyGuitars(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	check, err := a.Guitars().All(ctx, tx)
+	check, err := a.StringStringExchangeLogs().All(ctx, tx)
 	if err != nil {
 		t.Fatal(err)
 	}
 
 	bFound, cFound := false, false
 	for _, v := range check {
-		if v.MemberID == b.MemberID {
+		if v.StringID == b.StringID {
 			bFound = true
 		}
-		if v.MemberID == c.MemberID {
+		if v.StringID == c.StringID {
 			cFound = true
 		}
 	}
@@ -551,19 +551,19 @@ func testMemberToManyGuitars(t *testing.T) {
 		t.Error("expected to find c")
 	}
 
-	slice := MemberSlice{&a}
-	if err = a.L.LoadGuitars(ctx, tx, false, (*[]*Member)(&slice), nil); err != nil {
+	slice := GuitarStringSlice{&a}
+	if err = a.L.LoadStringStringExchangeLogs(ctx, tx, false, (*[]*GuitarString)(&slice), nil); err != nil {
 		t.Fatal(err)
 	}
-	if got := len(a.R.Guitars); got != 2 {
+	if got := len(a.R.StringStringExchangeLogs); got != 2 {
 		t.Error("number of eager loaded records wrong, got:", got)
 	}
 
-	a.R.Guitars = nil
-	if err = a.L.LoadGuitars(ctx, tx, true, &a, nil); err != nil {
+	a.R.StringStringExchangeLogs = nil
+	if err = a.L.LoadStringStringExchangeLogs(ctx, tx, true, &a, nil); err != nil {
 		t.Fatal(err)
 	}
-	if got := len(a.R.Guitars); got != 2 {
+	if got := len(a.R.StringStringExchangeLogs); got != 2 {
 		t.Error("number of eager loaded records wrong, got:", got)
 	}
 
@@ -572,23 +572,23 @@ func testMemberToManyGuitars(t *testing.T) {
 	}
 }
 
-func testMemberToManyAddOpGuitars(t *testing.T) {
+func testGuitarStringToManyAddOpStringStringExchangeLogs(t *testing.T) {
 	var err error
 
 	ctx := context.Background()
 	tx := MustTx(boil.BeginTx(ctx, nil))
 	defer func() { _ = tx.Rollback() }()
 
-	var a Member
-	var b, c, d, e Guitar
+	var a GuitarString
+	var b, c, d, e StringExchangeLog
 
 	seed := randomize.NewSeed()
-	if err = randomize.Struct(seed, &a, memberDBTypes, false, strmangle.SetComplement(memberPrimaryKeyColumns, memberColumnsWithoutDefault)...); err != nil {
+	if err = randomize.Struct(seed, &a, guitarStringDBTypes, false, strmangle.SetComplement(guitarStringPrimaryKeyColumns, guitarStringColumnsWithoutDefault)...); err != nil {
 		t.Fatal(err)
 	}
-	foreigners := []*Guitar{&b, &c, &d, &e}
+	foreigners := []*StringExchangeLog{&b, &c, &d, &e}
 	for _, x := range foreigners {
-		if err = randomize.Struct(seed, x, guitarDBTypes, false, strmangle.SetComplement(guitarPrimaryKeyColumns, guitarColumnsWithoutDefault)...); err != nil {
+		if err = randomize.Struct(seed, x, stringExchangeLogDBTypes, false, strmangle.SetComplement(stringExchangeLogPrimaryKeyColumns, stringExchangeLogColumnsWithoutDefault)...); err != nil {
 			t.Fatal(err)
 		}
 	}
@@ -603,13 +603,13 @@ func testMemberToManyAddOpGuitars(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	foreignersSplitByInsertion := [][]*Guitar{
+	foreignersSplitByInsertion := [][]*StringExchangeLog{
 		{&b, &c},
 		{&d, &e},
 	}
 
 	for i, x := range foreignersSplitByInsertion {
-		err = a.AddGuitars(ctx, tx, i != 0, x...)
+		err = a.AddStringStringExchangeLogs(ctx, tx, i != 0, x...)
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -617,28 +617,28 @@ func testMemberToManyAddOpGuitars(t *testing.T) {
 		first := x[0]
 		second := x[1]
 
-		if a.ID != first.MemberID {
-			t.Error("foreign key was wrong value", a.ID, first.MemberID)
+		if a.ID != first.StringID {
+			t.Error("foreign key was wrong value", a.ID, first.StringID)
 		}
-		if a.ID != second.MemberID {
-			t.Error("foreign key was wrong value", a.ID, second.MemberID)
+		if a.ID != second.StringID {
+			t.Error("foreign key was wrong value", a.ID, second.StringID)
 		}
 
-		if first.R.Member != &a {
+		if first.R.String != &a {
 			t.Error("relationship was not added properly to the foreign slice")
 		}
-		if second.R.Member != &a {
+		if second.R.String != &a {
 			t.Error("relationship was not added properly to the foreign slice")
 		}
 
-		if a.R.Guitars[i*2] != first {
+		if a.R.StringStringExchangeLogs[i*2] != first {
 			t.Error("relationship struct slice not set to correct value")
 		}
-		if a.R.Guitars[i*2+1] != second {
+		if a.R.StringStringExchangeLogs[i*2+1] != second {
 			t.Error("relationship struct slice not set to correct value")
 		}
 
-		count, err := a.Guitars().Count(ctx, tx)
+		count, err := a.StringStringExchangeLogs().Count(ctx, tx)
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -648,14 +648,14 @@ func testMemberToManyAddOpGuitars(t *testing.T) {
 	}
 }
 
-func testMembersReload(t *testing.T) {
+func testGuitarStringsReload(t *testing.T) {
 	t.Parallel()
 
 	seed := randomize.NewSeed()
 	var err error
-	o := &Member{}
-	if err = randomize.Struct(seed, o, memberDBTypes, true, memberColumnsWithDefault...); err != nil {
-		t.Errorf("Unable to randomize Member struct: %s", err)
+	o := &GuitarString{}
+	if err = randomize.Struct(seed, o, guitarStringDBTypes, true, guitarStringColumnsWithDefault...); err != nil {
+		t.Errorf("Unable to randomize GuitarString struct: %s", err)
 	}
 
 	ctx := context.Background()
@@ -670,14 +670,14 @@ func testMembersReload(t *testing.T) {
 	}
 }
 
-func testMembersReloadAll(t *testing.T) {
+func testGuitarStringsReloadAll(t *testing.T) {
 	t.Parallel()
 
 	seed := randomize.NewSeed()
 	var err error
-	o := &Member{}
-	if err = randomize.Struct(seed, o, memberDBTypes, true, memberColumnsWithDefault...); err != nil {
-		t.Errorf("Unable to randomize Member struct: %s", err)
+	o := &GuitarString{}
+	if err = randomize.Struct(seed, o, guitarStringDBTypes, true, guitarStringColumnsWithDefault...); err != nil {
+		t.Errorf("Unable to randomize GuitarString struct: %s", err)
 	}
 
 	ctx := context.Background()
@@ -687,21 +687,21 @@ func testMembersReloadAll(t *testing.T) {
 		t.Error(err)
 	}
 
-	slice := MemberSlice{o}
+	slice := GuitarStringSlice{o}
 
 	if err = slice.ReloadAll(ctx, tx); err != nil {
 		t.Error(err)
 	}
 }
 
-func testMembersSelect(t *testing.T) {
+func testGuitarStringsSelect(t *testing.T) {
 	t.Parallel()
 
 	seed := randomize.NewSeed()
 	var err error
-	o := &Member{}
-	if err = randomize.Struct(seed, o, memberDBTypes, true, memberColumnsWithDefault...); err != nil {
-		t.Errorf("Unable to randomize Member struct: %s", err)
+	o := &GuitarString{}
+	if err = randomize.Struct(seed, o, guitarStringDBTypes, true, guitarStringColumnsWithDefault...); err != nil {
+		t.Errorf("Unable to randomize GuitarString struct: %s", err)
 	}
 
 	ctx := context.Background()
@@ -711,7 +711,7 @@ func testMembersSelect(t *testing.T) {
 		t.Error(err)
 	}
 
-	slice, err := Members().All(ctx, tx)
+	slice, err := GuitarStrings().All(ctx, tx)
 	if err != nil {
 		t.Error(err)
 	}
@@ -722,25 +722,25 @@ func testMembersSelect(t *testing.T) {
 }
 
 var (
-	memberDBTypes = map[string]string{`ID`: `varchar`, `UID`: `varchar`, `Name`: `varchar`, `Token`: `varchar`, `TokenExpired`: `datetime`, `IsDeleted`: `bit`, `Version`: `int`, `CreatedAt`: `datetime`, `UpdatedAt`: `datetime`}
-	_             = bytes.MinRead
+	guitarStringDBTypes = map[string]string{`ID`: `varchar`, `Name`: `varchar`, `Description`: `varchar`, `Maker`: `varchar`, `ThinGauge`: `tinyint`, `ThickGauge`: `tinyint`, `URL`: `varchar`, `IsDeleted`: `tinyint`, `Version`: `int`, `CreatedAt`: `datetime`, `UpdatedAt`: `datetime`}
+	_                   = bytes.MinRead
 )
 
-func testMembersUpdate(t *testing.T) {
+func testGuitarStringsUpdate(t *testing.T) {
 	t.Parallel()
 
-	if 0 == len(memberPrimaryKeyColumns) {
+	if 0 == len(guitarStringPrimaryKeyColumns) {
 		t.Skip("Skipping table with no primary key columns")
 	}
-	if len(memberAllColumns) == len(memberPrimaryKeyColumns) {
+	if len(guitarStringAllColumns) == len(guitarStringPrimaryKeyColumns) {
 		t.Skip("Skipping table with only primary key columns")
 	}
 
 	seed := randomize.NewSeed()
 	var err error
-	o := &Member{}
-	if err = randomize.Struct(seed, o, memberDBTypes, true, memberColumnsWithDefault...); err != nil {
-		t.Errorf("Unable to randomize Member struct: %s", err)
+	o := &GuitarString{}
+	if err = randomize.Struct(seed, o, guitarStringDBTypes, true, guitarStringColumnsWithDefault...); err != nil {
+		t.Errorf("Unable to randomize GuitarString struct: %s", err)
 	}
 
 	ctx := context.Background()
@@ -750,7 +750,7 @@ func testMembersUpdate(t *testing.T) {
 		t.Error(err)
 	}
 
-	count, err := Members().Count(ctx, tx)
+	count, err := GuitarStrings().Count(ctx, tx)
 	if err != nil {
 		t.Error(err)
 	}
@@ -759,8 +759,8 @@ func testMembersUpdate(t *testing.T) {
 		t.Error("want one record, got:", count)
 	}
 
-	if err = randomize.Struct(seed, o, memberDBTypes, true, memberPrimaryKeyColumns...); err != nil {
-		t.Errorf("Unable to randomize Member struct: %s", err)
+	if err = randomize.Struct(seed, o, guitarStringDBTypes, true, guitarStringPrimaryKeyColumns...); err != nil {
+		t.Errorf("Unable to randomize GuitarString struct: %s", err)
 	}
 
 	if rowsAff, err := o.Update(ctx, tx, boil.Infer()); err != nil {
@@ -770,18 +770,18 @@ func testMembersUpdate(t *testing.T) {
 	}
 }
 
-func testMembersSliceUpdateAll(t *testing.T) {
+func testGuitarStringsSliceUpdateAll(t *testing.T) {
 	t.Parallel()
 
-	if len(memberAllColumns) == len(memberPrimaryKeyColumns) {
+	if len(guitarStringAllColumns) == len(guitarStringPrimaryKeyColumns) {
 		t.Skip("Skipping table with only primary key columns")
 	}
 
 	seed := randomize.NewSeed()
 	var err error
-	o := &Member{}
-	if err = randomize.Struct(seed, o, memberDBTypes, true, memberColumnsWithDefault...); err != nil {
-		t.Errorf("Unable to randomize Member struct: %s", err)
+	o := &GuitarString{}
+	if err = randomize.Struct(seed, o, guitarStringDBTypes, true, guitarStringColumnsWithDefault...); err != nil {
+		t.Errorf("Unable to randomize GuitarString struct: %s", err)
 	}
 
 	ctx := context.Background()
@@ -791,7 +791,7 @@ func testMembersSliceUpdateAll(t *testing.T) {
 		t.Error(err)
 	}
 
-	count, err := Members().Count(ctx, tx)
+	count, err := GuitarStrings().Count(ctx, tx)
 	if err != nil {
 		t.Error(err)
 	}
@@ -800,18 +800,18 @@ func testMembersSliceUpdateAll(t *testing.T) {
 		t.Error("want one record, got:", count)
 	}
 
-	if err = randomize.Struct(seed, o, memberDBTypes, true, memberPrimaryKeyColumns...); err != nil {
-		t.Errorf("Unable to randomize Member struct: %s", err)
+	if err = randomize.Struct(seed, o, guitarStringDBTypes, true, guitarStringPrimaryKeyColumns...); err != nil {
+		t.Errorf("Unable to randomize GuitarString struct: %s", err)
 	}
 
 	// Remove Primary keys and unique columns from what we plan to update
 	var fields []string
-	if strmangle.StringSliceMatch(memberAllColumns, memberPrimaryKeyColumns) {
-		fields = memberAllColumns
+	if strmangle.StringSliceMatch(guitarStringAllColumns, guitarStringPrimaryKeyColumns) {
+		fields = guitarStringAllColumns
 	} else {
 		fields = strmangle.SetComplement(
-			memberAllColumns,
-			memberPrimaryKeyColumns,
+			guitarStringAllColumns,
+			guitarStringPrimaryKeyColumns,
 		)
 	}
 
@@ -829,7 +829,7 @@ func testMembersSliceUpdateAll(t *testing.T) {
 		}
 	}
 
-	slice := MemberSlice{o}
+	slice := GuitarStringSlice{o}
 	if rowsAff, err := slice.UpdateAll(ctx, tx, updateMap); err != nil {
 		t.Error(err)
 	} else if rowsAff != 1 {
@@ -837,32 +837,32 @@ func testMembersSliceUpdateAll(t *testing.T) {
 	}
 }
 
-func testMembersUpsert(t *testing.T) {
+func testGuitarStringsUpsert(t *testing.T) {
 	t.Parallel()
 
-	if len(memberAllColumns) == len(memberPrimaryKeyColumns) {
+	if len(guitarStringAllColumns) == len(guitarStringPrimaryKeyColumns) {
 		t.Skip("Skipping table with only primary key columns")
 	}
-	if len(mySQLMemberUniqueColumns) == 0 {
+	if len(mySQLGuitarStringUniqueColumns) == 0 {
 		t.Skip("Skipping table with no unique columns to conflict on")
 	}
 
 	seed := randomize.NewSeed()
 	var err error
 	// Attempt the INSERT side of an UPSERT
-	o := Member{}
-	if err = randomize.Struct(seed, &o, memberDBTypes, false); err != nil {
-		t.Errorf("Unable to randomize Member struct: %s", err)
+	o := GuitarString{}
+	if err = randomize.Struct(seed, &o, guitarStringDBTypes, false); err != nil {
+		t.Errorf("Unable to randomize GuitarString struct: %s", err)
 	}
 
 	ctx := context.Background()
 	tx := MustTx(boil.BeginTx(ctx, nil))
 	defer func() { _ = tx.Rollback() }()
 	if err = o.Upsert(ctx, tx, boil.Infer(), boil.Infer()); err != nil {
-		t.Errorf("Unable to upsert Member: %s", err)
+		t.Errorf("Unable to upsert GuitarString: %s", err)
 	}
 
-	count, err := Members().Count(ctx, tx)
+	count, err := GuitarStrings().Count(ctx, tx)
 	if err != nil {
 		t.Error(err)
 	}
@@ -871,15 +871,15 @@ func testMembersUpsert(t *testing.T) {
 	}
 
 	// Attempt the UPDATE side of an UPSERT
-	if err = randomize.Struct(seed, &o, memberDBTypes, false, memberPrimaryKeyColumns...); err != nil {
-		t.Errorf("Unable to randomize Member struct: %s", err)
+	if err = randomize.Struct(seed, &o, guitarStringDBTypes, false, guitarStringPrimaryKeyColumns...); err != nil {
+		t.Errorf("Unable to randomize GuitarString struct: %s", err)
 	}
 
 	if err = o.Upsert(ctx, tx, boil.Infer(), boil.Infer()); err != nil {
-		t.Errorf("Unable to upsert Member: %s", err)
+		t.Errorf("Unable to upsert GuitarString: %s", err)
 	}
 
-	count, err = Members().Count(ctx, tx)
+	count, err = GuitarStrings().Count(ctx, tx)
 	if err != nil {
 		t.Error(err)
 	}

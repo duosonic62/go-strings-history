@@ -1,9 +1,9 @@
 package presenter
 
 import (
-	"github.com/duosonic/go-strings-history/internal/usecase/outputboundary"
-	"github.com/duosonic/go-strings-history/pkg/usecase/input"
-	"github.com/duosonic/go-strings-history/pkg/usecase/output"
+	"github.com/duosonic62/go-strings-history/internal/usecase/outputboundary"
+	"github.com/duosonic62/go-strings-history/pkg/usecase/input"
+	"github.com/duosonic62/go-strings-history/pkg/usecase/output"
 )
 
 type UserPresenterImpl struct{}

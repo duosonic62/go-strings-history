@@ -31,7 +31,7 @@ type Guitar struct {
 	BodyType    null.String `boil:"body_type" json:"body_type,omitempty" toml:"body_type" yaml:"body_type,omitempty"`
 	Maker       null.String `boil:"maker" json:"maker,omitempty" toml:"maker" yaml:"maker,omitempty"`
 	ImageURL    null.String `boil:"image_url" json:"image_url,omitempty" toml:"image_url" yaml:"image_url,omitempty"`
-	IsDeleted   string      `boil:"is_deleted" json:"is_deleted" toml:"is_deleted" yaml:"is_deleted"`
+	IsDeleted   bool        `boil:"is_deleted" json:"is_deleted" toml:"is_deleted" yaml:"is_deleted"`
 	Version     int         `boil:"version" json:"version" toml:"version" yaml:"version"`
 	CreatedAt   time.Time   `boil:"created_at" json:"created_at" toml:"created_at" yaml:"created_at"`
 	UpdatedAt   null.Time   `boil:"updated_at" json:"updated_at,omitempty" toml:"updated_at" yaml:"updated_at,omitempty"`
@@ -107,6 +107,15 @@ func (w whereHelpernull_String) GTE(x null.String) qm.QueryMod {
 	return qmhelper.Where(w.field, qmhelper.GTE, x)
 }
 
+type whereHelperbool struct{ field string }
+
+func (w whereHelperbool) EQ(x bool) qm.QueryMod  { return qmhelper.Where(w.field, qmhelper.EQ, x) }
+func (w whereHelperbool) NEQ(x bool) qm.QueryMod { return qmhelper.Where(w.field, qmhelper.NEQ, x) }
+func (w whereHelperbool) LT(x bool) qm.QueryMod  { return qmhelper.Where(w.field, qmhelper.LT, x) }
+func (w whereHelperbool) LTE(x bool) qm.QueryMod { return qmhelper.Where(w.field, qmhelper.LTE, x) }
+func (w whereHelperbool) GT(x bool) qm.QueryMod  { return qmhelper.Where(w.field, qmhelper.GT, x) }
+func (w whereHelperbool) GTE(x bool) qm.QueryMod { return qmhelper.Where(w.field, qmhelper.GTE, x) }
+
 type whereHelperint struct{ field string }
 
 func (w whereHelperint) EQ(x int) qm.QueryMod  { return qmhelper.Where(w.field, qmhelper.EQ, x) }
@@ -175,7 +184,7 @@ var GuitarWhere = struct {
 	BodyType    whereHelpernull_String
 	Maker       whereHelpernull_String
 	ImageURL    whereHelpernull_String
-	IsDeleted   whereHelperstring
+	IsDeleted   whereHelperbool
 	Version     whereHelperint
 	CreatedAt   whereHelpertime_Time
 	UpdatedAt   whereHelpernull_Time
@@ -187,7 +196,7 @@ var GuitarWhere = struct {
 	BodyType:    whereHelpernull_String{field: "`guitar`.`body_type`"},
 	Maker:       whereHelpernull_String{field: "`guitar`.`maker`"},
 	ImageURL:    whereHelpernull_String{field: "`guitar`.`image_url`"},
-	IsDeleted:   whereHelperstring{field: "`guitar`.`is_deleted`"},
+	IsDeleted:   whereHelperbool{field: "`guitar`.`is_deleted`"},
 	Version:     whereHelperint{field: "`guitar`.`version`"},
 	CreatedAt:   whereHelpertime_Time{field: "`guitar`.`created_at`"},
 	UpdatedAt:   whereHelpernull_Time{field: "`guitar`.`updated_at`"},
@@ -507,7 +516,7 @@ func (o *Guitar) Member(mods ...qm.QueryMod) memberQuery {
 	queryMods = append(queryMods, mods...)
 
 	query := Members(queryMods...)
-	queries.SetFrom(Query, "`member`")
+	queries.SetFrom(query.Query, "`member`")
 
 	return query
 }
@@ -524,10 +533,10 @@ func (o *Guitar) StringExchangeLogs(mods ...qm.QueryMod) stringExchangeLogQuery 
 	)
 
 	query := StringExchangeLogs(queryMods...)
-	queries.SetFrom(Query, "`string_exchange_log`")
+	queries.SetFrom(query.Query, "`string_exchange_log`")
 
-	if len(queries.GetSelect(Query)) == 0 {
-		queries.SetSelect(Query, []string{"`string_exchange_log`.*"})
+	if len(queries.GetSelect(query.Query)) == 0 {
+		queries.SetSelect(query.Query, []string{"`string_exchange_log`.*"})
 	}
 
 	return query

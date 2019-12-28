@@ -26,7 +26,7 @@ func testGuitars(t *testing.T) {
 
 	query := Guitars()
 
-	if Query == nil {
+	if query.Query == nil {
 		t.Error("expected a query, got nothing")
 	}
 }
@@ -830,7 +830,7 @@ func testGuitarsSelect(t *testing.T) {
 }
 
 var (
-	guitarDBTypes = map[string]string{`ID`: `varchar`, `MemberID`: `varchar`, `Name`: `varchar`, `Description`: `varchar`, `BodyType`: `varchar`, `Maker`: `varchar`, `ImageURL`: `varchar`, `IsDeleted`: `bit`, `Version`: `int`, `CreatedAt`: `datetime`, `UpdatedAt`: `datetime`}
+	guitarDBTypes = map[string]string{`ID`: `varchar`, `MemberID`: `varchar`, `Name`: `varchar`, `Description`: `varchar`, `BodyType`: `varchar`, `Maker`: `varchar`, `ImageURL`: `varchar`, `IsDeleted`: `tinyint`, `Version`: `int`, `CreatedAt`: `datetime`, `UpdatedAt`: `datetime`}
 	_             = bytes.MinRead
 )
 

@@ -31,7 +31,7 @@ type GuitarString struct {
 	ThinGauge   null.Uint8  `boil:"thin_gauge" json:"thin_gauge,omitempty" toml:"thin_gauge" yaml:"thin_gauge,omitempty"`
 	ThickGauge  null.Uint8  `boil:"thick_gauge" json:"thick_gauge,omitempty" toml:"thick_gauge" yaml:"thick_gauge,omitempty"`
 	URL         null.String `boil:"url" json:"url,omitempty" toml:"url" yaml:"url,omitempty"`
-	IsDeleted   string      `boil:"is_deleted" json:"is_deleted" toml:"is_deleted" yaml:"is_deleted"`
+	IsDeleted   bool        `boil:"is_deleted" json:"is_deleted" toml:"is_deleted" yaml:"is_deleted"`
 	Version     int         `boil:"version" json:"version" toml:"version" yaml:"version"`
 	CreatedAt   time.Time   `boil:"created_at" json:"created_at" toml:"created_at" yaml:"created_at"`
 	UpdatedAt   null.Time   `boil:"updated_at" json:"updated_at,omitempty" toml:"updated_at" yaml:"updated_at,omitempty"`
@@ -99,7 +99,7 @@ var GuitarStringWhere = struct {
 	ThinGauge   whereHelpernull_Uint8
 	ThickGauge  whereHelpernull_Uint8
 	URL         whereHelpernull_String
-	IsDeleted   whereHelperstring
+	IsDeleted   whereHelperbool
 	Version     whereHelperint
 	CreatedAt   whereHelpertime_Time
 	UpdatedAt   whereHelpernull_Time
@@ -111,7 +111,7 @@ var GuitarStringWhere = struct {
 	ThinGauge:   whereHelpernull_Uint8{field: "`guitar_string`.`thin_gauge`"},
 	ThickGauge:  whereHelpernull_Uint8{field: "`guitar_string`.`thick_gauge`"},
 	URL:         whereHelpernull_String{field: "`guitar_string`.`url`"},
-	IsDeleted:   whereHelperstring{field: "`guitar_string`.`is_deleted`"},
+	IsDeleted:   whereHelperbool{field: "`guitar_string`.`is_deleted`"},
 	Version:     whereHelperint{field: "`guitar_string`.`version`"},
 	CreatedAt:   whereHelpertime_Time{field: "`guitar_string`.`created_at`"},
 	UpdatedAt:   whereHelpernull_Time{field: "`guitar_string`.`updated_at`"},
@@ -431,10 +431,10 @@ func (o *GuitarString) StringStringExchangeLogs(mods ...qm.QueryMod) stringExcha
 	)
 
 	query := StringExchangeLogs(queryMods...)
-	queries.SetFrom(Query, "`string_exchange_log`")
+	queries.SetFrom(query.Query, "`string_exchange_log`")
 
-	if len(queries.GetSelect(Query)) == 0 {
-		queries.SetSelect(Query, []string{"`string_exchange_log`.*"})
+	if len(queries.GetSelect(query.Query)) == 0 {
+		queries.SetSelect(query.Query, []string{"`string_exchange_log`.*"})
 	}
 
 	return query

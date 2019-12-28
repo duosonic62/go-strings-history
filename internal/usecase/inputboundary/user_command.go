@@ -1,8 +1,8 @@
 package inputboundary
 
 import (
-	"github.com/duosonic/go-strings-history/pkg/usecase/input"
-	"github.com/duosonic/go-strings-history/pkg/usecase/input/command"
+	"github.com/duosonic62/go-strings-history/pkg/usecase/input"
+	"github.com/duosonic62/go-strings-history/pkg/usecase/input/command"
 )
 
 type UserCommandUseCase interface {

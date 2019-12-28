@@ -1,4 +1,4 @@
-package db
+package migration
 
 import (
 	"database/sql"
@@ -12,7 +12,7 @@ func Migrate() error {
 		Dir: "mysql/migrations",
 	}
 
-	db, err := sql.Open("mysql", "root:pass@/strings_history?parseTime=true")
+	db, err := sql.Open("mysql", "root:pass@/strings_history?charset=utf8mb4&parseTime=true")
 	if err != nil {
 		fmt.Println(err)
 		return err
