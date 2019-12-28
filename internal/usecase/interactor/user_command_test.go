@@ -3,61 +3,52 @@ package interactor
 import (
 	"errors"
 	"github.com/duosonic62/go-strings-history/internal/domain/entity"
-	"github.com/duosonic62/go-strings-history/pkg/usecase/input"
+	"github.com/duosonic62/go-strings-history/internal/domain/factory/mock_factory"
+	"github.com/duosonic62/go-strings-history/internal/domain/repository/mock_repository"
+	"github.com/duosonic62/go-strings-history/internal/usecase/outputboundary/mock_outputboundary"
 	"github.com/duosonic62/go-strings-history/pkg/usecase/input/command"
-	"github.com/duosonic62/go-strings-history/pkg/usecase/output"
+	"github.com/duosonic62/go-strings-history/pkg/usecase/input/mock_input"
+	"github.com/golang/mock/gomock"
 	"testing"
 )
 
-// presenterのモック
-type mockUserPresenter struct{}
-
-func (mockUserPresenter) OutputAddUser(data output.UserAddOutputData, ctx input.Context) {
-	// 何もしない
-}
-
-// repositoryのモック
-type mockUserRepository struct{}
-
-func (mockUserRepository) Save(entity.User) {
-	// 何もしない
-}
-
-// 正常系のUserFactoryのモック
-type mockUserFactory struct{}
-
-func (mockUserFactory) NewUser(name string, uid string) (entity.User, error) {
-	return entity.User{
-		ID:    "mock_id",
-		Name:  "mock_name",
-		UID:   "mock_uid",
-		Token: "mock_token",
-	}, nil
-}
-
-// 異常系のUserFactoryのモック
-type mockUserErrorFactory struct{}
-
-func (mockUserErrorFactory) NewUser(name string, uid string) (entity.User, error) {
-	return entity.User{}, errors.New("mock error")
-}
-
-// contextのモック
-type mockContext struct{}
-
-func (mockContext) Param(string) string    { return "mock_param" }
-func (mockContext) Bind(interface{}) error { return nil }
-func (mockContext) Status(int)             {}
-func (mockContext) JSON(int, interface{})  {}
-
-// TODO: 正常系のテスト
+// 正常系のテスト
 func TestUserUseCaseInteractor_AddUser_Positive(t *testing.T) {
-	useCase := NewUserCommandUseCase(mockUserPresenter{}, mockUserRepository{}, mockUserFactory{})
-	useCase.AddUser(command.UserAddInputData{}, mockContext{})
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
+
+	mockUserPresenter := mock_outputboundary.NewMockUserCommandPresenter(ctrl)
+	mockUserRepository := mock_repository.NewMockUserRepository(ctrl)
+	mockUserFactory := mock_factory.NewMockUserFactory(ctrl)
+	mockContext := mock_input.NewMockContext(ctrl)
+
+	// それぞれ一回づつ呼ばれる
+	mockUserPresenter.EXPECT().OutputAddUser(gomock.Any(), gomock.Any()).Times(1)
+	mockUserRepository.EXPECT().Save(gomock.Any()).Times(1)
+	mockUserFactory.EXPECT().NewUser(gomock.Any(), gomock.Any()).Times(1)
+
+	useCase := NewUserCommandUseCase(mockUserPresenter, mockUserRepository, mockUserFactory)
+	useCase.AddUser(command.UserAddInputData{}, mockContext)
 }
 
 // TODO: 異常系のテスト
 func TestUserUseCaseInteractor_AddUser_Negative(t *testing.T) {
-	useCase := NewUserCommandUseCase(mockUserPresenter{}, mockUserRepository{}, mockUserErrorFactory{})
-	useCase.AddUser(command.UserAddInputData{}, mockContext{})
+	// エラーハンドリングがまだなので一旦スキップ
+	t.Skip("TODO: Error Handling...")
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
+
+	mockUserPresenter := mock_outputboundary.NewMockUserCommandPresenter(ctrl)
+	mockUserRepository := mock_repository.NewMockUserRepository(ctrl)
+	mockUserFactory := mock_factory.NewMockUserFactory(ctrl)
+	mockContext := mock_input.NewMockContext(ctrl)
+
+	// それぞれ一回づつ呼ばれる
+	mockUserPresenter.EXPECT().OutputAddUser(gomock.Any(), gomock.Any()).Times(1)
+	mockUserRepository.EXPECT().Save(gomock.Any()).Times(1)
+	mockUserFactory.EXPECT().NewUser(gomock.Any(), gomock.Any()).Return(entity.User{}, errors.New("error")).Times(1)
+
+
+	useCase := NewUserCommandUseCase(mockUserPresenter, mockUserRepository, mockUserFactory)
+	useCase.AddUser(command.UserAddInputData{}, mockContext)
 }

@@ -22,8 +22,26 @@ drop table guitar;
 drop table member;
 ```
 
+
+## コード自動生成
 ### sqlboiler
 モデルを自動生成
 ```
 sqlboiler mysql
+```
+
+### mockgen
+[gomock](https://github.com/golang/mock)を自動生成
+
+```
+mockgen \
+    -source=[source file] \
+    -destination=[destination file]
+```
+
+sample
+```
+$ mockgen \
+    -source=internal/domain/factory/user.go \
+    -destination=internal/domain/factory/mock_factory/mock_user.go
 ```
