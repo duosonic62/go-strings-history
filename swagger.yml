@@ -1,0 +1,683 @@
+openapi: 3.0.0
+
+info:
+  title: Strings History
+  description: ギター弦管理用アプリケーション
+  version: 1.0.0
+
+servers:
+  - url: http://undifined.com
+    description: 未定
+
+paths:
+  /v1/member:
+    post:
+      tags:
+        - member
+      description: メンバー登録
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MemberPostParameter'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MemberRegisterInformation'
+        '400':
+          $ref: '#/components/responses/RequestError'
+        '401':
+          $ref: '#/components/responses/AuthorizationError'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+        '500':
+          $ref: '#/components/responses/SystemError'
+
+    get:
+      tags:
+        - member
+      description: メンバー情報取得
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/authorization'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MemberInformation'
+        '400':
+          $ref: '#/components/responses/RequestError'
+        '401':
+          $ref: '#/components/responses/AuthorizationError'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+        '500':
+          $ref: '#/components/responses/SystemError'
+
+    put:
+      tags:
+        - member
+      description: メンバー情報取得
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/authorization'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MemberPutParameter'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MemberInformation'
+        '400':
+          $ref: '#/components/responses/RequestError'
+        '401':
+          $ref: '#/components/responses/AuthorizationError'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+        '500':
+          $ref: '#/components/responses/SystemError'
+
+    delete:
+      tags:
+        - member
+      description: メンバー情報削除
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/authorization'
+      responses:
+        '200':
+          description: OK
+        '400':
+          $ref: '#/components/responses/RequestError'
+        '401':
+          $ref: '#/components/responses/AuthorizationError'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+        '500':
+          $ref: '#/components/responses/SystemError'
+
+  /v1/string:
+    post:
+      tags:
+        - string
+      description: ギター弦登録
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StringRegisterParameter'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StringInformation'
+        '400':
+          $ref: '#/components/responses/RequestError'
+        '401':
+          $ref: '#/components/responses/AuthorizationError'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+        '500':
+          $ref: '#/components/responses/SystemError'
+
+    get:
+      tags:
+        - string
+      description: ギター弦情報検索(or検索)
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: query
+          name: name
+          required: false
+          description: ギター弦名
+          schema:
+            type: string
+        - in: query
+          name: maker
+          required: false
+          description: ギター弦メーカー
+          schema:
+            type: string
+        - in: query
+          name: thinGauge
+          required: false
+          description: 細い弦のゲージ
+          schema:
+            type: integer
+        - in: query
+          name: thickGauge
+          required: false
+          description: 太い弦のゲージ
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StringInformation'
+        '400':
+          $ref: '#/components/responses/RequestError'
+        '401':
+          $ref: '#/components/responses/AuthorizationError'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+        '500':
+          $ref: '#/components/responses/SystemError'
+
+  /v1/string/{stringId}:
+    get:
+      tags:
+        - string
+      description: ギター弦情報詳細
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: stringId
+          required: true
+          description: 弦ID
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StringInformation'
+        '400':
+          $ref: '#/components/responses/RequestError'
+        '401':
+          $ref: '#/components/responses/AuthorizationError'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+        '500':
+          $ref: '#/components/responses/SystemError'
+
+    put:
+      tags:
+        - string
+      description: ギター弦情報変更
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: stringId
+          required: true
+          description: 弦ID
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StringRegisterParameter'
+      responses:
+        '200':
+          description: OK
+        '400':
+          $ref: '#/components/responses/RequestError'
+        '401':
+          $ref: '#/components/responses/AuthorizationError'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+        '500':
+          $ref: '#/components/responses/SystemError'
+
+    delete:
+      tags:
+        - string
+      description: ギター弦情報変更
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: stringId
+          required: true
+          description: 弦ID
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+        '400':
+          $ref: '#/components/responses/RequestError'
+        '401':
+          $ref: '#/components/responses/AuthorizationError'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+        '500':
+          $ref: '#/components/responses/SystemError'
+
+  /v1/guitar:
+    post:
+      tags:
+        - guitar
+      description: ギター弦登録
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GuitarRegisterParameter'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuitarInformation'
+        '400':
+          $ref: '#/components/responses/RequestError'
+        '401':
+          $ref: '#/components/responses/AuthorizationError'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+        '500':
+          $ref: '#/components/responses/SystemError'
+
+    get:
+      tags:
+        - guitar
+      description: ギター詳細
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GuitarInformation'
+        '400':
+          $ref: '#/components/responses/RequestError'
+        '401':
+          $ref: '#/components/responses/AuthorizationError'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+        '500':
+          $ref: '#/components/responses/SystemError'
+
+  /v1/guitar/{guitarId}:
+    get:
+      tags:
+        - guitar
+      description: ギター詳細
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: guitarId
+          required: true
+          description: ギターID
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuitarInformation'
+        '400':
+          $ref: '#/components/responses/RequestError'
+        '401':
+          $ref: '#/components/responses/AuthorizationError'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+        '500':
+          $ref: '#/components/responses/SystemError'
+
+    put:
+      tags:
+        - guitar
+      description: ギター情報変更
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: guitarId
+          required: true
+          description: ギターID
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GuitarRegisterParameter'
+      responses:
+        '200':
+          description: OK
+        '400':
+          $ref: '#/components/responses/RequestError'
+        '401':
+          $ref: '#/components/responses/AuthorizationError'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+        '500':
+          $ref: '#/components/responses/SystemError'
+
+    delete:
+      tags:
+        - guitar
+      description: ギター情報変更
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: guitarId
+          required: true
+          description: ギターID
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+        '400':
+          $ref: '#/components/responses/RequestError'
+        '401':
+          $ref: '#/components/responses/AuthorizationError'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+        '500':
+          $ref: '#/components/responses/SystemError'
+
+
+components:
+  parameters:
+    authorization:
+      name: Authorization
+      in: header
+      required: true
+      description: アクセストークン
+      schema:
+        type: string
+
+  responses:
+    RequestError:
+      description: リクエスト不正エラー
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+
+    AuthorizationError:
+      description: 認証エラー
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+
+    NotFoundError:
+      description: NotFoundエラー
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+
+    SystemError:
+      description: システムエラー
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+
+  schemas:
+    Error:
+      type: object
+      description: 共通エラーオブジェクト
+      required:
+        - code
+        - messsage
+      properties:
+        code:
+          type: integer
+          description: エラーコード
+        message:
+          type: string
+          description: エラーメッセージ
+
+    UserName:
+      type: string
+      description: ユーザ名
+      minLength: 1
+      maxLength: 256
+
+    MemberPostParameter:
+      description: メンバー登録パラメータ
+      type: object
+      required:
+        - uid
+        - name
+      properties:
+        uid:
+          type: string
+          description: firebaseで払い出されたuid
+        name:
+          $ref: '#/components/schemas/UserName'
+
+    MemberPutParameter:
+      description: メンバー情報変更パラメータ
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          $ref: '#/components/schemas/UserName'
+
+    MemberRegisterInformation:
+      description: メンバー登録情報
+      type: object
+      required:
+        - token
+        - name
+      properties:
+        token:
+          type: string
+          description: アクセストークン
+        name:
+          $ref: '#/components/schemas/UserName'
+
+    MemberInformation:
+      description: メンバー情報
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          $ref: '#/components/schemas/UserName'
+
+    StringRegisterParameter:
+      description: 弦登録パラメータ
+      type: object
+      required:
+        - name
+        - description
+        - maker
+        - thinGauge
+        - thickGauge
+      properties:
+        name:
+          type: string
+          description: 弦名
+          minLength: 1
+          maxLength: 64
+        description:
+          type: string
+          description: 弦説明
+          minLength: 1
+          maxLength: 1024
+        maker:
+          type: string
+          description: 弦メーカー
+          minLength: 1
+          maxLength: 64
+        thinGauge:
+          type: integer
+          description: 細い弦のゲージ
+          minimum: 1
+          maximum: 100
+        thickGauge:
+          type: integer
+          description: 太い弦のゲージ
+          minimum: 1
+          maximum: 100
+        url:
+          type: string
+          description: 弦メーカー
+          minLength: 1
+          maxLength: 256
+
+    StringInformation:
+      description: メンバー登録情報
+      type: object
+      required:
+        - id
+        - name
+        - description
+        - maker
+        - thinGauge
+        - thickGauge
+      properties:
+        id:
+          type: string
+          description: 弦ID
+        name:
+          type: string
+          description: 弦名
+          minLength: 1
+          maxLength: 64
+        description:
+          type: string
+          description: 弦説明
+          minLength: 1
+          maxLength: 1024
+        maker:
+          type: string
+          description: 弦メーカー
+          minLength: 1
+          maxLength: 64
+        thinGauge:
+          type: integer
+          description: 細い弦のゲージ
+          minimum: 1
+          maximum: 100
+        thickGauge:
+          type: integer
+          description: 太い弦のゲージ
+          minimum: 1
+          maximum: 100
+        url:
+          type: string
+          description: 弦メーカー
+          minLength: 1
+          maxLength: 256
+
+    GuitarInformation:
+      description: メンバー登録情報
+      type: object
+      required:
+        - id
+        - name
+        - description
+        - maker
+        - bodyType
+      properties:
+        id:
+          type: string
+          description: ギターID
+        name:
+          type: string
+          description: ギター名
+          minLength: 1
+          maxLength: 64
+        description:
+          type: string
+          description: ギター説明
+          minLength: 1
+          maxLength: 1024
+        maker:
+          type: string
+          description: ギターメーカー
+          minLength: 1
+          maxLength: 64
+        bodyType:
+          $ref: '#/components/schemas/GuitarBodyType'
+        imageUrl:
+          type: string
+          description: ギター画像
+
+    GuitarRegisterParameter:
+      description: ギター登録パラメータ
+      type: object
+      required:
+        - name
+        - description
+        - maker
+        - bodyType
+      properties:
+        name:
+          type: string
+          description: ギター名
+          minLength: 1
+          maxLength: 64
+        description:
+          type: string
+          description: ギター説明
+          minLength: 1
+          maxLength: 1024
+        maker:
+          type: string
+          description: ギターメーカー
+          minLength: 1
+          maxLength: 64
+        bodyType:
+          $ref: '#/components/schemas/GuitarBodyType'
+
+    GuitarBodyType:
+      description: ギターボディータイプ
+      type: string
+      enum:
+        - STRATOCASTER
+        - TELECASTER
+        - JAZZ_MASTER
+        - JAGUAR
+        - MUSTANG
+        - LES_PAUL
+        - SEMI_ACOUSTIC
+        - FULL_ACOUSTIC
+        - SG
+        - FLYING_V
+        - EXPLORER
+        - FIRE_BIRD
+        - ACOUSTIC
+        - PRECISION_BASS
+        - JAZZ_BASE
+        - OTHER_GUITAR
+        - OTHER_BASE
