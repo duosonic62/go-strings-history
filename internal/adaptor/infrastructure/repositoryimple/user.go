@@ -19,7 +19,7 @@ func NewUserRpository() repository.UserRepository  {
 	return UserRepositoryImpl{}
 }
 
-// とりあえずモック
+
 func (repository UserRepositoryImpl) Save(user entity.User)  {
 	dbModelUser := models.Member{
 		ID: user.ID,
@@ -30,11 +30,9 @@ func (repository UserRepositoryImpl) Save(user entity.User)  {
 		IsDeleted: false,
 		Version: 1,
 	}
-	fmt.Printf("before user = %+v\n", user)
 	err := dbModelUser.Insert(context.Background(), boil.GetContextDB(), boil.Infer())
 	if err != nil {
 		fmt.Println(err)
 	}
-	fmt.Printf("before user = %+v\n", user)
 	return
 }

@@ -13,7 +13,6 @@ import (
 type UserUseCaseInteractor struct {
 	presenter   outputboundary.UserCommandPresenter
 	repository  repository.UserRepository
-	idFactory   factory.IDFactory
 	userFactory factory.UserFactory
 }
 
@@ -21,13 +20,11 @@ type UserUseCaseInteractor struct {
 func NewUserCommandUseCase(
 	presenter outputboundary.UserCommandPresenter,
 	repository repository.UserRepository,
-	idFactory factory.IDFactory,
 	userFactory factory.UserFactory,
 ) inputboundary.UserCommandUseCase {
 	return UserUseCaseInteractor{
 		presenter:   presenter,
 		repository:  repository,
-		idFactory:   idFactory,
 		userFactory: userFactory,
 	}
 }

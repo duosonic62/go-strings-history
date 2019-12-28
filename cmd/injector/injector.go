@@ -27,7 +27,6 @@ func Initialize() *WebApp {
 	var userCommandUseCase = interactor.NewUserCommandUseCase(
 		userCommandPresenter,
 		userRepository,
-		idFactory,
 		userFactory,
 	)
 
