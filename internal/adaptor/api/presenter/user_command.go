@@ -1,6 +1,7 @@
 package presenter
 
 import (
+	"github.com/duosonic/go-strings-history/internal/usecase/outputboundary"
 	"github.com/duosonic/go-strings-history/pkg/usecase/input"
 	"github.com/duosonic/go-strings-history/pkg/usecase/output"
 )
@@ -8,7 +9,7 @@ import (
 type UserPresenterImpl struct{}
 
 // コンストラクタ
-func NewUserPresenter() outputboundary.UserPresenter {
+func NewUserCommandPresenter() outputboundary.UserCommandPresenter {
 	return UserPresenterImpl{}
 }
 

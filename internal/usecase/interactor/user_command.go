@@ -1,22 +1,25 @@
 package interactor
 
 import (
+	"github.com/duosonic/go-strings-history/internal/domain/factory"
+	"github.com/duosonic/go-strings-history/internal/domain/repository"
 	"github.com/duosonic/go-strings-history/internal/usecase/inputboundary"
+	"github.com/duosonic/go-strings-history/internal/usecase/outputboundary"
 	"github.com/duosonic/go-strings-history/pkg/usecase/input"
 	"github.com/duosonic/go-strings-history/pkg/usecase/input/command"
 	"github.com/duosonic/go-strings-history/pkg/usecase/output"
 )
 
 type UserUseCaseInteractor struct {
-	presenter   outputboundary.UserPresenter
+	presenter   outputboundary.UserCommandPresenter
 	repository  repository.UserRepository
 	idFactory   factory.IDFactory
 	userFactory factory.UserFactory
 }
 
 // コンストラクタ
-func NewUserUsecase(
-	presenter outputboundary.UserPresenter,
+func NewUserCommandUseCase(
+	presenter outputboundary.UserCommandPresenter,
 	repository repository.UserRepository,
 	idFactory factory.IDFactory,
 	userFactory factory.UserFactory,
@@ -31,7 +34,7 @@ func NewUserUsecase(
 
 func (useCase UserUseCaseInteractor) AddUser(data command.UserAddInputData, ctx input.Context) {
 	// Userエンティティを作成
-	user, err := useCase.userFactory.NewUser(data.Name, data.Role)
+	user, err := useCase.userFactory.NewUser(data.Name, data.UID)
 	if err != nil {
 		// FIXME エラーハンドリング
 		panic(err)
@@ -42,7 +45,7 @@ func (useCase UserUseCaseInteractor) AddUser(data command.UserAddInputData, ctx 
 
 	// presenterに表示処理を渡す
 	outputData := output.UserAddOutputData{
-		CreatedId: user.ID,
+		CreatedToken: user.Token,
 	}
 	useCase.presenter.OutputAddUser(outputData, ctx)
 }
