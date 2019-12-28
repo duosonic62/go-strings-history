@@ -22,10 +22,12 @@ func Initialize() *WebApp {
 	// repository
 	var userRepository = repositoryimple.NewUserRpository()
 
-	// usecase
+	// use case
 	var userCommandPresenter = presenter.NewUserCommandPresenter()
+	var errorPresenter = presenter.NewErrorPresenter()
 	var userCommandUseCase = interactor.NewUserCommandUseCase(
 		userCommandPresenter,
+		errorPresenter,
 		userRepository,
 		userFactory,
 	)

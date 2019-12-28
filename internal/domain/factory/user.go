@@ -23,12 +23,12 @@ func (factory UserFactoryImpl) NewUser(name string, uid string) (entity.User, er
 	// idを生成
 	id, err := factory.idFactory.Gen()
 	if err != nil {
-		return entity.User{}, err
+		return entity.User{}, entity.NewApplicationError(500, "id generate error", "Internal Server Error", err)
 	}
 	//tokenを生成
 	token, err := factory.tokenFactory.Gen()
 	if err != nil {
-		return entity.User{}, err
+		return entity.User{}, entity.NewApplicationError(500, "token generate error", "Internal Server Error", err)
 	}
 
 	user := entity.User{

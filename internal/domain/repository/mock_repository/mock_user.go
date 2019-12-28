@@ -34,9 +34,11 @@ func (m *MockUserRepository) EXPECT() *MockUserRepositoryMockRecorder {
 }
 
 // Save mocks base method
-func (m *MockUserRepository) Save(arg0 entity.User) {
+func (m *MockUserRepository) Save(arg0 entity.User) error {
 	m.ctrl.T.Helper()
-	m.ctrl.Call(m, "Save", arg0)
+	ret := m.ctrl.Call(m, "Save", arg0)
+	ret0, _ := ret[0].(error)
+	return ret0
 }
 
 // Save indicates an expected call of Save
