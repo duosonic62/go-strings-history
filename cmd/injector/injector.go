@@ -1,12 +1,12 @@
 package injector
 
 import (
-	"github.com/duosonic/go-strings-history/internal/adaptor/api/controller"
-	"github.com/duosonic/go-strings-history/internal/adaptor/api/presenter"
-	"github.com/duosonic/go-strings-history/internal/adaptor/infrastructure/factoryimple"
-	"github.com/duosonic/go-strings-history/internal/adaptor/infrastructure/repositoryimple"
-	"github.com/duosonic/go-strings-history/internal/domain/factory"
-	"github.com/duosonic/go-strings-history/internal/usecase/interactor"
+	"github.com/duosonic62/go-strings-history/internal/adaptor/api/controller"
+	"github.com/duosonic62/go-strings-history/internal/adaptor/api/presenter"
+	"github.com/duosonic62/go-strings-history/internal/adaptor/infrastructure/factoryimple"
+	"github.com/duosonic62/go-strings-history/internal/adaptor/infrastructure/repositoryimple"
+	"github.com/duosonic62/go-strings-history/internal/domain/factory"
+	"github.com/duosonic62/go-strings-history/internal/usecase/interactor"
 )
 
 type WebApp struct {

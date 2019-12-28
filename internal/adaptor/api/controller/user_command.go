@@ -1,9 +1,9 @@
 package controller
 
 import (
-	"github.com/duosonic/go-strings-history/internal/usecase/inputboundary"
-	"github.com/duosonic/go-strings-history/pkg/usecase/input"
-	"github.com/duosonic/go-strings-history/pkg/usecase/input/command"
+	"github.com/duosonic62/go-strings-history/internal/usecase/inputboundary"
+	"github.com/duosonic62/go-strings-history/pkg/usecase/input"
+	"github.com/duosonic62/go-strings-history/pkg/usecase/input/command"
 )
 
 type UserCommandController interface {
