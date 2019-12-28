@@ -2,20 +2,24 @@ package factory
 
 import "github.com/duosonic62/go-strings-history/internal/domain/entity"
 
-type UserFactory struct {
+type UserFactory interface {
+	NewUser(name string, uid string) (entity.User, error)
+}
+
+type UserFactoryImpl struct {
 	idFactory    IDFactory
 	tokenFactory TokenFactory
 }
 
 // コンストラクタ
 func NewUserFactory(idFactory IDFactory, tokenFactory TokenFactory) UserFactory {
-	return UserFactory{
+	return UserFactoryImpl{
 		idFactory:    idFactory,
 		tokenFactory: tokenFactory,
 	}
 }
 
-func (factory UserFactory) NewUser(name string, uid string) (entity.User, error) {
+func (factory UserFactoryImpl) NewUser(name string, uid string) (entity.User, error) {
 	// idを生成
 	id, err := factory.idFactory.Gen()
 	if err != nil {
