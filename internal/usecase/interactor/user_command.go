@@ -11,21 +11,24 @@ import (
 )
 
 type UserUseCaseInteractor struct {
-	presenter   outputboundary.UserCommandPresenter
-	repository  repository.UserRepository
-	userFactory factory.UserFactory
+	presenter      outputboundary.UserCommandPresenter
+	errorPresenter outputboundary.ErrorPresenter
+	repository     repository.UserRepository
+	userFactory    factory.UserFactory
 }
 
 // コンストラクタ
 func NewUserCommandUseCase(
 	presenter outputboundary.UserCommandPresenter,
+	errorPresenter outputboundary.ErrorPresenter,
 	repository repository.UserRepository,
 	userFactory factory.UserFactory,
 ) inputboundary.UserCommandUseCase {
 	return UserUseCaseInteractor{
-		presenter:   presenter,
-		repository:  repository,
-		userFactory: userFactory,
+		presenter:      presenter,
+		errorPresenter: errorPresenter,
+		repository:     repository,
+		userFactory:    userFactory,
 	}
 }
 
@@ -33,12 +36,16 @@ func (useCase UserUseCaseInteractor) AddUser(data command.UserAddInputData, ctx 
 	// Userエンティティを作成
 	user, err := useCase.userFactory.NewUser(data.Name, data.UID)
 	if err != nil {
-		// FIXME エラーハンドリング
-		panic(err)
+		useCase.errorPresenter.OutputError(ctx, err)
+		return
 	}
 
 	// エンティティを保存
-	useCase.repository.Save(user)
+	err = useCase.repository.Save(user)
+	if err != nil {
+		useCase.errorPresenter.OutputError(ctx, err)
+		return
+	}
 
 	// presenterに表示処理を渡す
 	outputData := output.UserAddOutputData{

@@ -2,7 +2,6 @@ package repositoryimple
 
 import (
 	"context"
-	"fmt"
 	"github.com/duosonic62/go-strings-history/internal/adaptor/infrastructure/db/models"
 	"github.com/duosonic62/go-strings-history/internal/domain/entity"
 	"github.com/duosonic62/go-strings-history/internal/domain/repository"
@@ -20,7 +19,7 @@ func NewUserRpository() repository.UserRepository  {
 }
 
 
-func (repository UserRepositoryImpl) Save(user entity.User)  {
+func (repository UserRepositoryImpl) Save(user entity.User) error {
 	dbModelUser := models.Member{
 		ID: user.ID,
 		UID: user.UID,
@@ -32,7 +31,7 @@ func (repository UserRepositoryImpl) Save(user entity.User)  {
 	}
 	err := dbModelUser.Insert(context.Background(), boil.GetContextDB(), boil.Infer())
 	if err != nil {
-		fmt.Println(err)
+		return entity.NewApplicationError(500, "db error", "Internal Server Error", err)
 	}
-	return
+	return nil
 }
