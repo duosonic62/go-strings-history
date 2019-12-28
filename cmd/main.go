@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/duosonic/go-strings-history/cmd/injector"
+	"github.com/duosonic/go-strings-history/internal/adaptor/infrastructure/config/db"
 	"github.com/duosonic/go-strings-history/internal/adaptor/infrastructure/router"
 	"github.com/gin-gonic/gin"
 )
@@ -9,6 +10,7 @@ import (
 func main() {
 	r := router.Router
 	var webApp = injector.Initialize()
+	db.Migrate()
 
 	// ユーザ登録API
 	r.POST("/user", func(context *gin.Context) { webApp.UserController.CreateUser(context) })
