@@ -3,6 +3,10 @@
 ### use case ###
 # input boundary
 mockgen \
+-source=internal/usecase/inputboundary/error.go \
+-destination=internal/usecase/inputboundary/mock_inputboundary/mock_error.go
+
+mockgen \
 -source=internal/usecase/inputboundary/user_command.go \
 -destination=internal/usecase/inputboundary/mock_inputboundary/mock_user_command.go
 

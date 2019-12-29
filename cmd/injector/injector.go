@@ -23,8 +23,10 @@ func Initialize() *WebApp {
 	var userRepository = repositoryimple.NewUserRpository()
 
 	// use case
-	var userCommandPresenter = presenter.NewUserCommandPresenter()
 	var errorPresenter = presenter.NewErrorPresenter()
+	var userCommandPresenter = presenter.NewUserCommandPresenter()
+
+	var errorUseCase = interactor.NewErrorUseCase(errorPresenter)
 	var userCommandUseCase = interactor.NewUserCommandUseCase(
 		userCommandPresenter,
 		errorPresenter,
@@ -33,7 +35,7 @@ func Initialize() *WebApp {
 	)
 
 	// controller
-	var userCommandController = controller.NewUserController(userCommandUseCase)
+	var userCommandController = controller.NewUserController(userCommandUseCase, errorUseCase)
 
 	var webApp = WebApp{
 		UserController: userCommandController,

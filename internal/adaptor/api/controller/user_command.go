@@ -11,13 +11,15 @@ type UserCommandController interface {
 }
 
 type UserControllerImpl struct {
-	useCase inputboundary.UserCommandUseCase
+	useCase      inputboundary.UserCommandUseCase
+	errorUseCase inputboundary.ErrorUseCase
 }
 
 // コンストラクタ
-func NewUserController(useCase inputboundary.UserCommandUseCase) UserCommandController {
+func NewUserController(useCase inputboundary.UserCommandUseCase, errorUseCase inputboundary.ErrorUseCase) UserCommandController {
 	return UserControllerImpl{
-		useCase: useCase,
+		useCase:      useCase,
+		errorUseCase: errorUseCase,
 	}
 }
 
@@ -25,7 +27,11 @@ func NewUserController(useCase inputboundary.UserCommandUseCase) UserCommandCont
 func (controller UserControllerImpl) CreateUser(ctx input.Context) {
 	// コンテキストからコマンドを復元
 	data := command.UserAddInputData{}
-	ctx.Bind(&data)
+	// 入力のバインド & バリデーションチェック
+	if err := ctx.Bind(&data); err != nil {
+		controller.errorUseCase.Error(ctx, err)
+		return
+	}
 
 	controller.useCase.AddUser(data, ctx)
 }
