@@ -45,3 +45,12 @@ $ mockgen \
     -source=internal/domain/factory/user.go \
     -destination=internal/domain/factory/mock_factory/mock_user.go
 ```
+
+### swagger 
+```
+docker run --rm -v $PWD:/local \
+  openapitools/openapi-generator-cli generate \
+  -i /local/swagger.yml \
+  -g go \
+  -o /local/temp
+```
