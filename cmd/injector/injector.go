@@ -26,7 +26,7 @@ func Initialize() *WebApp {
 	var errorPresenter = presenter.NewErrorPresenter()
 	var userCommandPresenter = presenter.NewUserCommandPresenter()
 
-	var errorUseCase = interactor.NewErrorUseCase(errorPresenter)
+	var badRequestErrorUseCase = interactor.NewBadRequestErrorUseCase(errorPresenter)
 	var userCommandUseCase = interactor.NewUserCommandUseCase(
 		userCommandPresenter,
 		errorPresenter,
@@ -35,7 +35,7 @@ func Initialize() *WebApp {
 	)
 
 	// controller
-	var userCommandController = controller.NewUserController(userCommandUseCase, errorUseCase)
+	var userCommandController = controller.NewUserController(userCommandUseCase, badRequestErrorUseCase)
 
 	var webApp = WebApp{
 		UserController: userCommandController,
