@@ -1,6 +1,6 @@
 package output
 
 type ErrorOutput struct {
-	Code    int `json:"code"`
+	Code    int    `json:"code"`
 	Message string `json:"message"`
 }

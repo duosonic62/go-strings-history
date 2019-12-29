@@ -18,6 +18,6 @@ func NewBadRequestErrorUseCase(errorPresenter outputboundary.ErrorPresenter) inp
 }
 
 func (useCase ErrorUseCaseInteractor) BadRequestError(ctx input.Context, err error) {
-	badRequesterr := entity.NewApplicationError(400, "bad request. cause: " + err.Error(), "Bad Request", err)
-	useCase.errorPresenter.OutputError(ctx, badRequesterr)
+	badRequestErr := entity.NewApplicationError(400, "bad request. cause: " + err.Error(), "Bad Request", err)
+	useCase.errorPresenter.OutputError(ctx, badRequestErr)
 }
