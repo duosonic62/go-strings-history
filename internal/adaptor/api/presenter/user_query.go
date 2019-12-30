@@ -6,13 +6,13 @@ import (
 	"github.com/duosonic62/go-strings-history/pkg/usecase/output"
 )
 
-type UserPresenterImpl struct{}
+type UserQueryPresenterImpl struct{}
 
 // コンストラクタ
-func NewUserCommandPresenter() outputboundary.UserCommandPresenter {
-	return UserPresenterImpl{}
+func NewUserQueryPresenter() outputboundary.UserQueryPresenter {
+	return UserQueryPresenterImpl{}
 }
 
-func (presenter UserPresenterImpl) OutputAddUser(output output.UserAddOutputData, ctx input.Context) {
+func (presenter UserQueryPresenterImpl) OutputUser(output output.UserOutput,ctx input.Context) {
 	ctx.JSON(200, output)
 }

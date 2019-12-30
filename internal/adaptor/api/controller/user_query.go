@@ -23,5 +23,5 @@ func (controller UserQueryControllerImpl) Show(ctx input.Context) {
 		controller.errorUseCase.UnauthorizedError(ctx, err)
 	}
 
-	controller.useCase.Show(authToken)
+	controller.useCase.Show(authToken, ctx)
 }

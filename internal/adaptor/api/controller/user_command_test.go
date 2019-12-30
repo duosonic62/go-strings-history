@@ -13,14 +13,14 @@ func TestUserControllerImpl_CreateUser_Positive(t *testing.T) {
 	defer ctrl.Finish()
 
 	mockUserCommandUseCase := mock_inputboundary.NewMockUserCommandUseCase(ctrl)
-	mockBadRequestUseCase := mock_inputboundary.NewMockBadRequestUseCase(ctrl)
+	mockErrorUseCase := mock_inputboundary.NewMockErrorUseCase(ctrl)
 	mockContext := mock_input.NewMockContext(ctrl)
 
 	mockContext.EXPECT().Bind(gomock.Any()).Return(nil).Times(1)
-	mockBadRequestUseCase.EXPECT().BadRequestError(gomock.Any(), gomock.Any()).Times(0)
+	mockErrorUseCase.EXPECT().BadRequestError(gomock.Any(), gomock.Any()).Times(0)
 	mockUserCommandUseCase.EXPECT().AddUser(gomock.Any(), gomock.Any()).Times(1)
 
-	controller := NewUserController(mockUserCommandUseCase, mockBadRequestUseCase)
+	controller := NewUserController(mockUserCommandUseCase, mockErrorUseCase)
 	controller.CreateUser(mockContext)
 }
 
@@ -29,13 +29,13 @@ func TestUserControllerImpl_CreateUser_NegativeBadRequest(t *testing.T) {
 	defer ctrl.Finish()
 
 	mockUserCommandUseCase := mock_inputboundary.NewMockUserCommandUseCase(ctrl)
-	mockBadRequestUseCase := mock_inputboundary.NewMockBadRequestUseCase(ctrl)
+	mockErrorUseCase := mock_inputboundary.NewMockErrorUseCase(ctrl)
 	mockContext := mock_input.NewMockContext(ctrl)
 
 	mockContext.EXPECT().Bind(gomock.Any()).Return(errors.New("error")).Times(1)
-	mockBadRequestUseCase.EXPECT().BadRequestError(gomock.Any(), gomock.Any()).Times(1)
+	mockErrorUseCase.EXPECT().BadRequestError(gomock.Any(), gomock.Any()).Times(1)
 	mockUserCommandUseCase.EXPECT().AddUser(gomock.Any(), gomock.Any()).Times(0)
 
-	controller := NewUserController(mockUserCommandUseCase, mockBadRequestUseCase)
+	controller := NewUserController(mockUserCommandUseCase, mockErrorUseCase)
 	controller.CreateUser(mockContext)
 }
