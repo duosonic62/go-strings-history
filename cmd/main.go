@@ -19,6 +19,7 @@ func main() {
 
 	// ユーザ登録API
 	r.POST("/user", func(context *gin.Context) { webApp.UserController.CreateUser(context) })
+	r.GET(".user", func(context *gin.Context) { context.GetHeader() })
 
 	r.Run(":8080")
 }

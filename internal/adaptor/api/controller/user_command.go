@@ -7,7 +7,7 @@ import (
 )
 
 type UserCommandController interface {
-	CreateUser(c input.Context)
+	CreateUser(ctx input.Context)
 }
 
 type UserControllerImpl struct {
