@@ -11,7 +11,7 @@ type ErrorUseCaseInteractor struct {
 	errorPresenter outputboundary.ErrorPresenter
 }
 
-func NewBadRequestErrorUseCase(errorPresenter outputboundary.ErrorPresenter) inputboundary.BadRequestUseCase {
+func NewBadRequestErrorUseCase(errorPresenter outputboundary.ErrorPresenter) inputboundary.ErrorUseCase {
 	return ErrorUseCaseInteractor{
 		errorPresenter: errorPresenter,
 	}
@@ -19,5 +19,10 @@ func NewBadRequestErrorUseCase(errorPresenter outputboundary.ErrorPresenter) inp
 
 func (useCase ErrorUseCaseInteractor) BadRequestError(ctx input.Context, err error) {
 	badRequestErr := entity.NewApplicationError(400, "bad request. cause: " + err.Error(), "Bad Request", err)
+	useCase.errorPresenter.OutputError(ctx, badRequestErr)
+}
+
+func (useCase ErrorUseCaseInteractor) UnauthorizedError(ctx input.Context, err error) {
+	badRequestErr := entity.NewApplicationError(401, "unauthorized. cause: " + err.Error(), "Unauthorized", err)
 	useCase.errorPresenter.OutputError(ctx, badRequestErr)
 }
