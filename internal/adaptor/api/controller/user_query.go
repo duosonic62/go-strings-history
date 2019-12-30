@@ -12,7 +12,7 @@ type UserQueryController interface {
 
 type UserQueryControllerImpl struct {
 	useCase      inputboundary.UserQueryUseCase
-	errorUseCase inputboundary.BadRequestUseCase
+	errorUseCase inputboundary.ErrorUseCase
 }
 
 

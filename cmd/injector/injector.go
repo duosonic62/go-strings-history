@@ -26,7 +26,7 @@ func Initialize() *WebApp {
 	var errorPresenter = presenter.NewErrorPresenter()
 	var userCommandPresenter = presenter.NewUserCommandPresenter()
 
-	var badRequestErrorUseCase = interactor.NewBadRequestErrorUseCase(errorPresenter)
+	var badRequestErrorUseCase = interactor.NewErrorUseCase(errorPresenter)
 	var userCommandUseCase = interactor.NewUserCommandUseCase(
 		userCommandPresenter,
 		errorPresenter,

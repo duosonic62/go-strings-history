@@ -11,7 +11,7 @@ type ErrorUseCaseInteractor struct {
 	errorPresenter outputboundary.ErrorPresenter
 }
 
-func NewBadRequestErrorUseCase(errorPresenter outputboundary.ErrorPresenter) inputboundary.ErrorUseCase {
+func NewErrorUseCase(errorPresenter outputboundary.ErrorPresenter) inputboundary.ErrorUseCase {
 	return ErrorUseCaseInteractor{
 		errorPresenter: errorPresenter,
 	}
