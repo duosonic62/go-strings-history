@@ -2,6 +2,7 @@ package repositoryimple
 
 import (
 	"context"
+	"fmt"
 	"github.com/duosonic62/go-strings-history/internal/adaptor/infrastructure/db/models"
 	"github.com/duosonic62/go-strings-history/internal/adaptor/infrastructure/repositoryimple/dtoconverter"
 	"github.com/duosonic62/go-strings-history/internal/domain/entity"
@@ -9,6 +10,7 @@ import (
 	"github.com/duosonic62/go-strings-history/internal/domain/valueobject"
 	"github.com/duosonic62/go-strings-history/pkg/usecase/output"
 	"github.com/volatiletech/sqlboiler/boil"
+	"github.com/volatiletech/sqlboiler/queries/qm"
 	"time"
 )
 
@@ -21,11 +23,21 @@ func NewUserRpository() repository.UserRepository {
 }
 
 func (repository UserRepositoryImpl) Find(token valueobject.AuthorizationToken) (output.UserOutput, error) {
-	user, err := models.FindMember(context.Background(), boil.GetContextDB(), token.GetToken())
+	users, err := models.Members(
+		qm.Where("token = ?", token.GetToken()),
+	).All(context.Background(), boil.GetContextDB())
+
+	fmt.Println(token)
+
 	if err != nil {
 		return output.UserOutput{}, err
 	}
-	return dtoconverter.ConvertUser(user), nil
+
+	if len(users) != 1 {
+		return output.UserOutput{}, entity.NewApplicationError(500, "token duplicated", "Internal Server Error", nil)
+	}
+
+	return dtoconverter.ConvertUser(users[0]), nil
 }
 
 func (repository UserRepositoryImpl) Save(user entity.User) error {

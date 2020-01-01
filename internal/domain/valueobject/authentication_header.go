@@ -10,7 +10,7 @@ type AuthorizationToken struct {
 }
 
 func NewAuthorizationToken(token string) (AuthorizationToken, error) {
-	if valid(token) {
+	if !valid(token) {
 		return AuthorizationToken{}, entity.NewApplicationError(http.StatusUnauthorized, "token invalid", "This token is invalid.", nil)
 	}
 	return AuthorizationToken{ token: token }, nil
