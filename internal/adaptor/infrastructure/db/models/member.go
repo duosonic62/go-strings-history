@@ -276,6 +276,7 @@ func (o *Member) doAfterDeleteHooks(ctx context.Context, exec boil.ContextExecut
 }
 
 // doAfterUpsertHooks executes all "after Upsert" hooks.
+// doAfterUpsertHooks executes all "after Upsert" hooks.
 func (o *Member) doAfterUpsertHooks(ctx context.Context, exec boil.ContextExecutor) (err error) {
 	if boil.HooksAreSkipped(ctx) {
 		return nil
