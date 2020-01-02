@@ -13,6 +13,6 @@ func NewUserCommandPresenter() outputboundary.UserCommandPresenter {
 	return UserPresenterImpl{}
 }
 
-func (presenter UserPresenterImpl) OutputAddUser(data output.UserAddOutputData, ctx input.Context) {
-	ctx.JSON(200, data)
+func (presenter UserPresenterImpl) OutputAddUser(output output.UserAddOutputData, ctx input.Context) {
+	ctx.JSON(200, output)
 }

@@ -6,6 +6,8 @@ package mock_repository
 
 import (
 	entity "github.com/duosonic62/go-strings-history/internal/domain/entity"
+	valueobject "github.com/duosonic62/go-strings-history/internal/domain/valueobject"
+	output "github.com/duosonic62/go-strings-history/pkg/usecase/output"
 	gomock "github.com/golang/mock/gomock"
 	reflect "reflect"
 )
@@ -31,6 +33,21 @@ func NewMockUserRepository(ctrl *gomock.Controller) *MockUserRepository {
 // EXPECT returns an object that allows the caller to indicate expected use
 func (m *MockUserRepository) EXPECT() *MockUserRepositoryMockRecorder {
 	return m.recorder
+}
+
+// Find mocks base method
+func (m *MockUserRepository) Find(arg0 valueobject.AuthorizationToken) (output.UserOutput, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "Find", arg0)
+	ret0, _ := ret[0].(output.UserOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// Find indicates an expected call of Find
+func (mr *MockUserRepositoryMockRecorder) Find(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Find", reflect.TypeOf((*MockUserRepository)(nil).Find), arg0)
 }
 
 // Save mocks base method

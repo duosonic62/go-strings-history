@@ -18,7 +18,8 @@ func main() {
 	db.InitDB()
 
 	// ユーザ登録API
-	r.POST("/user", func(context *gin.Context) { webApp.UserController.CreateUser(context) })
+	r.POST("/user", func(context *gin.Context) { webApp.UserCommandController.CreateUser(context) })
+	r.GET("/user", func(context *gin.Context) { webApp.UserQueryController.Show(context) })
 
 	r.Run(":8080")
 }

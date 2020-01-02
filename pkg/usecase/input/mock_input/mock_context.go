@@ -83,3 +83,17 @@ func (mr *MockContextMockRecorder) JSON(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "JSON", reflect.TypeOf((*MockContext)(nil).JSON), arg0, arg1)
 }
+
+// GetHeader mocks base method
+func (m *MockContext) GetHeader(arg0 string) string {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetHeader", arg0)
+	ret0, _ := ret[0].(string)
+	return ret0
+}
+
+// GetHeader indicates an expected call of GetHeader
+func (mr *MockContextMockRecorder) GetHeader(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetHeader", reflect.TypeOf((*MockContext)(nil).GetHeader), arg0)
+}

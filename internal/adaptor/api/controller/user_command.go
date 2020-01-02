@@ -7,16 +7,16 @@ import (
 )
 
 type UserCommandController interface {
-	CreateUser(c input.Context)
+	CreateUser(ctx input.Context)
 }
 
 type UserControllerImpl struct {
 	useCase      inputboundary.UserCommandUseCase
-	errorUseCase inputboundary.BadRequestUseCase
+	errorUseCase inputboundary.ErrorUseCase
 }
 
 // コンストラクタ
-func NewUserController(useCase inputboundary.UserCommandUseCase, errorUseCase inputboundary.BadRequestUseCase) UserCommandController {
+func NewUserController(useCase inputboundary.UserCommandUseCase, errorUseCase inputboundary.ErrorUseCase) UserCommandController {
 	return UserControllerImpl{
 		useCase:      useCase,
 		errorUseCase: errorUseCase,

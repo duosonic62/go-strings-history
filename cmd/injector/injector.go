@@ -10,7 +10,8 @@ import (
 )
 
 type WebApp struct {
-	UserController controller.UserCommandController
+	UserCommandController controller.UserCommandController
+	UserQueryController   controller.UserQueryController
 }
 
 func Initialize() *WebApp {
@@ -25,22 +26,29 @@ func Initialize() *WebApp {
 	// use case
 	var errorPresenter = presenter.NewErrorPresenter()
 	var userCommandPresenter = presenter.NewUserCommandPresenter()
+	var userQueryPresenter = presenter.NewUserQueryPresenter()
 
-	var badRequestErrorUseCase = interactor.NewBadRequestErrorUseCase(errorPresenter)
+	var errorUseCase = interactor.NewErrorUseCase(errorPresenter)
 	var userCommandUseCase = interactor.NewUserCommandUseCase(
 		userCommandPresenter,
 		errorPresenter,
 		userRepository,
 		userFactory,
 	)
+	var userQueryUseCase = interactor.NewUserQueyUseCase(
+		userRepository,
+		userQueryPresenter,
+		errorPresenter,
+	)
 
 	// controller
-	var userCommandController = controller.NewUserController(userCommandUseCase, badRequestErrorUseCase)
+	var userCommandController = controller.NewUserController(userCommandUseCase, errorUseCase)
+	var userQueryController = controller.NewUserQueryController(userQueryUseCase, errorUseCase)
 
 	var webApp = WebApp{
-		UserController: userCommandController,
+		UserCommandController: userCommandController,
+		UserQueryController:   userQueryController,
 	}
 
 	return &webApp
 }
-

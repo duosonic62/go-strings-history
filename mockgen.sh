@@ -3,17 +3,25 @@
 ### use case ###
 # input boundary
 mockgen \
--source=internal/usecase/inputboundary/bad_request.go \
--destination=internal/usecase/inputboundary/mock_inputboundary/mock_bad_request.go
+-source=internal/usecase/inputboundary/error.go \
+-destination=internal/usecase/inputboundary/mock_inputboundary/mock_error.go
 
 mockgen \
 -source=internal/usecase/inputboundary/user_command.go \
 -destination=internal/usecase/inputboundary/mock_inputboundary/mock_user_command.go
 
+mockgen \
+-source=internal/usecase/inputboundary/user_query.go \
+-destination=internal/usecase/inputboundary/mock_inputboundary/mock_user_query.go
+
 # output boundary
 mockgen \
 -source=internal/usecase/outputboundary/user_command.go \
 -destination=internal/usecase/outputboundary/mock_outputboundary/mock_user_command.go
+
+mockgen \
+-source=internal/usecase/outputboundary/user_query.go \
+-destination=internal/usecase/outputboundary/mock_outputboundary/mock_user_query.go
 
 mockgen \
 -source=internal/usecase/outputboundary/error.go \
