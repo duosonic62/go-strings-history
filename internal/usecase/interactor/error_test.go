@@ -16,7 +16,7 @@ func TestErrorUseCaseInteractor_BadRequestError(t *testing.T) {
 	mockContext := mock_input.NewMockContext(ctrl)
 	mockErrorPresenter.EXPECT().OutputError(gomock.Any(), gomock.Any()).Times(1)
 
-	useCase := NewBadRequestErrorUseCase(mockErrorPresenter)
+	useCase := NewErrorUseCase(mockErrorPresenter)
 	useCase.BadRequestError(mockContext, errors.New("error"))
 }
 
@@ -28,6 +28,7 @@ func TestErrorUseCaseInteractor_UnauthorizedError(t *testing.T) {
 	mockContext := mock_input.NewMockContext(ctrl)
 	mockErrorPresenter.EXPECT().OutputError(gomock.Any(), gomock.Any()).Times(1)
 
-	useCase := NewBadRequestErrorUseCase(mockErrorPresenter)
+	useCase := NewErrorUseCase(mockErrorPresenter)
 	useCase.UnauthorizedError(mockContext, errors.New("error"))
 }
+

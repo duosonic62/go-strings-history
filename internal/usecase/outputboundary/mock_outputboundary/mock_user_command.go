@@ -35,13 +35,13 @@ func (m *MockUserCommandPresenter) EXPECT() *MockUserCommandPresenterMockRecorde
 }
 
 // OutputAddUser mocks base method
-func (m *MockUserCommandPresenter) OutputAddUser(data output.UserAddOutputData, ctx input.Context) {
+func (m *MockUserCommandPresenter) OutputAddUser(output output.UserAddOutputData, ctx input.Context) {
 	m.ctrl.T.Helper()
-	m.ctrl.Call(m, "OutputAddUser", data, ctx)
+	m.ctrl.Call(m, "OutputAddUser", output, ctx)
 }
 
 // OutputAddUser indicates an expected call of OutputAddUser
-func (mr *MockUserCommandPresenterMockRecorder) OutputAddUser(data, ctx interface{}) *gomock.Call {
+func (mr *MockUserCommandPresenterMockRecorder) OutputAddUser(output, ctx interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "OutputAddUser", reflect.TypeOf((*MockUserCommandPresenter)(nil).OutputAddUser), data, ctx)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "OutputAddUser", reflect.TypeOf((*MockUserCommandPresenter)(nil).OutputAddUser), output, ctx)
 }

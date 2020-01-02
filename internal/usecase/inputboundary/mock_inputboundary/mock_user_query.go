@@ -6,6 +6,7 @@ package mock_inputboundary
 
 import (
 	valueobject "github.com/duosonic62/go-strings-history/internal/domain/valueobject"
+	input "github.com/duosonic62/go-strings-history/pkg/usecase/input"
 	gomock "github.com/golang/mock/gomock"
 	reflect "reflect"
 )
@@ -34,13 +35,13 @@ func (m *MockUserQueryUseCase) EXPECT() *MockUserQueryUseCaseMockRecorder {
 }
 
 // Show mocks base method
-func (m *MockUserQueryUseCase) Show(token valueobject.AuthorizationToken) {
+func (m *MockUserQueryUseCase) Show(token valueobject.AuthorizationToken, ctx input.Context) {
 	m.ctrl.T.Helper()
-	m.ctrl.Call(m, "Show", token)
+	m.ctrl.Call(m, "Show", token, ctx)
 }
 
 // Show indicates an expected call of Show
-func (mr *MockUserQueryUseCaseMockRecorder) Show(token interface{}) *gomock.Call {
+func (mr *MockUserQueryUseCaseMockRecorder) Show(token, ctx interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Show", reflect.TypeOf((*MockUserQueryUseCase)(nil).Show), token)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Show", reflect.TypeOf((*MockUserQueryUseCase)(nil).Show), token, ctx)
 }
