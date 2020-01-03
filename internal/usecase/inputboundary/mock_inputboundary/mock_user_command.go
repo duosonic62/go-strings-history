@@ -34,14 +34,26 @@ func (m *MockUserCommandUseCase) EXPECT() *MockUserCommandUseCaseMockRecorder {
 	return m.recorder
 }
 
-// AddUser mocks base method
-func (m *MockUserCommandUseCase) AddUser(data command.UserAddInputData, ctx input.Context) {
+// Add mocks base method
+func (m *MockUserCommandUseCase) Add(data command.UserAddInputData, ctx input.Context) {
 	m.ctrl.T.Helper()
-	m.ctrl.Call(m, "AddUser", data, ctx)
+	m.ctrl.Call(m, "Add", data, ctx)
 }
 
-// AddUser indicates an expected call of AddUser
-func (mr *MockUserCommandUseCaseMockRecorder) AddUser(data, ctx interface{}) *gomock.Call {
+// Add indicates an expected call of Add
+func (mr *MockUserCommandUseCaseMockRecorder) Add(data, ctx interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AddUser", reflect.TypeOf((*MockUserCommandUseCase)(nil).AddUser), data, ctx)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Add", reflect.TypeOf((*MockUserCommandUseCase)(nil).Add), data, ctx)
+}
+
+// Edit mocks base method
+func (m *MockUserCommandUseCase) Edit(data command.UserEditInputData, ctx input.Context) {
+	m.ctrl.T.Helper()
+	m.ctrl.Call(m, "Edit", data, ctx)
+}
+
+// Edit indicates an expected call of Edit
+func (mr *MockUserCommandUseCaseMockRecorder) Edit(data, ctx interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Edit", reflect.TypeOf((*MockUserCommandUseCase)(nil).Edit), data, ctx)
 }

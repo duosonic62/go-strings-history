@@ -45,3 +45,15 @@ func (mr *MockUserCommandPresenterMockRecorder) OutputAddUser(output, ctx interf
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "OutputAddUser", reflect.TypeOf((*MockUserCommandPresenter)(nil).OutputAddUser), output, ctx)
 }
+
+// OutputEditUser mocks base method
+func (m *MockUserCommandPresenter) OutputEditUser(output output.UserEditOutputData, ctx input.Context) {
+	m.ctrl.T.Helper()
+	m.ctrl.Call(m, "OutputEditUser", output, ctx)
+}
+
+// OutputEditUser indicates an expected call of OutputEditUser
+func (mr *MockUserCommandPresenterMockRecorder) OutputEditUser(output, ctx interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "OutputEditUser", reflect.TypeOf((*MockUserCommandPresenter)(nil).OutputEditUser), output, ctx)
+}
