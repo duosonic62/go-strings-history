@@ -50,7 +50,7 @@ func (useCase UserUseCaseInteractor) Add(data command.UserAddInputData, ctx inpu
 
 	// presenterに表示処理を渡す
 	outputData := output.UserAddOutputData{
-		CreatedToken: user.Token,
+		CreatedToken: user.GetToken().GetToken(),
 	}
 	useCase.presenter.OutputAddUser(outputData, ctx)
 }
@@ -72,7 +72,7 @@ func (useCase UserUseCaseInteractor) Edit(token valueobject.AuthorizationToken, 
 
 	// presenterに表示処理を渡す
 	outputData := output.UserAddOutputData{
-		CreatedToken: user.Token,
+		CreatedToken: user.GetToken().GetToken(),
 	}
 	useCase.presenter.OutputAddUser(outputData, ctx)
 }

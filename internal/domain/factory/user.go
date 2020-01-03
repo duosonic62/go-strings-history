@@ -7,8 +7,8 @@ import (
 )
 
 type UserFactory interface {
-	NewUser(name string, uid string) (entity.User, error)
-	Find(token valueobject.AuthorizationToken) (entity.User, error)
+	NewUser(name string, uid string) (*entity.User, error)
+	Find(token valueobject.AuthorizationToken) (*entity.User, error)
 }
 
 type UserFactoryImpl struct {
@@ -26,32 +26,35 @@ func NewUserFactory(idFactory IDFactory, tokenFactory TokenFactory, repository r
 	}
 }
 
-func (factory UserFactoryImpl) NewUser(name string, uid string) (entity.User, error) {
+func (factory UserFactoryImpl) NewUser(name string, uid string) (*entity.User, error) {
 	// idを生成
 	id, err := factory.idFactory.Gen()
 	if err != nil {
-		return entity.User{}, entity.NewApplicationError(500, "id generate error", "Internal Server Error", err)
+		return nil, entity.NewApplicationError(500, "id generate error", "Internal Server Error", err)
 	}
 	//tokenを生成
-	token, err := factory.tokenFactory.Gen()
+	tokenSeed, err := factory.tokenFactory.Gen()
 	if err != nil {
-		return entity.User{}, entity.NewApplicationError(500, "token generate error", "Internal Server Error", err)
+		return nil, entity.NewApplicationError(500, "token generate error", "Internal Server Error", err)
 	}
 
-	user := entity.User{
-		ID:    id,
-		Name:  name,
-		UID:   uid,
-		Token: token,
+	token, err := valueobject.NewAuthorizationToken(tokenSeed)
+	if err != nil {
+		return nil, entity.NewApplicationError(500, "token generate error", "Internal Server Error", err)
+	}
+
+	user, err := entity.NewUser(id, name, uid, token)
+	if err != nil {
+		return nil, entity.NewApplicationError(500, "token generate error", "Internal Server Error", err)
 	}
 
 	return user, nil
 }
 
-func (factory UserFactoryImpl) Find(token valueobject.AuthorizationToken) (entity.User, error) {
+func (factory UserFactoryImpl) Find(token valueobject.AuthorizationToken) (*entity.User, error) {
 	user, err := factory.repository.Find(token)
 	if err != nil {
-		return entity.User{}, err
+		return nil, err
 	}
 	return user, nil
 }

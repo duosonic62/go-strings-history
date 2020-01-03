@@ -6,13 +6,17 @@ import (
 	"github.com/duosonic62/go-strings-history/pkg/usecase/output"
 )
 
-type UserPresenterImpl struct{}
+type UserCommandPresenterImpl struct{}
 
 // コンストラクタ
 func NewUserCommandPresenter() outputboundary.UserCommandPresenter {
-	return UserPresenterImpl{}
+	return UserCommandPresenterImpl{}
 }
 
-func (presenter UserPresenterImpl) OutputAddUser(output output.UserAddOutputData, ctx input.Context) {
+func (presenter UserCommandPresenterImpl) OutputAddUser(output output.UserAddOutputData, ctx input.Context) {
+	ctx.JSON(200, output)
+}
+
+func (presenter UserCommandPresenterImpl) OutputEditUser(output output.UserEditOutputData, ctx input.Context) {
 	ctx.JSON(200, output)
 }

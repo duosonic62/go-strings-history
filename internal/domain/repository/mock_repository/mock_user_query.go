@@ -5,7 +5,6 @@
 package mock_repository
 
 import (
-	entity "github.com/duosonic62/go-strings-history/internal/domain/entity"
 	valueobject "github.com/duosonic62/go-strings-history/internal/domain/valueobject"
 	output "github.com/duosonic62/go-strings-history/pkg/usecase/output"
 	gomock "github.com/golang/mock/gomock"
@@ -48,18 +47,4 @@ func (m *MockUserQueryRepository) Find(arg0 valueobject.AuthorizationToken) (out
 func (mr *MockUserQueryRepositoryMockRecorder) Find(arg0 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Find", reflect.TypeOf((*MockUserQueryRepository)(nil).Find), arg0)
-}
-
-// Save mocks base method
-func (m *MockUserQueryRepository) Save(arg0 entity.User) error {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "Save", arg0)
-	ret0, _ := ret[0].(error)
-	return ret0
-}
-
-// Save indicates an expected call of Save
-func (mr *MockUserQueryRepositoryMockRecorder) Save(arg0 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Save", reflect.TypeOf((*MockUserQueryRepository)(nil).Save), arg0)
 }

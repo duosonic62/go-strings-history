@@ -27,20 +27,20 @@ func TestUserFactory_NewUser(t *testing.T) {
 		t.Error(err)
 	}
 
-	if actual.ID != "mock_id" {
-		t.Errorf("Expected: mock_id, Actual %s\n", actual.ID)
+	if actual.GetID() != "mock_id" {
+		t.Errorf("Expected: mock_id, Actual %s\n", actual.GetID())
 	}
 
-	if actual.Name != "mock_name" {
-		t.Errorf("Expected: mock_name, Actual %s\n", actual.Name)
+	if actual.GetName() != "mock_name" {
+		t.Errorf("Expected: mock_name, Actual %s\n", actual.GetName())
 	}
 
-	if actual.UID != "mock_uid" {
-		t.Errorf("Expected: mock_uid, Actual %s\n", actual.UID)
+	if actual.GetUID() != "mock_uid" {
+		t.Errorf("Expected: mock_uid, Actual %s\n", actual.GetUID())
 	}
 
-	if actual.Token != "mock_token" {
-		t.Errorf("Expected: mock_token, Actual %s\n", actual.Token)
+	if actual.GetToken().GetToken() != "mock_token" {
+		t.Errorf("Expected: mock_token, Actual %s\n", actual.GetToken().GetToken())
 	}
 }
 

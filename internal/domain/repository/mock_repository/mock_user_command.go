@@ -35,10 +35,10 @@ func (m *MockUserCommandRepository) EXPECT() *MockUserCommandRepositoryMockRecor
 }
 
 // Find mocks base method
-func (m *MockUserCommandRepository) Find(arg0 valueobject.AuthorizationToken) (entity.User, error) {
+func (m *MockUserCommandRepository) Find(arg0 valueobject.AuthorizationToken) (*entity.User, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Find", arg0)
-	ret0, _ := ret[0].(entity.User)
+	ret0, _ := ret[0].(*entity.User)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -50,7 +50,7 @@ func (mr *MockUserCommandRepositoryMockRecorder) Find(arg0 interface{}) *gomock.
 }
 
 // Save mocks base method
-func (m *MockUserCommandRepository) Save(arg0 entity.User) error {
+func (m *MockUserCommandRepository) Save(arg0 *entity.User) error {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Save", arg0)
 	ret0, _ := ret[0].(error)

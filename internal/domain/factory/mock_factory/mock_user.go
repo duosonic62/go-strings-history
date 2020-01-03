@@ -6,6 +6,7 @@ package mock_factory
 
 import (
 	entity "github.com/duosonic62/go-strings-history/internal/domain/entity"
+	valueobject "github.com/duosonic62/go-strings-history/internal/domain/valueobject"
 	gomock "github.com/golang/mock/gomock"
 	reflect "reflect"
 )
@@ -34,10 +35,10 @@ func (m *MockUserFactory) EXPECT() *MockUserFactoryMockRecorder {
 }
 
 // NewUser mocks base method
-func (m *MockUserFactory) NewUser(name, uid string) (entity.User, error) {
+func (m *MockUserFactory) NewUser(name, uid string) (*entity.User, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "NewUser", name, uid)
-	ret0, _ := ret[0].(entity.User)
+	ret0, _ := ret[0].(*entity.User)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -46,4 +47,19 @@ func (m *MockUserFactory) NewUser(name, uid string) (entity.User, error) {
 func (mr *MockUserFactoryMockRecorder) NewUser(name, uid interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewUser", reflect.TypeOf((*MockUserFactory)(nil).NewUser), name, uid)
+}
+
+// Find mocks base method
+func (m *MockUserFactory) Find(token valueobject.AuthorizationToken) (*entity.User, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "Find", token)
+	ret0, _ := ret[0].(*entity.User)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// Find indicates an expected call of Find
+func (mr *MockUserFactoryMockRecorder) Find(token interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Find", reflect.TypeOf((*MockUserFactory)(nil).Find), token)
 }

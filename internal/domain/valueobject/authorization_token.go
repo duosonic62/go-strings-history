@@ -1,8 +1,7 @@
 package valueobject
 
 import (
-	"github.com/duosonic62/go-strings-history/internal/domain/entity"
-	"net/http"
+	"errors"
 )
 
 type AuthorizationToken struct {
@@ -11,7 +10,7 @@ type AuthorizationToken struct {
 
 func NewAuthorizationToken(token string) (AuthorizationToken, error) {
 	if !valid(token) {
-		return AuthorizationToken{}, entity.NewApplicationError(http.StatusUnauthorized, "token invalid", "This token is invalid.", nil)
+		return AuthorizationToken{}, errors.New("this token is invalid: " + token)
 	}
 	return AuthorizationToken{ token: token }, nil
 }

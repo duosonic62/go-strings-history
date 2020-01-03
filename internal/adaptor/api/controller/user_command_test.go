@@ -18,7 +18,7 @@ func TestUserControllerImpl_Create_Positive(t *testing.T) {
 
 	mockContext.EXPECT().Bind(gomock.Any()).Return(nil).Times(1)
 	mockErrorUseCase.EXPECT().BadRequestError(gomock.Any(), gomock.Any()).Times(0)
-	mockUserCommandUseCase.EXPECT().AddUser(gomock.Any(), gomock.Any()).Times(1)
+	mockUserCommandUseCase.EXPECT().Add(gomock.Any(), gomock.Any()).Times(1)
 
 	controller := NewUserController(mockUserCommandUseCase, mockErrorUseCase)
 	controller.Create(mockContext)
@@ -34,7 +34,7 @@ func TestUserControllerImpl_Create_NegativeBadRequest(t *testing.T) {
 
 	mockContext.EXPECT().Bind(gomock.Any()).Return(errors.New("error")).Times(1)
 	mockErrorUseCase.EXPECT().BadRequestError(gomock.Any(), gomock.Any()).Times(1)
-	mockUserCommandUseCase.EXPECT().AddUser(gomock.Any(), gomock.Any()).Times(0)
+	mockUserCommandUseCase.EXPECT().Add(gomock.Any(), gomock.Any()).Times(0)
 
 	controller := NewUserController(mockUserCommandUseCase, mockErrorUseCase)
 	controller.Create(mockContext)
