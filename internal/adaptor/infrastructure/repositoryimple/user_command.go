@@ -2,6 +2,7 @@ package repositoryimple
 
 import (
 	"context"
+	"errors"
 	"github.com/duosonic62/go-strings-history/internal/adaptor/infrastructure/db/models"
 	"github.com/duosonic62/go-strings-history/internal/adaptor/infrastructure/repositoryimple/dtoconverter"
 	"github.com/duosonic62/go-strings-history/internal/domain/entity"
@@ -9,7 +10,6 @@ import (
 	"github.com/duosonic62/go-strings-history/internal/domain/valueobject"
 	"github.com/volatiletech/sqlboiler/boil"
 	"github.com/volatiletech/sqlboiler/queries/qm"
-	"time"
 )
 
 type UserCommandRepositoryImpl struct {
@@ -42,18 +42,23 @@ func (repository UserCommandRepositoryImpl) Find(token valueobject.Authorization
 }
 
 func (repository UserCommandRepositoryImpl) Save(user *entity.User) error {
-	dbModelUser := models.Member{
-		ID:           user.GetID(),
-		UID:          user.GetUID(),
-		Name:         user.GetName(),
-		Token:        user.GetToken().GetToken(),
-		TokenExpired: time.Now().Add(time.Duration(24 * time.Hour)),
-		IsDeleted:    false,
-		Version:      1,
-	}
+	dbModelUser := dtoconverter.ToUserModel(user, 1)
 	err := dbModelUser.Insert(context.Background(), boil.GetContextDB(), boil.Infer())
 	if err != nil {
 		return entity.NewApplicationError(500, "db error", "Internal Server Error", err)
+	}
+	return nil
+}
+
+func (repository UserCommandRepositoryImpl) Edit(user *entity.User) error {
+	dbModelUser := dtoconverter.ToUserModel(user, 1) // FIXME
+	updateCount, err := dbModelUser.Update(context.Background(), boil.GetContextDB(), boil.Infer())
+	if err != nil {
+		return err
+	}
+	if updateCount != 1 {
+		// TODO: transaction
+		return errors.New("db error")
 	}
 	return nil
 }

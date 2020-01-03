@@ -29,6 +29,10 @@ func (repository UserQueryRepositoryImpl) Find(token valueobject.AuthorizationTo
 		return output.UserOutput{}, err
 	}
 
+	if len(users) == 0 {
+		return output.UserOutput{}, entity.NewApplicationError(401, "user not found", "This Token is Invalid.", nil)
+	}
+
 	if len(users) != 1 {
 		return output.UserOutput{}, entity.NewApplicationError(500, "token duplicated", "Internal Server Error", nil)
 	}

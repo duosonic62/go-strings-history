@@ -1,6 +1,7 @@
 package interactor
 
 import (
+	"fmt"
 	"github.com/duosonic62/go-strings-history/internal/domain/repository"
 	"github.com/duosonic62/go-strings-history/internal/domain/valueobject"
 	"github.com/duosonic62/go-strings-history/internal/usecase/inputboundary"
@@ -29,6 +30,7 @@ func NewUserQueyUseCase(
 func (useCase UserQueryUseCaseInteracter) Show(token valueobject.AuthorizationToken, ctx input.Context) {
 	user, err := useCase.repository.Find(token)
 	if err != nil {
+		fmt.Println(err)
 		useCase.errorPresenter.OutputError(ctx, err)
 		return
 	}

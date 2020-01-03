@@ -1,6 +1,7 @@
 package interactor
 
 import (
+	"fmt"
 	"github.com/duosonic62/go-strings-history/internal/domain/factory"
 	"github.com/duosonic62/go-strings-history/internal/domain/repository"
 	"github.com/duosonic62/go-strings-history/internal/domain/valueobject"
@@ -64,15 +65,15 @@ func (useCase UserUseCaseInteractor) Edit(token valueobject.AuthorizationToken, 
 	}
 
 	// エンティティを保存
-	err = useCase.repository.Save(user)
+	err = useCase.repository.Edit(user)
 	if err != nil {
 		useCase.errorPresenter.OutputError(ctx, err)
 		return
 	}
 
 	// presenterに表示処理を渡す
-	outputData := output.UserAddOutputData{
-		CreatedToken: user.GetToken().GetToken(),
+	outputData := output.UserEditOutputData{
+		Name: user.GetName(),
 	}
-	useCase.presenter.OutputAddUser(outputData, ctx)
+	useCase.presenter.OutputEditUser(outputData, ctx)
 }

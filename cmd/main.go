@@ -18,8 +18,9 @@ func main() {
 	db.InitDB()
 
 	// ユーザ登録API
-	r.POST("/user", func(context *gin.Context) { webApp.UserCommandController.Create(context) })
 	r.GET("/user", func(context *gin.Context) { webApp.UserQueryController.Show(context) })
+	r.POST("/user", func(context *gin.Context) { webApp.UserCommandController.Create(context) })
+	r.PUT("/user", func(context *gin.Context) { webApp.UserCommandController.Edit(context) })
 
 	r.Run(":8080")
 }
