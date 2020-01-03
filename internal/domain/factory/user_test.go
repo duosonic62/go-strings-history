@@ -3,6 +3,7 @@ package factory
 import (
 	"errors"
 	"github.com/duosonic62/go-strings-history/internal/domain/factory/mock_factory"
+	"github.com/duosonic62/go-strings-history/internal/domain/repository/mock_repository"
 	"github.com/golang/mock/gomock"
 	"testing"
 )
@@ -17,7 +18,9 @@ func TestUserFactory_NewUser(t *testing.T) {
 	mockIDFactory.EXPECT().Gen().Return("mock_id", nil)
 	mockTokenFactory.EXPECT().Gen().Return("mock_token", nil)
 
-	factory := NewUserFactory(mockIDFactory, mockTokenFactory)
+	mockRepository := mock_repository.NewMockUserCommandRepository(ctrl)
+
+	factory := NewUserFactory(mockIDFactory, mockTokenFactory, mockRepository)
 	actual, err := factory.NewUser("mock_name", "mock_uid")
 
 	if err != nil {
@@ -51,7 +54,9 @@ func TestUserFactory_NewUser_Negative_ErrorID(t *testing.T) {
 	// エラーで早期リターンしているので呼ばれない
 	// mockTokenFactory.EXPECT().Gen().Return("mock_token", nil)
 
-	factory := NewUserFactory(mockIDFactory, mockTokenFactory)
+	mockRepository := mock_repository.NewMockUserCommandRepository(ctrl)
+
+	factory := NewUserFactory(mockIDFactory, mockTokenFactory, mockRepository)
 	_, err := factory.NewUser("mock_name", "mock_uid")
 
 	if err == nil {
@@ -68,7 +73,9 @@ func TestUserFactory_NewUser_Negative_ErrorToken(t *testing.T) {
 	mockIDFactory.EXPECT().Gen().Return("mock_id", nil)
 	mockTokenFactory.EXPECT().Gen().Return("mock_token", errors.New("error"))
 
-	factory := NewUserFactory(mockIDFactory, mockTokenFactory)
+	mockRepository := mock_repository.NewMockUserCommandRepository(ctrl)
+
+	factory := NewUserFactory(mockIDFactory, mockTokenFactory, mockRepository)
 	_, err := factory.NewUser("mock_name", "mock_uid")
 
 	if err == nil {

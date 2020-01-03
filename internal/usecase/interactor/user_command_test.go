@@ -30,7 +30,7 @@ func TestUserUseCaseInteractor_AddUser_Positive(t *testing.T) {
 	mockUserFactory.EXPECT().NewUser(gomock.Any(), gomock.Any()).Times(1)
 
 	useCase := NewUserCommandUseCase(mockUserPresenter, mockErrorPresenter, mockUserRepository, mockUserFactory)
-	useCase.AddUser(command.UserAddInputData{}, mockContext)
+	useCase.Add(command.UserAddInputData{}, mockContext)
 }
 
 // 異常系のテスト: UserFactoryでエラーが発生した時
@@ -51,7 +51,7 @@ func TestUserUseCaseInteractor_AddUser_NegativeFactoryError(t *testing.T) {
 	mockUserRepository.EXPECT().Save(gomock.Any()).Times(0)
 
 	useCase := NewUserCommandUseCase(mockUserPresenter, mockErrorPresenter, mockUserRepository, mockUserFactory)
-	useCase.AddUser(command.UserAddInputData{}, mockContext)
+	useCase.Add(command.UserAddInputData{}, mockContext)
 }
 
 // 異常系のテスト: UserRepositoryでエラーが発生した時
@@ -72,5 +72,5 @@ func TestUserUseCaseInteractor_AddUser_NegativeRepository(t *testing.T) {
 	mockUserRepository.EXPECT().Save(gomock.Any()).Return(errors.New("error")).Times(1)
 
 	useCase := NewUserCommandUseCase(mockUserPresenter, mockErrorPresenter, mockUserRepository, mockUserFactory)
-	useCase.AddUser(command.UserAddInputData{}, mockContext)
+	useCase.Add(command.UserAddInputData{}, mockContext)
 }

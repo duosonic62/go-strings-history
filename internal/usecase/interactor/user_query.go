@@ -9,13 +9,13 @@ import (
 )
 
 type UserQueryUseCaseInteracter struct {
-	repository     repository.UserRepository
+	repository     repository.UserQueryRepository
 	presenter      outputboundary.UserQueryPresenter
 	errorPresenter outputboundary.ErrorPresenter
 }
 
 func NewUserQueyUseCase(
-	repository repository.UserRepository,
+	repository repository.UserQueryRepository,
 	presenter outputboundary.UserQueryPresenter,
 	errorPresenter outputboundary.ErrorPresenter,
 ) inputboundary.UserQueryUseCase {

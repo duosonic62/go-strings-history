@@ -34,7 +34,7 @@ func (controller UserControllerImpl) Create(ctx input.Context) {
 		return
 	}
 
-	controller.useCase.AddUser(data, ctx)
+	controller.useCase.Add(data, ctx)
 }
 
 func (controller UserControllerImpl) Edit(ctx input.Context) {
@@ -46,5 +46,11 @@ func (controller UserControllerImpl) Edit(ctx input.Context) {
 		return
 	}
 
-	controller.useCase.EditUser(data, ctx)
+	authToken, err := getAuthorizationToken(ctx)
+	if err != nil {
+		controller.errorUseCase.UnauthorizedError(ctx, err)
+		return
+	}
+
+	controller.useCase.Edit(authToken, data, ctx)
 }

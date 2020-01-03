@@ -1,7 +1,6 @@
 package controller
 
 import (
-	"github.com/duosonic62/go-strings-history/internal/domain/valueobject"
 	"github.com/duosonic62/go-strings-history/internal/usecase/inputboundary"
 	"github.com/duosonic62/go-strings-history/pkg/usecase/input"
 )
@@ -23,8 +22,7 @@ func NewUserQueryController(useCase inputboundary.UserQueryUseCase, errorUseCase
 }
 
 func (controller UserQueryControllerImpl) Show(ctx input.Context) {
-	token := ctx.GetHeader("Authorization")
-	authToken, err := valueobject.NewAuthorizationToken(token)
+	authToken, err := getAuthorizationToken(ctx)
 	if err != nil {
 		controller.errorUseCase.UnauthorizedError(ctx, err)
 		return

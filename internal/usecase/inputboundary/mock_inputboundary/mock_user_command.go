@@ -5,6 +5,7 @@
 package mock_inputboundary
 
 import (
+	valueobject "github.com/duosonic62/go-strings-history/internal/domain/valueobject"
 	input "github.com/duosonic62/go-strings-history/pkg/usecase/input"
 	command "github.com/duosonic62/go-strings-history/pkg/usecase/input/command"
 	gomock "github.com/golang/mock/gomock"
@@ -47,13 +48,13 @@ func (mr *MockUserCommandUseCaseMockRecorder) Add(data, ctx interface{}) *gomock
 }
 
 // Edit mocks base method
-func (m *MockUserCommandUseCase) Edit(data command.UserEditInputData, ctx input.Context) {
+func (m *MockUserCommandUseCase) Edit(token valueobject.AuthorizationToken, data command.UserEditInputData, ctx input.Context) {
 	m.ctrl.T.Helper()
-	m.ctrl.Call(m, "Edit", data, ctx)
+	m.ctrl.Call(m, "Edit", token, data, ctx)
 }
 
 // Edit indicates an expected call of Edit
-func (mr *MockUserCommandUseCaseMockRecorder) Edit(data, ctx interface{}) *gomock.Call {
+func (mr *MockUserCommandUseCaseMockRecorder) Edit(token, data, ctx interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Edit", reflect.TypeOf((*MockUserCommandUseCase)(nil).Edit), data, ctx)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Edit", reflect.TypeOf((*MockUserCommandUseCase)(nil).Edit), token, data, ctx)
 }
