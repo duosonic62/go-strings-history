@@ -7,4 +7,5 @@ import (
 
 type UserCommandPresenter interface {
 	OutputAddUser(output output.UserAddOutputData, ctx input.Context)
+	OutputEditUser(output output.UserEditOutputData, ctx input.Context)
 }

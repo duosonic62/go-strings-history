@@ -7,7 +7,8 @@ import (
 )
 
 type UserCommandController interface {
-	CreateUser(ctx input.Context)
+	Create(ctx input.Context)
+	Edit(ctx input.Context)
 }
 
 type UserControllerImpl struct {
@@ -24,7 +25,7 @@ func NewUserController(useCase inputboundary.UserCommandUseCase, errorUseCase in
 }
 
 // ユーザ作成
-func (controller UserControllerImpl) CreateUser(ctx input.Context) {
+func (controller UserControllerImpl) Create(ctx input.Context) {
 	// コンテキストからコマンドを復元
 	data := command.UserAddInputData{}
 	// 入力のバインド & バリデーションチェック
@@ -34,4 +35,16 @@ func (controller UserControllerImpl) CreateUser(ctx input.Context) {
 	}
 
 	controller.useCase.AddUser(data, ctx)
+}
+
+func (controller UserControllerImpl) Edit(ctx input.Context) {
+	// コンテキストからコマンドを復元
+	data := command.UserEditInputData{}
+	// 入力のバインド & バリデーションチェック
+	if err := ctx.Bind(&data); err != nil {
+		controller.errorUseCase.BadRequestError(ctx, err)
+		return
+	}
+
+	controller.useCase.EditUser(data, ctx)
 }

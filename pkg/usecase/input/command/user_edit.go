@@ -1,6 +1,5 @@
 package command
 
-type UserAddInputData struct {
+type UserEditInputData struct {
 	Name string `json:"name" binding:"required,min=1,max=256"`
-	UID  string `json:"uid" binding:"required"`
 }

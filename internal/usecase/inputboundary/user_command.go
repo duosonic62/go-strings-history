@@ -6,5 +6,6 @@ import (
 )
 
 type UserCommandUseCase interface {
-	AddUser(data command.UserAddInputData, ctx input.Context)
+	Add(data command.UserAddInputData, ctx input.Context)
+	Edit(data command.UserEditInputData, ctx input.Context)
 }

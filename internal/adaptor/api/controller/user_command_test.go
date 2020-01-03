@@ -8,7 +8,7 @@ import (
 	"testing"
 )
 
-func TestUserControllerImpl_CreateUser_Positive(t *testing.T) {
+func TestUserControllerImpl_Create_Positive(t *testing.T) {
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
 
@@ -21,10 +21,10 @@ func TestUserControllerImpl_CreateUser_Positive(t *testing.T) {
 	mockUserCommandUseCase.EXPECT().AddUser(gomock.Any(), gomock.Any()).Times(1)
 
 	controller := NewUserController(mockUserCommandUseCase, mockErrorUseCase)
-	controller.CreateUser(mockContext)
+	controller.Create(mockContext)
 }
 
-func TestUserControllerImpl_CreateUser_NegativeBadRequest(t *testing.T) {
+func TestUserControllerImpl_Create_NegativeBadRequest(t *testing.T) {
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
 
@@ -37,5 +37,5 @@ func TestUserControllerImpl_CreateUser_NegativeBadRequest(t *testing.T) {
 	mockUserCommandUseCase.EXPECT().AddUser(gomock.Any(), gomock.Any()).Times(0)
 
 	controller := NewUserController(mockUserCommandUseCase, mockErrorUseCase)
-	controller.CreateUser(mockContext)
+	controller.Create(mockContext)
 }
