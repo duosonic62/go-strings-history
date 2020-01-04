@@ -76,8 +76,73 @@ func TestUserUseCaseInteractor_AddUser_NegativeRepository(t *testing.T) {
 	useCase.Add(command.UserAddInputData{}, mockContext)
 }
 
+func TestUserUseCaseInteractor_Edit_Positive(t *testing.T) {
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
+
+	mockUserPresenter := mock_outputboundary.NewMockUserCommandPresenter(ctrl)
+	mockErrorPresenter := mock_outputboundary.NewMockErrorPresenter(ctrl)
+	mockUserRepository := mock_repository.NewMockUserCommandRepository(ctrl)
+	mockUserFactory := mock_factory.NewMockUserFactory(ctrl)
+	mockContext := mock_input.NewMockContext(ctrl)
+
+	// error presenterは呼ばれない
+	mockUserPresenter.EXPECT().OutputEditUser(gomock.Any(), gomock.Any()).Times(1)
+	mockErrorPresenter.EXPECT().OutputError(gomock.Any(), gomock.Any()).Times(0)
+	mockUserFactory.EXPECT().Find(gomock.Any()).Times(1).Return(user(), nil)
+	mockUserRepository.EXPECT().Edit(gomock.Any()).Times(1)
+
+	useCase := NewUserCommandUseCase(mockUserPresenter, mockErrorPresenter, mockUserRepository, mockUserFactory)
+	useCase.Edit(token(), command.UserEditInputData{}, mockContext)
+}
+
+func TestUserUseCaseInteractor_Edit_Negative_UserNotFound(t *testing.T) {
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
+
+	mockUserPresenter := mock_outputboundary.NewMockUserCommandPresenter(ctrl)
+	mockErrorPresenter := mock_outputboundary.NewMockErrorPresenter(ctrl)
+	mockUserRepository := mock_repository.NewMockUserCommandRepository(ctrl)
+	mockUserFactory := mock_factory.NewMockUserFactory(ctrl)
+	mockContext := mock_input.NewMockContext(ctrl)
+
+	// error presenterが呼ばれる
+	mockUserPresenter.EXPECT().OutputEditUser(gomock.Any(), gomock.Any()).Times(0)
+	mockErrorPresenter.EXPECT().OutputError(gomock.Any(), gomock.Any()).Times(1)
+	mockUserFactory.EXPECT().Find(gomock.Any()).Times(1).Return(nil, errors.New("error"))
+	mockUserRepository.EXPECT().Edit(gomock.Any()).Times(0)
+
+	useCase := NewUserCommandUseCase(mockUserPresenter, mockErrorPresenter, mockUserRepository, mockUserFactory)
+	useCase.Edit(token(), command.UserEditInputData{}, mockContext)
+}
+
+func TestUserUseCaseInteractor_Edit_Negative_FailEdit(t *testing.T) {
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
+
+	mockUserPresenter := mock_outputboundary.NewMockUserCommandPresenter(ctrl)
+	mockErrorPresenter := mock_outputboundary.NewMockErrorPresenter(ctrl)
+	mockUserRepository := mock_repository.NewMockUserCommandRepository(ctrl)
+	mockUserFactory := mock_factory.NewMockUserFactory(ctrl)
+	mockContext := mock_input.NewMockContext(ctrl)
+
+	// error presenterが呼ばれる
+	mockUserPresenter.EXPECT().OutputEditUser(gomock.Any(), gomock.Any()).Times(0)
+	mockErrorPresenter.EXPECT().OutputError(gomock.Any(), gomock.Any()).Times(1)
+	mockUserFactory.EXPECT().Find(gomock.Any()).Times(1).Return(user(), nil)
+	mockUserRepository.EXPECT().Edit(gomock.Any()).Times(1).Return(errors.New("error"))
+
+	useCase := NewUserCommandUseCase(mockUserPresenter, mockErrorPresenter, mockUserRepository, mockUserFactory)
+	useCase.Edit(token(), command.UserEditInputData{}, mockContext)
+}
+
 func user() *entity.User {
 	token, _ := valueobject.NewAuthorizationToken("mock_token")
 	user, _ := entity.NewUser("mock_id", "mock_name",  "mock_uid", token)
 	return user
+}
+
+func token() valueobject.AuthorizationToken {
+	token, _ := valueobject.NewAuthorizationToken("mock_token")
+	return token
 }

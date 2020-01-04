@@ -1,7 +1,6 @@
 package interactor
 
 import (
-	"fmt"
 	"github.com/duosonic62/go-strings-history/internal/domain/factory"
 	"github.com/duosonic62/go-strings-history/internal/domain/repository"
 	"github.com/duosonic62/go-strings-history/internal/domain/valueobject"

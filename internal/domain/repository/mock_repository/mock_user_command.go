@@ -62,3 +62,17 @@ func (mr *MockUserCommandRepositoryMockRecorder) Save(arg0 interface{}) *gomock.
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Save", reflect.TypeOf((*MockUserCommandRepository)(nil).Save), arg0)
 }
+
+// Edit mocks base method
+func (m *MockUserCommandRepository) Edit(user *entity.User) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "Edit", user)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// Edit indicates an expected call of Edit
+func (mr *MockUserCommandRepositoryMockRecorder) Edit(user interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Edit", reflect.TypeOf((*MockUserCommandRepository)(nil).Edit), user)
+}
