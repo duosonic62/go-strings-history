@@ -12,21 +12,21 @@ type UserCommandController interface {
 	Delete(ctx input.Context)
 }
 
-type UserControllerImpl struct {
+type UserCommandControllerImpl struct {
 	useCase      inputboundary.UserCommandUseCase
 	errorUseCase inputboundary.ErrorUseCase
 }
 
 // コンストラクタ
 func NewUserController(useCase inputboundary.UserCommandUseCase, errorUseCase inputboundary.ErrorUseCase) UserCommandController {
-	return UserControllerImpl{
+	return UserCommandControllerImpl{
 		useCase:      useCase,
 		errorUseCase: errorUseCase,
 	}
 }
 
 // ユーザ作成
-func (controller UserControllerImpl) Create(ctx input.Context) {
+func (controller UserCommandControllerImpl) Create(ctx input.Context) {
 	// コンテキストからコマンドを復元
 	data := command.UserAddInputData{}
 	// 入力のバインド & バリデーションチェック
@@ -38,7 +38,7 @@ func (controller UserControllerImpl) Create(ctx input.Context) {
 	controller.useCase.Add(data, ctx)
 }
 
-func (controller UserControllerImpl) Edit(ctx input.Context) {
+func (controller UserCommandControllerImpl) Edit(ctx input.Context) {
 	// コンテキストからコマンドを復元
 	data := command.UserEditInputData{}
 	// 入力のバインド & バリデーションチェック
@@ -56,7 +56,7 @@ func (controller UserControllerImpl) Edit(ctx input.Context) {
 	controller.useCase.Edit(authToken, data, ctx)
 }
 
-func (controller UserControllerImpl) Delete(ctx input.Context) {
+func (controller UserCommandControllerImpl) Delete(ctx input.Context) {
 	authToken, err := getAuthorizationToken(ctx)
 	if err != nil {
 		controller.errorUseCase.UnauthorizedError(ctx, err)
