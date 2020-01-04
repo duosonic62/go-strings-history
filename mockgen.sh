@@ -35,8 +35,12 @@ mockgen \
 ### domain ###
 # repository
 mockgen \
--source=internal/domain/repository/user.go \
--destination=internal/domain/repository/mock_repository/mock_user.go
+-source=internal/domain/repository/user_command.go \
+-destination=internal/domain/repository/mock_repository/mock_user_command.go
+
+mockgen \
+-source=internal/domain/repository/user_query.go \
+-destination=internal/domain/repository/mock_repository/mock_user_query.go
 
 # factory
 mockgen \

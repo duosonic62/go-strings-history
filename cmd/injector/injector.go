@@ -15,13 +15,14 @@ type WebApp struct {
 }
 
 func Initialize() *WebApp {
+	// repository
+	var userCommandRepository = repositoryimple.NewUserCommandRepository()
+	var userQueryRepository = repositoryimple.NewUserQueryRpository()
+
 	// factory
 	var idFactory = factoryimple.NewIdFactory()
 	var tokenFactory = factoryimple.NewTokenFactory()
-	var userFactory = factory.NewUserFactory(idFactory, tokenFactory)
-
-	// repository
-	var userRepository = repositoryimple.NewUserRpository()
+	var userFactory = factory.NewUserFactory(idFactory, tokenFactory, userCommandRepository)
 
 	// use case
 	var errorPresenter = presenter.NewErrorPresenter()
@@ -32,11 +33,11 @@ func Initialize() *WebApp {
 	var userCommandUseCase = interactor.NewUserCommandUseCase(
 		userCommandPresenter,
 		errorPresenter,
-		userRepository,
+		userCommandRepository,
 		userFactory,
 	)
 	var userQueryUseCase = interactor.NewUserQueyUseCase(
-		userRepository,
+		userQueryRepository,
 		userQueryPresenter,
 		errorPresenter,
 	)

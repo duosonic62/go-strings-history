@@ -14,7 +14,7 @@ import (
 func TestUserQueryUseCaseInteracter_Show_Positive(t *testing.T) {
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
-	mockRepository := mock_repository.NewMockUserRepository(ctrl)
+	mockRepository := mock_repository.NewMockUserQueryRepository(ctrl)
 	mockPresenter := mock_outputboundary.NewMockUserQueryPresenter(ctrl)
 	mockErrorPresenter := mock_outputboundary.NewMockErrorPresenter(ctrl)
 
@@ -31,7 +31,7 @@ func TestUserQueryUseCaseInteracter_Show_Positive(t *testing.T) {
 func TestUserQueryUseCaseInteracter_Show_Negative(t *testing.T) {
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
-	mockRepository := mock_repository.NewMockUserRepository(ctrl)
+	mockRepository := mock_repository.NewMockUserQueryRepository(ctrl)
 	mockPresenter := mock_outputboundary.NewMockUserQueryPresenter(ctrl)
 	mockErrorPresenter := mock_outputboundary.NewMockErrorPresenter(ctrl)
 
