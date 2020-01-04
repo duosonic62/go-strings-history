@@ -57,3 +57,15 @@ func (mr *MockUserCommandPresenterMockRecorder) OutputEditUser(output, ctx inter
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "OutputEditUser", reflect.TypeOf((*MockUserCommandPresenter)(nil).OutputEditUser), output, ctx)
 }
+
+// OutputDeleteUser mocks base method
+func (m *MockUserCommandPresenter) OutputDeleteUser(ctx input.Context) {
+	m.ctrl.T.Helper()
+	m.ctrl.Call(m, "OutputDeleteUser", ctx)
+}
+
+// OutputDeleteUser indicates an expected call of OutputDeleteUser
+func (mr *MockUserCommandPresenterMockRecorder) OutputDeleteUser(ctx interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "OutputDeleteUser", reflect.TypeOf((*MockUserCommandPresenter)(nil).OutputDeleteUser), ctx)
+}

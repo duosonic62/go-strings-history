@@ -3,13 +3,11 @@ package repositoryimple
 import (
 	"context"
 	"errors"
-	"github.com/duosonic62/go-strings-history/internal/adaptor/infrastructure/db/models"
 	"github.com/duosonic62/go-strings-history/internal/adaptor/infrastructure/repositoryimple/dtoconverter"
 	"github.com/duosonic62/go-strings-history/internal/domain/entity"
 	"github.com/duosonic62/go-strings-history/internal/domain/repository"
 	"github.com/duosonic62/go-strings-history/internal/domain/valueobject"
 	"github.com/volatiletech/sqlboiler/boil"
-	"github.com/volatiletech/sqlboiler/queries/qm"
 )
 
 type UserCommandRepositoryImpl struct {
@@ -21,7 +19,7 @@ func NewUserCommandRepository() repository.UserCommandRepository {
 }
 
 func (repository UserCommandRepositoryImpl) Find(token valueobject.AuthorizationToken) (*entity.User, error) {
-	dbModelUser, err := repository.find(token)
+	dbModelUser, err := findUserByToken(token)
 	if err != nil {
 		return nil, err
 	}
@@ -57,7 +55,7 @@ func (repository UserCommandRepositoryImpl) Edit(user *entity.User) error {
 }
 
 func (repository UserCommandRepositoryImpl) Delete(token valueobject.AuthorizationToken) error {
-	dbModelUser, err := repository.find(token)
+	dbModelUser, err := findUserByToken(token)
 	if err != nil {
 		return err
 	}
@@ -73,20 +71,4 @@ func (repository UserCommandRepositoryImpl) Delete(token valueobject.Authorizati
 	}
 
 	return nil
-}
-
-func (repository UserCommandRepositoryImpl) find(token valueobject.AuthorizationToken) (*models.Member, error) {
-	users, err := models.Members(
-		qm.Where("token = ?", token.GetToken()),
-		qm.Where("is_deleted = ?", false),
-	).All(context.Background(), boil.GetContextDB())
-
-	if err != nil {
-		return nil, err
-	}
-
-	if len(users) != 1 {
-		return nil, entity.NewApplicationError(500, "token duplicated", "Internal Server Error", nil)
-	}
-	return users[0], nil
 }
