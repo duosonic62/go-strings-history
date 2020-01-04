@@ -78,6 +78,7 @@ func (repository UserCommandRepositoryImpl) Delete(token valueobject.Authorizati
 func (repository UserCommandRepositoryImpl) find(token valueobject.AuthorizationToken) (*models.Member, error) {
 	users, err := models.Members(
 		qm.Where("token = ?", token.GetToken()),
+		qm.Where("is_deleted = ?", false),
 	).All(context.Background(), boil.GetContextDB())
 
 	if err != nil {
