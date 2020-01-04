@@ -9,6 +9,7 @@ import (
 type UserCommandController interface {
 	Create(ctx input.Context)
 	Edit(ctx input.Context)
+	Delete(ctx input.Context)
 }
 
 type UserControllerImpl struct {
@@ -53,4 +54,14 @@ func (controller UserControllerImpl) Edit(ctx input.Context) {
 	}
 
 	controller.useCase.Edit(authToken, data, ctx)
+}
+
+func (controller UserControllerImpl) Delete(ctx input.Context) {
+	authToken, err := getAuthorizationToken(ctx)
+	if err != nil {
+		controller.errorUseCase.UnauthorizedError(ctx, err)
+		return
+	}
+
+	controller.useCase.Delete(authToken, ctx)
 }
