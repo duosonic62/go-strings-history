@@ -21,19 +21,12 @@ func NewUserCommandRepository() repository.UserCommandRepository {
 }
 
 func (repository UserCommandRepositoryImpl) Find(token valueobject.AuthorizationToken) (*entity.User, error) {
-	users, err := models.Members(
-		qm.Where("token = ?", token.GetToken()),
-	).All(context.Background(), boil.GetContextDB())
-
+	dbModelUser, err := repository.find(token)
 	if err != nil {
 		return nil, err
 	}
 
-	if len(users) != 1 {
-		return nil, entity.NewApplicationError(500, "token duplicated", "Internal Server Error", nil)
-	}
-
-	user, err := dtoconverter.ToUserEntity(users[0])
+	user, err := dtoconverter.ToUserEntity(dbModelUser)
 	if err != nil {
 		return nil, entity.NewApplicationError(500, err.Error(), "Internal Server Error", err)
 	}
@@ -61,4 +54,38 @@ func (repository UserCommandRepositoryImpl) Edit(user *entity.User) error {
 		return errors.New("db error")
 	}
 	return nil
+}
+
+func (repository UserCommandRepositoryImpl) Delete(token valueobject.AuthorizationToken) error {
+	dbModelUser, err := repository.find(token)
+	if err != nil {
+		return err
+	}
+
+	dbModelUser.IsDeleted = true
+	deleteCount, err := dbModelUser.Update(context.Background(), boil.GetContextDB(), boil.Infer())
+	if err != nil {
+		return errors.New("db error")
+	}
+	if deleteCount != 1 {
+		// TODO: transaction
+		return errors.New("db error")
+	}
+
+	return nil
+}
+
+func (repository UserCommandRepositoryImpl) find(token valueobject.AuthorizationToken) (*models.Member, error) {
+	users, err := models.Members(
+		qm.Where("token = ?", token.GetToken()),
+	).All(context.Background(), boil.GetContextDB())
+
+	if err != nil {
+		return nil, err
+	}
+
+	if len(users) != 1 {
+		return nil, entity.NewApplicationError(500, "token duplicated", "Internal Server Error", nil)
+	}
+	return users[0], nil
 }
