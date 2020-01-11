@@ -76,3 +76,12 @@ func (useCase UserUseCaseInteractor) Edit(token valueobject.AuthorizationToken, 
 	}
 	useCase.presenter.OutputEditUser(outputData, ctx)
 }
+
+func (useCase UserUseCaseInteractor) Delete(token valueobject.AuthorizationToken, ctx input.Context) {
+	err := useCase.repository.Delete(token)
+	if err != nil {
+		useCase.errorPresenter.OutputError(ctx, err)
+		return
+	}
+	useCase.presenter.OutputDeleteUser(ctx)
+}

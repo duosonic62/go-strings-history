@@ -76,3 +76,17 @@ func (mr *MockUserCommandRepositoryMockRecorder) Edit(user interface{}) *gomock.
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Edit", reflect.TypeOf((*MockUserCommandRepository)(nil).Edit), user)
 }
+
+// Delete mocks base method
+func (m *MockUserCommandRepository) Delete(token valueobject.AuthorizationToken) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "Delete", token)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// Delete indicates an expected call of Delete
+func (mr *MockUserCommandRepositoryMockRecorder) Delete(token interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Delete", reflect.TypeOf((*MockUserCommandRepository)(nil).Delete), token)
+}

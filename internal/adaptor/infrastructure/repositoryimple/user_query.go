@@ -21,21 +21,29 @@ func NewUserQueryRpository() repository.UserQueryRepository {
 }
 
 func (repository UserQueryRepositoryImpl) Find(token valueobject.AuthorizationToken) (output.UserOutput, error) {
-	users, err := models.Members(
-		qm.Where("token = ?", token.GetToken()),
-	).All(context.Background(), boil.GetContextDB())
-
+	user, err := findUserByToken(token)
 	if err != nil {
 		return output.UserOutput{}, err
 	}
+	return dtoconverter.ConvertUser(user), nil
+}
 
-	if len(users) == 0 {
-		return output.UserOutput{}, entity.NewApplicationError(401, "user not found", "This Token is Invalid.", nil)
+func findUserByToken(token valueobject.AuthorizationToken) (*models.Member, error) {
+	users, err := models.Members(
+		qm.Where("token = ?", token.GetToken()),
+		qm.Where("is_deleted = ?", false),
+	).All(context.Background(), boil.GetContextDB())
+
+	if err != nil {
+		return nil, err
+	}
+
+	if len(users) == 0  {
+		return nil, entity.NewApplicationError(401, "user not found", "This Token is Invalid.", nil)
 	}
 
 	if len(users) != 1 {
-		return output.UserOutput{}, entity.NewApplicationError(500, "token duplicated", "Internal Server Error", nil)
+		return nil, entity.NewApplicationError(500, "token duplicated", "Internal Server Error", nil)
 	}
-
-	return dtoconverter.ConvertUser(users[0]), nil
+	return users[0], nil
 }

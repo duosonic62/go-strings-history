@@ -3,13 +3,11 @@ package repositoryimple
 import (
 	"context"
 	"errors"
-	"github.com/duosonic62/go-strings-history/internal/adaptor/infrastructure/db/models"
 	"github.com/duosonic62/go-strings-history/internal/adaptor/infrastructure/repositoryimple/dtoconverter"
 	"github.com/duosonic62/go-strings-history/internal/domain/entity"
 	"github.com/duosonic62/go-strings-history/internal/domain/repository"
 	"github.com/duosonic62/go-strings-history/internal/domain/valueobject"
 	"github.com/volatiletech/sqlboiler/boil"
-	"github.com/volatiletech/sqlboiler/queries/qm"
 )
 
 type UserCommandRepositoryImpl struct {
@@ -21,19 +19,12 @@ func NewUserCommandRepository() repository.UserCommandRepository {
 }
 
 func (repository UserCommandRepositoryImpl) Find(token valueobject.AuthorizationToken) (*entity.User, error) {
-	users, err := models.Members(
-		qm.Where("token = ?", token.GetToken()),
-	).All(context.Background(), boil.GetContextDB())
-
+	dbModelUser, err := findUserByToken(token)
 	if err != nil {
 		return nil, err
 	}
 
-	if len(users) != 1 {
-		return nil, entity.NewApplicationError(500, "token duplicated", "Internal Server Error", nil)
-	}
-
-	user, err := dtoconverter.ToUserEntity(users[0])
+	user, err := dtoconverter.ToUserEntity(dbModelUser)
 	if err != nil {
 		return nil, entity.NewApplicationError(500, err.Error(), "Internal Server Error", err)
 	}
@@ -60,5 +51,24 @@ func (repository UserCommandRepositoryImpl) Edit(user *entity.User) error {
 		// TODO: transaction
 		return errors.New("db error")
 	}
+	return nil
+}
+
+func (repository UserCommandRepositoryImpl) Delete(token valueobject.AuthorizationToken) error {
+	dbModelUser, err := findUserByToken(token)
+	if err != nil {
+		return err
+	}
+
+	dbModelUser.IsDeleted = true
+	deleteCount, err := dbModelUser.Update(context.Background(), boil.GetContextDB(), boil.Infer())
+	if err != nil {
+		return errors.New("db error")
+	}
+	if deleteCount != 1 {
+		// TODO: transaction
+		return errors.New("db error")
+	}
+
 	return nil
 }

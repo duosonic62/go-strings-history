@@ -58,3 +58,15 @@ func (mr *MockUserCommandUseCaseMockRecorder) Edit(token, data, ctx interface{})
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Edit", reflect.TypeOf((*MockUserCommandUseCase)(nil).Edit), token, data, ctx)
 }
+
+// Delete mocks base method
+func (m *MockUserCommandUseCase) Delete(token valueobject.AuthorizationToken, ctx input.Context) {
+	m.ctrl.T.Helper()
+	m.ctrl.Call(m, "Delete", token, ctx)
+}
+
+// Delete indicates an expected call of Delete
+func (mr *MockUserCommandUseCaseMockRecorder) Delete(token, ctx interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Delete", reflect.TypeOf((*MockUserCommandUseCase)(nil).Delete), token, ctx)
+}

@@ -20,3 +20,7 @@ func (presenter UserCommandPresenterImpl) OutputAddUser(output output.UserAddOut
 func (presenter UserCommandPresenterImpl) OutputEditUser(output output.UserEditOutputData, ctx input.Context) {
 	ctx.JSON(200, output)
 }
+
+func (presenter UserCommandPresenterImpl) OutputDeleteUser(ctx input.Context) {
+	ctx.JSON(200, nil)
+}
