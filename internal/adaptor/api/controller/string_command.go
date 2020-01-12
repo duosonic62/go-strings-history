@@ -11,12 +11,12 @@ type StringCommandController interface {
 }
 
 type StringCommandControllerImpl struct {
-	useCase      inputboundary.UserCommandUseCase
+	useCase      inputboundary.StringCommandUseCase
 	errorUseCase inputboundary.ErrorUseCase
 }
 
 // コンストラクタ
-func NewStringCommandController(useCase inputboundary.UserCommandUseCase, errorUseCase inputboundary.ErrorUseCase) StringCommandController {
+func NewStringCommandController(useCase inputboundary.StringCommandUseCase, errorUseCase inputboundary.ErrorUseCase) StringCommandController {
 	return StringCommandControllerImpl{
 		useCase:      useCase,
 		errorUseCase: errorUseCase,
