@@ -9,7 +9,6 @@ type GuitarString struct {
 	maker       string
 	gauge       *valueobject.StringGauge
 	url         string
-	user        *User
 }
 
 func NewGuitarString(
@@ -19,7 +18,6 @@ func NewGuitarString(
 	maker string,
 	gauge *valueobject.StringGauge,
 	url string,
-	user *User,
 ) (*GuitarString, error) {
 	return &GuitarString{
 		id:          id,
@@ -28,7 +26,6 @@ func NewGuitarString(
 		maker:       maker,
 		gauge:       gauge,
 		url:         url,
-		user:        user,
 	}, nil
 }
 
@@ -54,8 +51,4 @@ func (guitarString GuitarString) GetGauge() *valueobject.StringGauge {
 
 func (guitarString GuitarString) GetUrl() string {
 	return guitarString.url
-}
-
-func (guitarString GuitarString) GetUser() *User {
-	return guitarString.user
 }

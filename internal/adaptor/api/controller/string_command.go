@@ -33,5 +33,11 @@ func (controller StringCommandControllerImpl) Create(ctx input.Context) {
 		return
 	}
 
-	controller.useCase.Add(data, ctx)
+	authToken, err := getAuthorizationToken(ctx)
+	if err != nil {
+		controller.errorUseCase.UnauthorizedError(ctx, err)
+		return
+	}
+
+	controller.useCase.Add(data, &authToken, ctx)
 }

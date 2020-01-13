@@ -16,12 +16,7 @@ func NewStringFactory(idFactory factory.IDFactory) factory.StringFactory {
 	}
 }
 
-func (factory StringFactoryImpl) NewString(
-	user *entity.User,
-	thinGauge int,
-	thickGauge int,
-	name, description, maker, url string,
-) (*entity.GuitarString, error) {
+func (factory StringFactoryImpl) NewString(thinGauge int, thickGauge int, name, description, maker, url string) (*entity.GuitarString, error) {
 	id, err := factory.idFactory.Gen()
 	if err != nil {
 		return nil, err
@@ -32,5 +27,5 @@ func (factory StringFactoryImpl) NewString(
 		return nil, err
 	}
 
-	return entity.NewGuitarString(id, name, description, maker, gauge, url, user)
+	return entity.NewGuitarString(id, name, description, maker, gauge, url)
 }

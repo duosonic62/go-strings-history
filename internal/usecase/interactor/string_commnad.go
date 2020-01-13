@@ -16,18 +16,23 @@ type StringCommandUseCaseImpl struct {
 	authorizedService service.AuthorizationService
 	presenter         outputboundary.StringCommandPresenter
 	errorPresenter    outputboundary.ErrorPresenter
-	userFactory       factory.UserFactory
 	stringFactory     factory.StringFactory
 	stringRepository  repository.StringCommandRepository
 }
 
 func NewStringCommandUseCase(
 	authorizedService service.AuthorizationService,
+	presenter outputboundary.StringCommandPresenter,
 	errorPresenter outputboundary.ErrorPresenter,
+	stringFactory factory.StringFactory,
+	stringRepository repository.StringCommandRepository,
 ) inputboundary.StringCommandUseCase {
 	return StringCommandUseCaseImpl{
 		authorizedService: authorizedService,
+		presenter:         presenter,
 		errorPresenter:    errorPresenter,
+		stringFactory:     stringFactory,
+		stringRepository:  stringRepository,
 	}
 }
 
