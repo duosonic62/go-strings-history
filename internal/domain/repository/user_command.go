@@ -6,7 +6,7 @@ import (
 )
 
 type UserCommandRepository interface {
-	Find(valueobject.AuthorizationToken) (*entity.User, error)
+	Find(*valueobject.AuthorizationToken) (*entity.User, error)
 	Save(*entity.User) error
 	Edit(user *entity.User) error
 	Delete(token valueobject.AuthorizationToken) error

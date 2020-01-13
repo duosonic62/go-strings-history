@@ -8,7 +8,7 @@ import (
 
 type UserFactory interface {
 	NewUser(name string, uid string) (*entity.User, error)
-	Find(token valueobject.AuthorizationToken) (*entity.User, error)
+	Find(token *valueobject.AuthorizationToken) (*entity.User, error)
 }
 
 type UserFactoryImpl struct {
@@ -51,7 +51,7 @@ func (factory UserFactoryImpl) NewUser(name string, uid string) (*entity.User, e
 	return user, nil
 }
 
-func (factory UserFactoryImpl) Find(token valueobject.AuthorizationToken) (*entity.User, error) {
+func (factory UserFactoryImpl) Find(token *valueobject.AuthorizationToken) (*entity.User, error) {
 	user, err := factory.repository.Find(token)
 	if err != nil {
 		return nil, err

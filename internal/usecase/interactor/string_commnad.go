@@ -31,15 +31,13 @@ func NewStringCommandUseCase(
 	}
 }
 
-func (useCase StringCommandUseCaseImpl) Add(data command.StringAddInputData, token valueobject.AuthorizationToken, ctx input.Context) {
-	user, err := useCase.userFactory.Find(token)
-	if err != nil {
-		useCase.errorPresenter.OutputError(ctx, entity.NewUnAuthorizedError(&token, err))
+func (useCase StringCommandUseCaseImpl) Add(data command.StringAddInputData, token *valueobject.AuthorizationToken, ctx input.Context) {
+	if _, err := useCase.authorizedService.Authorized(token); err != nil {
+		useCase.errorPresenter.OutputError(ctx, err)
 		return
 	}
 
 	guitarString, err := useCase.stringFactory.NewString(
-		user,
 		data.ThinGauge,
 		data.ThickGauge,
 		data.Name,
