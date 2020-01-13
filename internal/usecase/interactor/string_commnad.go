@@ -38,7 +38,7 @@ func (useCase StringCommandUseCaseImpl) Add(data command.StringAddInputData, tok
 		return
 	}
 
-	guitarString := useCase.stringFactory.NewString(
+	guitarString, err := useCase.stringFactory.NewString(
 		user,
 		data.ThinGauge,
 		data.ThickGauge,
@@ -47,8 +47,12 @@ func (useCase StringCommandUseCaseImpl) Add(data command.StringAddInputData, tok
 		data.Maker,
 		data.Url,
 	)
+	if err != nil {
+		useCase.errorPresenter.OutputError(ctx, entity.NewBadRequestError(err))
+		return
+	}
 
-	err = useCase.stringRepository.Save(&guitarString)
+	err = useCase.stringRepository.Save(guitarString)
 	if err != nil {
 		useCase.errorPresenter.OutputError(ctx, entity.NewInternalServerError(err))
 		return
