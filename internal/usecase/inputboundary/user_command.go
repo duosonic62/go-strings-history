@@ -8,6 +8,6 @@ import (
 
 type UserCommandUseCase interface {
 	Add(data command.UserAddInputData, ctx input.Context)
-	Edit(token valueobject.AuthorizationToken, data command.UserEditInputData, ctx input.Context)
-	Delete(token valueobject.AuthorizationToken, ctx input.Context)
+	Edit(token *valueobject.AuthorizationToken, data command.UserEditInputData, ctx input.Context)
+	Delete(token *valueobject.AuthorizationToken, ctx input.Context)
 }

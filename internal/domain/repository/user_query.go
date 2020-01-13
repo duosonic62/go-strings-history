@@ -6,5 +6,5 @@ import (
 )
 
 type UserQueryRepository interface {
-	Find(valueobject.AuthorizationToken) (output.UserOutput, error)
+	Find(*valueobject.AuthorizationToken) (output.UserOutput, error)
 }

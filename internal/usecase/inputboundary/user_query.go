@@ -6,5 +6,5 @@ import (
 )
 
 type UserQueryUseCase interface {
-	Show(token valueobject.AuthorizationToken, ctx input.Context)
+	Show(token *valueobject.AuthorizationToken, ctx input.Context)
 }
