@@ -7,15 +7,21 @@ import (
 )
 
 type AuthorizationService interface {
-	Authorized(token *valueobject.AuthorizationToken) (entity.User, error)
+	Authorized(token *valueobject.AuthorizationToken) (*entity.User, error)
 }
 
 type AuthorizationServiceImpl struct {
-	memberFactory factory.UserFactory
+	userFactory factory.UserFactory
+}
+
+func NewAuthorizationService(userFactory factory.UserFactory) AuthorizationService {
+	return AuthorizationServiceImpl{
+		userFactory: userFactory,
+	}
 }
 
 func (service AuthorizationServiceImpl) Authorized(token *valueobject.AuthorizationToken) (*entity.User, error) {
-	user, err := service.memberFactory.Find(token)
+	user, err := service.userFactory.Find(token)
 	if err != nil {
 		return nil, entity.NewUnAuthorizedError(token, err)
 	}
