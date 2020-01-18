@@ -35,7 +35,7 @@ func (m *MockUserQueryUseCase) EXPECT() *MockUserQueryUseCaseMockRecorder {
 }
 
 // Show mocks base method
-func (m *MockUserQueryUseCase) Show(token valueobject.AuthorizationToken, ctx input.Context) {
+func (m *MockUserQueryUseCase) Show(token *valueobject.AuthorizationToken, ctx input.Context) {
 	m.ctrl.T.Helper()
 	m.ctrl.Call(m, "Show", token, ctx)
 }

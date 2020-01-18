@@ -121,7 +121,7 @@ func user() *entity.User {
 	return user
 }
 
-func token() valueobject.AuthorizationToken {
+func token() *valueobject.AuthorizationToken {
 	token, _ := valueobject.NewAuthorizationToken("mock_token")
-	return token
+	return &token
 }
