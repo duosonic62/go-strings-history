@@ -50,7 +50,7 @@ func (mr *MockUserFactoryMockRecorder) NewUser(name, uid interface{}) *gomock.Ca
 }
 
 // Find mocks base method
-func (m *MockUserFactory) Find(token valueobject.AuthorizationToken) (*entity.User, error) {
+func (m *MockUserFactory) Find(token *valueobject.AuthorizationToken) (*entity.User, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Find", token)
 	ret0, _ := ret[0].(*entity.User)
