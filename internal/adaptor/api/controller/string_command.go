@@ -23,7 +23,7 @@ func NewStringCommandController(useCase inputboundary.StringCommandUseCase, erro
 	}
 }
 
-// ユーザ作成
+// ギター弦作成
 func (controller StringCommandControllerImpl) Create(ctx input.Context) {
 	// コンテキストからコマンドを復元
 	data := command.StringAddInputData{}
@@ -39,5 +39,5 @@ func (controller StringCommandControllerImpl) Create(ctx input.Context) {
 		return
 	}
 
-	controller.useCase.Add(data, &authToken, ctx)
+	controller.useCase.Add(data, authToken, ctx)
 }
