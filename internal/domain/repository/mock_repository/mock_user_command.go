@@ -35,7 +35,7 @@ func (m *MockUserCommandRepository) EXPECT() *MockUserCommandRepositoryMockRecor
 }
 
 // Find mocks base method
-func (m *MockUserCommandRepository) Find(arg0 valueobject.AuthorizationToken) (*entity.User, error) {
+func (m *MockUserCommandRepository) Find(arg0 *valueobject.AuthorizationToken) (*entity.User, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Find", arg0)
 	ret0, _ := ret[0].(*entity.User)
@@ -78,7 +78,7 @@ func (mr *MockUserCommandRepositoryMockRecorder) Edit(user interface{}) *gomock.
 }
 
 // Delete mocks base method
-func (m *MockUserCommandRepository) Delete(token valueobject.AuthorizationToken) error {
+func (m *MockUserCommandRepository) Delete(token *valueobject.AuthorizationToken) error {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Delete", token)
 	ret0, _ := ret[0].(error)

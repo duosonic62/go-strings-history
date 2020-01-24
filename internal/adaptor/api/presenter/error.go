@@ -1,6 +1,7 @@
 package presenter
 
 import (
+	"fmt"
 	"github.com/duosonic62/go-strings-history/internal/domain/entity"
 	"github.com/duosonic62/go-strings-history/internal/usecase/outputboundary"
 	"github.com/duosonic62/go-strings-history/pkg/usecase/input"
@@ -14,6 +15,7 @@ func NewErrorPresenter() outputboundary.ErrorPresenter {
 }
 
 func (presenter ErrorPresenter) OutputError(ctx input.Context, err error) {
+	fmt.Println(err)
 	switch e := err.(type) {
 	case entity.ApplicationError:
 		ctx.JSON(e.Code, output.ErrorOutput{Code: e.Code, Message: e.Front})

@@ -18,7 +18,7 @@ func NewUserCommandRepository() repository.UserCommandRepository {
 	return UserCommandRepositoryImpl{}
 }
 
-func (repository UserCommandRepositoryImpl) Find(token valueobject.AuthorizationToken) (*entity.User, error) {
+func (repository UserCommandRepositoryImpl) Find(token *valueobject.AuthorizationToken) (*entity.User, error) {
 	dbModelUser, err := findUserByToken(token)
 	if err != nil {
 		return nil, err
@@ -54,7 +54,7 @@ func (repository UserCommandRepositoryImpl) Edit(user *entity.User) error {
 	return nil
 }
 
-func (repository UserCommandRepositoryImpl) Delete(token valueobject.AuthorizationToken) error {
+func (repository UserCommandRepositoryImpl) Delete(token *valueobject.AuthorizationToken) error {
 	dbModelUser, err := findUserByToken(token)
 	if err != nil {
 		return err

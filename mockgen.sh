@@ -14,7 +14,15 @@ mockgen \
 -source=internal/usecase/inputboundary/user_query.go \
 -destination=internal/usecase/inputboundary/mock_inputboundary/mock_user_query.go
 
+mockgen \
+-source=internal/usecase/inputboundary/string_command.go \
+-destination=internal/usecase/inputboundary/mock_inputboundary/mock_string_command.go
+
 # output boundary
+mockgen \
+-source=internal/usecase/outputboundary/error.go \
+-destination=internal/usecase/outputboundary/mock_outputboundary/mock_error.go
+
 mockgen \
 -source=internal/usecase/outputboundary/user_command.go \
 -destination=internal/usecase/outputboundary/mock_outputboundary/mock_user_command.go
@@ -24,8 +32,8 @@ mockgen \
 -destination=internal/usecase/outputboundary/mock_outputboundary/mock_user_query.go
 
 mockgen \
--source=internal/usecase/outputboundary/error.go \
--destination=internal/usecase/outputboundary/mock_outputboundary/mock_error.go
+-source=internal/usecase/outputboundary/string_command.go \
+-destination=internal/usecase/outputboundary/mock_outputboundary/mock_string_command.go
 
 # input
 mockgen \
@@ -42,6 +50,11 @@ mockgen \
 -source=internal/domain/repository/user_query.go \
 -destination=internal/domain/repository/mock_repository/mock_user_query.go
 
+
+mockgen \
+-source=internal/domain/repository/string_command.go \
+-destination=internal/domain/repository/mock_repository/mock_string_command.go
+
 # factory
 mockgen \
 -source=internal/domain/factory/user.go \
@@ -54,3 +67,12 @@ mockgen \
 mockgen \
 -source=internal/domain/factory/id.go \
 -destination=internal/domain/factory/mock_factory/mock_id.go
+
+mockgen \
+-source=internal/domain/factory/string.go \
+-destination=internal/domain/factory/mock_factory/mock_string.go
+
+# service
+mockgen \
+-source=internal/domain/service/authorization.go \
+-destination=internal/domain/service/mock_service/mock_authorization.go

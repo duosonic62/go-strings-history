@@ -25,7 +25,7 @@ func TestUserQueryUseCaseInteracter_Show_Positive(t *testing.T) {
 	mockToken, _ := valueobject.NewAuthorizationToken("mock_token")
 
 	useCase := NewUserQueyUseCase(mockRepository, mockPresenter, mockErrorPresenter)
-	useCase.Show(mockToken, mockContext)
+	useCase.Show(&mockToken, mockContext)
 }
 
 func TestUserQueryUseCaseInteracter_Show_Negative(t *testing.T) {
@@ -42,5 +42,5 @@ func TestUserQueryUseCaseInteracter_Show_Negative(t *testing.T) {
 	mockToken, _ := valueobject.NewAuthorizationToken("mock_token")
 
 	useCase := NewUserQueyUseCase(mockRepository, mockPresenter, mockErrorPresenter)
-	useCase.Show(mockToken, mockContext)
+	useCase.Show(&mockToken, mockContext)
 }

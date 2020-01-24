@@ -23,5 +23,8 @@ func main() {
 	r.PUT("/user", func(context *gin.Context) { webApp.UserCommandController.Edit(context) })
 	r.DELETE("/user", func(context *gin.Context) { webApp.UserCommandController.Delete(context) })
 
+	// ギター弦API
+	r.POST("/string", func(context *gin.Context){ webApp.StringCommandController.Create(context) })
+
 	r.Run(":8080")
 }

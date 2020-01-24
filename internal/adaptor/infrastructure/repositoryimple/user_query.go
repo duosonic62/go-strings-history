@@ -20,7 +20,7 @@ func NewUserQueryRpository() repository.UserQueryRepository {
 	return UserQueryRepositoryImpl{}
 }
 
-func (repository UserQueryRepositoryImpl) Find(token valueobject.AuthorizationToken) (output.UserOutput, error) {
+func (repository UserQueryRepositoryImpl) Find(token *valueobject.AuthorizationToken) (output.UserOutput, error) {
 	user, err := findUserByToken(token)
 	if err != nil {
 		return output.UserOutput{}, err
@@ -28,7 +28,7 @@ func (repository UserQueryRepositoryImpl) Find(token valueobject.AuthorizationTo
 	return dtoconverter.ConvertUser(user), nil
 }
 
-func findUserByToken(token valueobject.AuthorizationToken) (*models.Member, error) {
+func findUserByToken(token *valueobject.AuthorizationToken) (*models.Member, error) {
 	users, err := models.Members(
 		qm.Where("token = ?", token.GetToken()),
 		qm.Where("is_deleted = ?", false),

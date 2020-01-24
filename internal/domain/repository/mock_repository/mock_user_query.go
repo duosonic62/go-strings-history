@@ -35,7 +35,7 @@ func (m *MockUserQueryRepository) EXPECT() *MockUserQueryRepositoryMockRecorder 
 }
 
 // Find mocks base method
-func (m *MockUserQueryRepository) Find(arg0 valueobject.AuthorizationToken) (output.UserOutput, error) {
+func (m *MockUserQueryRepository) Find(arg0 *valueobject.AuthorizationToken) (output.UserOutput, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Find", arg0)
 	ret0, _ := ret[0].(output.UserOutput)

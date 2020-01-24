@@ -55,7 +55,7 @@ func (useCase UserUseCaseInteractor) Add(data command.UserAddInputData, ctx inpu
 	useCase.presenter.OutputAddUser(outputData, ctx)
 }
 
-func (useCase UserUseCaseInteractor) Edit(token valueobject.AuthorizationToken, data command.UserEditInputData, ctx input.Context) {
+func (useCase UserUseCaseInteractor) Edit(token *valueobject.AuthorizationToken, data command.UserEditInputData, ctx input.Context) {
 	// Userエンティティを作成
 	user, err := useCase.userFactory.Find(token)
 	if err != nil {
@@ -77,7 +77,7 @@ func (useCase UserUseCaseInteractor) Edit(token valueobject.AuthorizationToken, 
 	useCase.presenter.OutputEditUser(outputData, ctx)
 }
 
-func (useCase UserUseCaseInteractor) Delete(token valueobject.AuthorizationToken, ctx input.Context) {
+func (useCase UserUseCaseInteractor) Delete(token *valueobject.AuthorizationToken, ctx input.Context) {
 	err := useCase.repository.Delete(token)
 	if err != nil {
 		useCase.errorPresenter.OutputError(ctx, err)

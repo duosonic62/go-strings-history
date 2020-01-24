@@ -48,7 +48,7 @@ func (mr *MockUserCommandUseCaseMockRecorder) Add(data, ctx interface{}) *gomock
 }
 
 // Edit mocks base method
-func (m *MockUserCommandUseCase) Edit(token valueobject.AuthorizationToken, data command.UserEditInputData, ctx input.Context) {
+func (m *MockUserCommandUseCase) Edit(token *valueobject.AuthorizationToken, data command.UserEditInputData, ctx input.Context) {
 	m.ctrl.T.Helper()
 	m.ctrl.Call(m, "Edit", token, data, ctx)
 }
@@ -60,7 +60,7 @@ func (mr *MockUserCommandUseCaseMockRecorder) Edit(token, data, ctx interface{})
 }
 
 // Delete mocks base method
-func (m *MockUserCommandUseCase) Delete(token valueobject.AuthorizationToken, ctx input.Context) {
+func (m *MockUserCommandUseCase) Delete(token *valueobject.AuthorizationToken, ctx input.Context) {
 	m.ctrl.T.Helper()
 	m.ctrl.Call(m, "Delete", token, ctx)
 }
