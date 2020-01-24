@@ -43,7 +43,7 @@ func Initialize() *WebApp {
 		userCommandRepository,
 		userFactory,
 	)
-	var userQueryUseCase = interactor.NewUserQueyUseCase(
+	var userQueryUseCase = interactor.NewUserQueryUseCase(
 		userQueryRepository,
 		userQueryPresenter,
 		errorPresenter,
