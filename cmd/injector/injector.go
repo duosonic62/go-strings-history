@@ -5,7 +5,6 @@ import (
 	"github.com/duosonic62/go-strings-history/internal/adaptor/api/presenter"
 	"github.com/duosonic62/go-strings-history/internal/adaptor/infrastructure/factoryimple"
 	"github.com/duosonic62/go-strings-history/internal/adaptor/infrastructure/repositoryimple"
-	"github.com/duosonic62/go-strings-history/internal/domain/factory"
 	"github.com/duosonic62/go-strings-history/internal/domain/service"
 	"github.com/duosonic62/go-strings-history/internal/usecase/interactor"
 )
@@ -25,7 +24,7 @@ func Initialize() *WebApp {
 	// factory
 	var idFactory = factoryimple.NewIdFactory()
 	var tokenFactory = factoryimple.NewTokenFactory()
-	var userFactory = factory.NewUserFactory(idFactory, tokenFactory, userCommandRepository)
+	var userFactory = factoryimple.NewUserFactory(idFactory, tokenFactory, userCommandRepository)
 	var stringFactory = factoryimple.NewStringFactory(idFactory)
 
 	// domain service
