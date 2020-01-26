@@ -10,12 +10,15 @@ type StringQueryController interface {
 }
 
 type stringQueryController struct {
-	useCase inputboundary.StringQueryUseCase
+	useCase      inputboundary.StringQueryUseCase
 	errorUseCase inputboundary.ErrorUseCase
 }
 
-func NewStringQueryController() StringQueryController {
-	return stringQueryController{}
+func NewStringQueryController(useCase inputboundary.StringQueryUseCase, errorUseCase inputboundary.ErrorUseCase) StringQueryController {
+	return stringQueryController{
+		useCase:      useCase,
+		errorUseCase: errorUseCase,
+	}
 }
 
 func (controller stringQueryController) GetGuitarString(ctx input.Context) {

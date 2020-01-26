@@ -20,10 +20,14 @@ type stringQueryUseCase struct {
 func NewStringQueryUseCase(
 	authorizedService service.AuthorizationService,
 	errorPresenter outputboundary.ErrorPresenter,
+	stringRepository repository.StringQueryRepository,
+	presenter outputboundary.StringQueryPresenter,
 ) inputboundary.StringQueryUseCase {
 	return stringQueryUseCase{
 		authorizedService: authorizedService,
 		errorPresenter:    errorPresenter,
+		stringRepository:  stringRepository,
+		presenter:         presenter,
 	}
 }
 
