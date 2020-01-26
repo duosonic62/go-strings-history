@@ -53,7 +53,7 @@ func (controller UserCommandControllerImpl) Edit(ctx input.Context) {
 		return
 	}
 
-	controller.useCase.Edit(&authToken, data, ctx)
+	controller.useCase.Edit(authToken, data, ctx)
 }
 
 func (controller UserCommandControllerImpl) Delete(ctx input.Context) {
@@ -63,5 +63,5 @@ func (controller UserCommandControllerImpl) Delete(ctx input.Context) {
 		return
 	}
 
-	controller.useCase.Delete(&authToken, ctx)
+	controller.useCase.Delete(authToken, ctx)
 }
