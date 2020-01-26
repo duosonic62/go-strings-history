@@ -18,6 +18,10 @@ mockgen \
 -source=internal/usecase/inputboundary/string_command.go \
 -destination=internal/usecase/inputboundary/mock_inputboundary/mock_string_command.go
 
+mockgen \
+-source=internal/usecase/inputboundary/string_query.go \
+-destination=internal/usecase/inputboundary/mock_inputboundary/mock_string_query.go
+
 # output boundary
 mockgen \
 -source=internal/usecase/outputboundary/error.go \
@@ -34,6 +38,10 @@ mockgen \
 mockgen \
 -source=internal/usecase/outputboundary/string_command.go \
 -destination=internal/usecase/outputboundary/mock_outputboundary/mock_string_command.go
+
+mockgen \
+-source=internal/usecase/outputboundary/string_query.go \
+-destination=internal/usecase/outputboundary/mock_outputboundary/mock_string_quey.go
 
 # input
 mockgen \
@@ -54,6 +62,10 @@ mockgen \
 mockgen \
 -source=internal/domain/repository/string_command.go \
 -destination=internal/domain/repository/mock_repository/mock_string_command.go
+
+mockgen \
+-source=internal/domain/repository/string_query.go \
+-destination=internal/domain/repository/mock_repository/mock_string_query.go
 
 # factory
 mockgen \
