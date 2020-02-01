@@ -27,6 +27,7 @@ func (controller stringQueryController) GetGuitarString(ctx input.Context) {
 	authToken, err := getAuthorizationToken(ctx)
 	if err != nil {
 		controller.errorUseCase.UnauthorizedError(ctx, err)
+		return
 	}
 
 	controller.useCase.GetGuitarString(id, authToken, ctx)
