@@ -19,9 +19,9 @@ type stringQueryUseCase struct {
 
 func NewStringQueryUseCase(
 	authorizedService service.AuthorizationService,
+	presenter outputboundary.StringQueryPresenter,
 	errorPresenter outputboundary.ErrorPresenter,
 	stringRepository repository.StringQueryRepository,
-	presenter outputboundary.StringQueryPresenter,
 ) inputboundary.StringQueryUseCase {
 	return stringQueryUseCase{
 		authorizedService: authorizedService,

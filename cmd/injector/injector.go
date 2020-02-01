@@ -60,9 +60,9 @@ func Initialize() *WebApp {
 	)
 	var stringQueryUseCase = interactor.NewStringQueryUseCase(
 		authorizationService,
+		stringQueryPresenter,
 		errorPresenter,
 		stringQueryRepository,
-		stringQueryPresenter,
 	)
 
 	// controller
