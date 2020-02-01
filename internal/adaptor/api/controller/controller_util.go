@@ -5,8 +5,8 @@ import (
 	"github.com/duosonic62/go-strings-history/pkg/usecase/input"
 )
 
-func getAuthorizationToken(ctx input.Context) (valueobject.AuthorizationToken, error) {
+func getAuthorizationToken(ctx input.Context) (*valueobject.AuthorizationToken, error) {
 	token := ctx.GetHeader("Authorization")
 	authToken, err := valueobject.NewAuthorizationToken(token)
-	return authToken, err
+	return &authToken, err
 }

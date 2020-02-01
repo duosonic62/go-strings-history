@@ -15,7 +15,7 @@ type UserQueryUseCaseInteracter struct {
 	errorPresenter outputboundary.ErrorPresenter
 }
 
-func NewUserQueyUseCase(
+func NewUserQueryUseCase(
 	repository repository.UserQueryRepository,
 	presenter outputboundary.UserQueryPresenter,
 	errorPresenter outputboundary.ErrorPresenter,

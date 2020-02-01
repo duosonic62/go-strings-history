@@ -13,6 +13,7 @@ type WebApp struct {
 	UserCommandController   controller.UserCommandController
 	UserQueryController     controller.UserQueryController
 	StringCommandController controller.StringCommandController
+	StringQueryController   controller.StringQueryController
 }
 
 func Initialize() *WebApp {
@@ -20,6 +21,7 @@ func Initialize() *WebApp {
 	var userCommandRepository = repositoryimple.NewUserCommandRepository()
 	var userQueryRepository = repositoryimple.NewUserQueryRpository()
 	var stringCommandRepository = repositoryimple.NewStringCommandRepository()
+	var stringQueryRepository = repositoryimple.NewStringQueryRepository()
 
 	// factory
 	var idFactory = factoryimple.NewIdFactory()
@@ -35,6 +37,7 @@ func Initialize() *WebApp {
 	var userCommandPresenter = presenter.NewUserCommandPresenter()
 	var userQueryPresenter = presenter.NewUserQueryPresenter()
 	var stringCommandPresenter = presenter.NewStringCommandPresenter()
+	var stringQueryPresenter = presenter.NewStringQueryPresenter()
 
 	var errorUseCase = interactor.NewErrorUseCase(errorPresenter)
 	var userCommandUseCase = interactor.NewUserCommandUseCase(
@@ -43,7 +46,7 @@ func Initialize() *WebApp {
 		userCommandRepository,
 		userFactory,
 	)
-	var userQueryUseCase = interactor.NewUserQueyUseCase(
+	var userQueryUseCase = interactor.NewUserQueryUseCase(
 		userQueryRepository,
 		userQueryPresenter,
 		errorPresenter,
@@ -55,16 +58,24 @@ func Initialize() *WebApp {
 		stringFactory,
 		stringCommandRepository,
 	)
+	var stringQueryUseCase = interactor.NewStringQueryUseCase(
+		authorizationService,
+		stringQueryPresenter,
+		errorPresenter,
+		stringQueryRepository,
+	)
 
 	// controller
 	var userCommandController = controller.NewUserController(userCommandUseCase, errorUseCase)
 	var userQueryController = controller.NewUserQueryController(userQueryUseCase, errorUseCase)
 	var stringCommandController = controller.NewStringCommandController(stringCommandUseCase, errorUseCase)
+	var stringQueryController = controller.NewStringQueryController(stringQueryUseCase, errorUseCase)
 
 	var webApp = WebApp{
 		UserCommandController:   userCommandController,
 		UserQueryController:     userQueryController,
 		StringCommandController: stringCommandController,
+		StringQueryController:   stringQueryController,
 	}
 
 	return &webApp

@@ -28,5 +28,5 @@ func (controller UserQueryControllerImpl) Show(ctx input.Context) {
 		return
 	}
 
-	controller.useCase.Show(&authToken, ctx)
+	controller.useCase.Show(authToken, ctx)
 }
