@@ -15,3 +15,7 @@ func NewStringQueryPresenter() outputboundary.StringQueryPresenter {
 func (presenter stringQueryPresenter) OutputGuitarString(output *output.GuitarStringOutput, ctx input.Context) {
 	ctx.JSON(200, output)
 }
+
+func (presenter stringQueryPresenter) OutputGuitarStrings(output *[]output.GuitarStringOutput, ctx input.Context) {
+	ctx.JSON(200, output)
+}
