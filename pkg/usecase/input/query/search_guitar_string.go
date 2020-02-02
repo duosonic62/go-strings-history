@@ -1,8 +1,10 @@
 package query
 
+import "github.com/volatiletech/null"
+
 type SearchGuitarString struct {
-	Name       string
-	Maker      string
-	ThinGauge  int
-	ThickGauge int
+	Name       null.String
+	Maker      null.String
+	ThinGauge  null.Int
+	ThickGauge null.Int
 }

@@ -8,5 +8,5 @@ import (
 
 type StringQueryUseCase interface {
 	GetGuitarString(stringID string, token *valueobject.AuthorizationToken, ctx input.Context)
-	SearchGuitarString(queries query.SearchGuitarString, toke *valueobject.AuthorizationToken, ctx input.Context)
+	SearchGuitarString(queries query.SearchGuitarString, token *valueobject.AuthorizationToken, ctx input.Context)
 }

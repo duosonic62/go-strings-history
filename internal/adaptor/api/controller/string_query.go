@@ -5,6 +5,7 @@ import (
 	"github.com/duosonic62/go-strings-history/internal/usecase/inputboundary"
 	"github.com/duosonic62/go-strings-history/pkg/usecase/input"
 	"github.com/duosonic62/go-strings-history/pkg/usecase/input/query"
+	"github.com/volatiletech/null"
 	"strconv"
 )
 
@@ -45,24 +46,37 @@ func (controller stringQueryController) SearchGuitarString(ctx input.Context) {
 
 	queries := query.SearchGuitarString{}
 	if name, ok := ctx.GetQuery("name"); ok {
-		queries.Name = name
+		queries.Name = null.StringFrom(name)
+	} else {
+		null.NewString(name, false)
 	}
+
 	if maker, ok := ctx.GetQuery("maker"); ok {
-		queries.Maker = maker
+		queries.Maker = null.StringFrom(maker)
+	} else {
+		null.NewString(maker, false)
 	}
+
 	if thinGauge, ok := ctx.GetQuery("thinGauge"); ok {
 		g, err := strconv.Atoi(thinGauge)
 		if err != nil {
 			controller.errorUseCase.BadRequestError(ctx, errors.New("thinGauge must be number"))
+			return
 		}
-		queries.ThickGauge = g
+		queries.ThinGauge = null.IntFrom(g)
+	} else {
+		queries.ThinGauge = null.NewInt(0, false)
 	}
+
 	if thickGauge, ok := ctx.GetQuery("thickGauge"); ok {
 		g, err := strconv.Atoi(thickGauge)
 		if err != nil {
 			controller.errorUseCase.BadRequestError(ctx, errors.New("thickGauge must be number"))
+			return
 		}
-		queries.ThickGauge = g
+		queries.ThickGauge = null.IntFrom(g)
+	} else {
+		queries.ThickGauge = null.NewInt(0, false)
 	}
 
 	controller.useCase.SearchGuitarString(queries, authToken, ctx)

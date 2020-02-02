@@ -7,4 +7,5 @@ import (
 
 type StringQueryPresenter interface {
 	OutputGuitarString(output *output.GuitarStringOutput, ctx input.Context)
+	OutputGuitarStrings(output *[]output.GuitarStringOutput, ctx input.Context)
 }
