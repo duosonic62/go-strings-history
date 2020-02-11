@@ -2,18 +2,17 @@ package repositoryimple
 
 import (
 	"context"
+	"github.com/duosonic62/go-strings-history/internal/adaptor/infrastructure/db"
 	"github.com/duosonic62/go-strings-history/internal/adaptor/infrastructure/db/models"
 	"github.com/duosonic62/go-strings-history/internal/adaptor/infrastructure/repositoryimple/dtoconverter"
 	"github.com/duosonic62/go-strings-history/internal/domain/repository"
 	"github.com/duosonic62/go-strings-history/pkg/usecase/output"
 	"github.com/volatiletech/null"
 	"github.com/volatiletech/sqlboiler/boil"
-	"github.com/volatiletech/sqlboiler/queries/qm"
 )
 
 type stringQueryRepository struct{}
 
-type queries
 
 func NewStringQueryRepository() repository.StringQueryRepository {
 	return stringQueryRepository{}
@@ -34,12 +33,24 @@ func (repository stringQueryRepository) Search(
 	thinGauge null.Int,
 	thickGauge null.Int,
 ) (*[]output.GuitarStringOutput, error) {
-	var query string
+	queryBuilder := db.NewQueryBuilder()
 	if name.Valid {
-		query = "" + name.String
+		queryBuilder.AddWhere("name", name.String)
 	}
 	if maker.Valid {
-
+		queryBuilder.AddWhere("maker", maker.String)
 	}
-	guitarStringModels := models.GuitarStrings(qm.Where())
+	if thinGauge.Valid {
+		queryBuilder.AddWhere("thin_gauge", string(thinGauge.Int))
+	}
+	if thickGauge.Valid {
+		queryBuilder.AddWhere("thick_gauge", string(thickGauge.Int))
+	}
+	queries := queryBuilder.Build()
+	guitarStringModels, err := models.GuitarStrings(queries...).All(context.Background(), boil.GetContextDB())
+	if err != nil {
+		return nil, err
+	}
+
+	return dtoconverter.ToStringOutputs(&guitarStringModels), nil
 }

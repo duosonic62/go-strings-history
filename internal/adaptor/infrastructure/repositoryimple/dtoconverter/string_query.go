@@ -35,3 +35,12 @@ func ToStringOutput(from *models.GuitarString) *output.GuitarStringOutput {
 
 	return output
 }
+
+func ToStringOutputs(froms *models.GuitarStringSlice) *[]output.GuitarStringOutput {
+	outputs := make([]output.GuitarStringOutput, len(*froms))
+	for _, from := range *froms {
+		outputs = append(outputs, *ToStringOutput(from))
+	}
+
+	return &outputs
+}
