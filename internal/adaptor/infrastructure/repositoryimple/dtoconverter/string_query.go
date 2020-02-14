@@ -1,6 +1,7 @@
 package dtoconverter
 
 import (
+	"fmt"
 	"github.com/duosonic62/go-strings-history/internal/adaptor/infrastructure/db/models"
 	"github.com/duosonic62/go-strings-history/pkg/usecase/output"
 )
@@ -38,8 +39,8 @@ func ToStringOutput(from *models.GuitarString) *output.GuitarStringOutput {
 
 func ToStringOutputs(froms *models.GuitarStringSlice) *[]output.GuitarStringOutput {
 	outputs := make([]output.GuitarStringOutput, len(*froms))
-	for _, from := range *froms {
-		outputs = append(outputs, *ToStringOutput(from))
+	for i, from := range *froms {
+		outputs[i] = *ToStringOutput(from)
 	}
 
 	return &outputs

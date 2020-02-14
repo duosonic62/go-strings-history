@@ -1,6 +1,8 @@
 package db
 
-import "github.com/volatiletech/sqlboiler/queries/qm"
+import (
+	"github.com/volatiletech/sqlboiler/queries/qm"
+)
 
 type QueryBuilder struct {
 	queries map[string]string

@@ -9,6 +9,7 @@ import (
 	"github.com/duosonic62/go-strings-history/pkg/usecase/output"
 	"github.com/volatiletech/null"
 	"github.com/volatiletech/sqlboiler/boil"
+	"strconv"
 )
 
 type stringQueryRepository struct{}
@@ -41,10 +42,10 @@ func (repository stringQueryRepository) Search(
 		queryBuilder.AddWhere("maker", maker.String)
 	}
 	if thinGauge.Valid {
-		queryBuilder.AddWhere("thin_gauge", string(thinGauge.Int))
+		queryBuilder.AddWhere("thin_gauge", strconv.Itoa(thinGauge.Int))
 	}
 	if thickGauge.Valid {
-		queryBuilder.AddWhere("thick_gauge", string(thickGauge.Int))
+		queryBuilder.AddWhere("thick_gauge", strconv.Itoa(thickGauge.Int))
 	}
 	queries := queryBuilder.Build()
 	guitarStringModels, err := models.GuitarStrings(queries...).All(context.Background(), boil.GetContextDB())

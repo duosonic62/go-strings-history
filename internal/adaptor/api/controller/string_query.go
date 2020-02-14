@@ -11,6 +11,7 @@ import (
 
 type StringQueryController interface {
 	GetGuitarString(ctx input.Context)
+	SearchGuitarString(ctx input.Context)
 }
 
 type stringQueryController struct {
