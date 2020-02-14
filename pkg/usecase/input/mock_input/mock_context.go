@@ -97,3 +97,18 @@ func (mr *MockContextMockRecorder) GetHeader(arg0 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetHeader", reflect.TypeOf((*MockContext)(nil).GetHeader), arg0)
 }
+
+// GetQuery mocks base method
+func (m *MockContext) GetQuery(arg0 string) (string, bool) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetQuery", arg0)
+	ret0, _ := ret[0].(string)
+	ret1, _ := ret[1].(bool)
+	return ret0, ret1
+}
+
+// GetQuery indicates an expected call of GetQuery
+func (mr *MockContextMockRecorder) GetQuery(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetQuery", reflect.TypeOf((*MockContext)(nil).GetQuery), arg0)
+}

@@ -45,3 +45,15 @@ func (mr *MockStringQueryPresenterMockRecorder) OutputGuitarString(output, ctx i
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "OutputGuitarString", reflect.TypeOf((*MockStringQueryPresenter)(nil).OutputGuitarString), output, ctx)
 }
+
+// OutputGuitarStrings mocks base method
+func (m *MockStringQueryPresenter) OutputGuitarStrings(output *[]output.GuitarStringOutput, ctx input.Context) {
+	m.ctrl.T.Helper()
+	m.ctrl.Call(m, "OutputGuitarStrings", output, ctx)
+}
+
+// OutputGuitarStrings indicates an expected call of OutputGuitarStrings
+func (mr *MockStringQueryPresenterMockRecorder) OutputGuitarStrings(output, ctx interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "OutputGuitarStrings", reflect.TypeOf((*MockStringQueryPresenter)(nil).OutputGuitarStrings), output, ctx)
+}
