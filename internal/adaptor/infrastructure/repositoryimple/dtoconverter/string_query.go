@@ -1,7 +1,6 @@
 package dtoconverter
 
 import (
-	"fmt"
 	"github.com/duosonic62/go-strings-history/internal/adaptor/infrastructure/db/models"
 	"github.com/duosonic62/go-strings-history/pkg/usecase/output"
 )
