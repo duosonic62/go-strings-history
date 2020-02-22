@@ -7,5 +7,5 @@ import (
 type StringCommandRepository interface {
 	Save(guitarString *entity.GuitarString) error
 	Update(guitarString *entity.GuitarString) error
-	FindByID(iD string) (entity.GuitarString, error)
+	FindByID(iD string) (*entity.GuitarString, error)
 }

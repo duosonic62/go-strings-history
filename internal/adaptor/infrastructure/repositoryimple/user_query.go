@@ -16,7 +16,7 @@ type UserQueryRepositoryImpl struct {
 }
 
 // コンストラクタ
-func NewUserQueryRpository() repository.UserQueryRepository {
+func NewUserQueryRepository() repository.UserQueryRepository {
 	return UserQueryRepositoryImpl{}
 }
 
