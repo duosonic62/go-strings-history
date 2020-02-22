@@ -36,7 +36,7 @@ func NewStringCommandUseCase(
 	}
 }
 
-func (useCase StringCommandUseCaseImpl) Add(data command.StringAddInputData, token *valueobject.AuthorizationToken, ctx input.Context) {
+func (useCase StringCommandUseCaseImpl) Add(data command.StringRegisterInputData, token *valueobject.AuthorizationToken, ctx input.Context) {
 	if _, err := useCase.authorizedService.Authorized(token); err != nil {
 		useCase.errorPresenter.OutputError(ctx, err)
 		return

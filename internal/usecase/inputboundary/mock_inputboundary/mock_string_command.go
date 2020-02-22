@@ -36,7 +36,7 @@ func (m *MockStringCommandUseCase) EXPECT() *MockStringCommandUseCaseMockRecorde
 }
 
 // Add mocks base method
-func (m *MockStringCommandUseCase) Add(data command.StringAddInputData, token *valueobject.AuthorizationToken, ctx input.Context) {
+func (m *MockStringCommandUseCase) Add(data command.StringRegisterInputData, token *valueobject.AuthorizationToken, ctx input.Context) {
 	m.ctrl.T.Helper()
 	m.ctrl.Call(m, "Add", data, token, ctx)
 }

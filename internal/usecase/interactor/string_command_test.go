@@ -148,6 +148,6 @@ func guitarString() *entity.GuitarString {
 	return guitarString
 }
 
-func stringAddInputData() command.StringAddInputData {
-	return command.StringAddInputData{}
+func stringAddInputData() command.StringRegisterInputData {
+	return command.StringRegisterInputData{}
 }
