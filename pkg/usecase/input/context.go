@@ -8,4 +8,5 @@ type Context interface {
 	Status(int)
 	JSON(int, interface{})
 	GetHeader(string) string
+	GetQuery(string) (string, bool)
 }

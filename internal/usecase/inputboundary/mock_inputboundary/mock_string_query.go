@@ -7,6 +7,7 @@ package mock_inputboundary
 import (
 	valueobject "github.com/duosonic62/go-strings-history/internal/domain/valueobject"
 	input "github.com/duosonic62/go-strings-history/pkg/usecase/input"
+	query "github.com/duosonic62/go-strings-history/pkg/usecase/input/query"
 	gomock "github.com/golang/mock/gomock"
 	reflect "reflect"
 )
@@ -44,4 +45,16 @@ func (m *MockStringQueryUseCase) GetGuitarString(stringID string, token *valueob
 func (mr *MockStringQueryUseCaseMockRecorder) GetGuitarString(stringID, token, ctx interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetGuitarString", reflect.TypeOf((*MockStringQueryUseCase)(nil).GetGuitarString), stringID, token, ctx)
+}
+
+// SearchGuitarString mocks base method
+func (m *MockStringQueryUseCase) SearchGuitarString(queries query.SearchGuitarString, token *valueobject.AuthorizationToken, ctx input.Context) {
+	m.ctrl.T.Helper()
+	m.ctrl.Call(m, "SearchGuitarString", queries, token, ctx)
+}
+
+// SearchGuitarString indicates an expected call of SearchGuitarString
+func (mr *MockStringQueryUseCaseMockRecorder) SearchGuitarString(queries, token, ctx interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SearchGuitarString", reflect.TypeOf((*MockStringQueryUseCase)(nil).SearchGuitarString), queries, token, ctx)
 }

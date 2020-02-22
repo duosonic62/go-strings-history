@@ -24,8 +24,8 @@ func main() {
 	r.DELETE("/user", func(context *gin.Context) { webApp.UserCommandController.Delete(context) })
 
 	// ギター弦API
-	r.POST("/string", func(context *gin.Context) { webApp.StringCommandController.Create(context) })
+	r.POST("/strings", func(context *gin.Context) { webApp.StringCommandController.Create(context) })
+	r.GET("/strings/search", func(context *gin.Context) { webApp.StringQueryController.SearchGuitarString(context)})
 	r.GET("/string/:id", func(context *gin.Context) { webApp.StringQueryController.GetGuitarString(context) })
-
 	r.Run(":8080")
 }

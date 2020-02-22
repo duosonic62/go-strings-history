@@ -7,6 +7,7 @@ package mock_repository
 import (
 	output "github.com/duosonic62/go-strings-history/pkg/usecase/output"
 	gomock "github.com/golang/mock/gomock"
+	null "github.com/volatiletech/null"
 	reflect "reflect"
 )
 
@@ -46,4 +47,19 @@ func (m *MockStringQueryRepository) Find(stringID string) (*output.GuitarStringO
 func (mr *MockStringQueryRepositoryMockRecorder) Find(stringID interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Find", reflect.TypeOf((*MockStringQueryRepository)(nil).Find), stringID)
+}
+
+// Search mocks base method
+func (m *MockStringQueryRepository) Search(name, maker null.String, thinGauge, thickGauge null.Int) (*[]output.GuitarStringOutput, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "Search", name, maker, thinGauge, thickGauge)
+	ret0, _ := ret[0].(*[]output.GuitarStringOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// Search indicates an expected call of Search
+func (mr *MockStringQueryRepositoryMockRecorder) Search(name, maker, thinGauge, thickGauge interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Search", reflect.TypeOf((*MockStringQueryRepository)(nil).Search), name, maker, thinGauge, thickGauge)
 }
