@@ -52,11 +52,14 @@ func (controller StringCommandControllerImpl) Update(ctx input.Context) {
 		return
 	}
 
+	// パスパラメータからIDを取得
+	id := ctx.Param("id")
+
 	authToken, err := getAuthorizationToken(ctx)
 	if err != nil {
 		controller.errorUseCase.UnauthorizedError(ctx, err)
 		return
 	}
 
-	controller.useCase.Update(data, authToken, ctx)
+	controller.useCase.Update(id, data, authToken, ctx)
 }
