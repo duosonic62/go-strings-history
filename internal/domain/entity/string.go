@@ -1,6 +1,8 @@
 package entity
 
-import "github.com/duosonic62/go-strings-history/internal/domain/valueobject"
+import (
+	"github.com/duosonic62/go-strings-history/internal/domain/valueobject"
+)
 
 type GuitarString struct {
 	id          string
@@ -29,39 +31,39 @@ func NewGuitarString(
 	}, nil
 }
 
-func (guitarString GuitarString) GetID() string {
+func (guitarString *GuitarString) GetID() string {
 	return guitarString.id
 }
 
-func (guitarString GuitarString) GetName() string {
+func (guitarString *GuitarString) GetName() string {
 	return guitarString.name
 }
 
-func (guitarString GuitarString) ChangeName(name string) {
+func (guitarString *GuitarString) ChangeName(name string) {
 	guitarString.name = name
 }
 
-func (guitarString GuitarString) GetDescription() string {
+func (guitarString *GuitarString) GetDescription() string {
 	return guitarString.description
 }
 
-func (guitarString GuitarString) ChangeDescription(description string) {
+func (guitarString *GuitarString) ChangeDescription(description string) {
 	guitarString.description = description
 }
 
-func (guitarString GuitarString) GetMaker() string {
+func (guitarString *GuitarString) GetMaker() string {
 	return guitarString.maker
 }
 
-func (guitarString GuitarString) ChangeMaker(maker string) {
+func (guitarString *GuitarString) ChangeMaker(maker string) {
 	guitarString.maker = maker
 }
 
-func (guitarString GuitarString) GetGauge() *valueobject.StringGauge {
+func (guitarString *GuitarString) GetGauge() *valueobject.StringGauge {
 	return guitarString.gauge
 }
 
-func (guitarString GuitarString) ChangeGauge(thinGauge, thickGauge int) error {
+func (guitarString *GuitarString) ChangeGauge(thinGauge, thickGauge int) error {
 	gauge, err := valueobject.NewStringGauge(thinGauge, thickGauge)
 	if err != nil {
 		return err
@@ -70,10 +72,10 @@ func (guitarString GuitarString) ChangeGauge(thinGauge, thickGauge int) error {
 	return nil
 }
 
-func (guitarString GuitarString) GetUrl() string {
+func (guitarString *GuitarString) GetUrl() string {
 	return guitarString.url
 }
 
-func (guitarString GuitarString) ChangeUrl(url string) {
+func (guitarString *GuitarString) ChangeUrl(url string) {
 	guitarString.url = url
 }

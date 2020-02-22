@@ -1,6 +1,7 @@
 package interactor
 
 import (
+	"fmt"
 	"github.com/duosonic62/go-strings-history/internal/domain/entity"
 	"github.com/duosonic62/go-strings-history/internal/domain/factory"
 	"github.com/duosonic62/go-strings-history/internal/domain/repository"
@@ -87,7 +88,9 @@ func (useCase StringCommandUseCaseImpl) Update(id string, data command.StringReg
 		return
 	}
 
-	err = useCase.stringRepository.Update(&guitarString)
+	fmt.Println(guitarString)
+
+	err = useCase.stringRepository.Update(guitarString)
 
 	useCase.presenter.OutputUpdateString(ctx)
 }

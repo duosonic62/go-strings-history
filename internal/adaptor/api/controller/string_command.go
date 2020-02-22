@@ -8,6 +8,7 @@ import (
 
 type StringCommandController interface {
 	Create(ctx input.Context)
+	Update(ctx input.Context)
 }
 
 type StringCommandControllerImpl struct {
