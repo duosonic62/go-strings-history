@@ -57,3 +57,56 @@ func TestStringCommandControllerImpl_Create_Negative_UnAuthorized(t *testing.T) 
 	controller := NewStringCommandController(mockStringCommandUseCase, mockErrorUseCase)
 	controller.Create(mockContext)
 }
+
+func TestStringCommandControllerImpl_Update_Positive(t *testing.T) {
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
+
+	mockStringCommandUseCase := mock_inputboundary.NewMockStringCommandUseCase(ctrl)
+	mockErrorUseCase := mock_inputboundary.NewMockErrorUseCase(ctrl)
+	mockContext := mock_input.NewMockContext(ctrl)
+	mockContext.EXPECT().GetHeader(gomock.Any()).Return("mock_token").Times(1)
+	mockContext.EXPECT().Param(gomock.Any()).Return("mock_id").Times(1)
+
+	mockContext.EXPECT().Bind(gomock.Any()).Return(nil).Times(1)
+	mockStringCommandUseCase.EXPECT().Update(gomock.Any(), gomock.Any(), gomock.Any(), gomock.Any()).Times(1)
+
+	controller := NewStringCommandController(mockStringCommandUseCase, mockErrorUseCase)
+	controller.Update(mockContext)
+}
+
+func TestStringCommandControllerImpl_Update_Negative_BadRequest(t *testing.T) {
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
+
+	mockStringCommandUseCase := mock_inputboundary.NewMockStringCommandUseCase(ctrl)
+	mockErrorUseCase := mock_inputboundary.NewMockErrorUseCase(ctrl)
+	mockContext := mock_input.NewMockContext(ctrl)
+	mockContext.EXPECT().GetHeader(gomock.Any()).Return("mock_token").Times(0)
+	mockContext.EXPECT().Param(gomock.Any()).Return("mock_id").Times(0)
+
+	mockContext.EXPECT().Bind(gomock.Any()).Return(errors.New("error")).Times(1)
+	mockStringCommandUseCase.EXPECT().Update(gomock.Any(), gomock.Any(), gomock.Any(), gomock.Any()).Times(0)
+	mockErrorUseCase.EXPECT().BadRequestError(gomock.Any(), gomock.Any()).Times(1)
+
+	controller := NewStringCommandController(mockStringCommandUseCase, mockErrorUseCase)
+	controller.Update(mockContext)
+}
+
+func TestStringCommandControllerImpl_Update_Negative_Unauthorized(t *testing.T) {
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
+
+	mockStringCommandUseCase := mock_inputboundary.NewMockStringCommandUseCase(ctrl)
+	mockErrorUseCase := mock_inputboundary.NewMockErrorUseCase(ctrl)
+	mockContext := mock_input.NewMockContext(ctrl)
+
+	mockContext.EXPECT().Bind(gomock.Any()).Return(nil).Times(1)
+	mockContext.EXPECT().Param(gomock.Any()).Return("mock_id").Times(1)
+	mockContext.EXPECT().GetHeader(gomock.Any()).Return("").Times(1)
+	mockErrorUseCase.EXPECT().UnauthorizedError(gomock.Any(), gomock.Any()).Times(1)
+	mockStringCommandUseCase.EXPECT().Update(gomock.Any(), gomock.Any(), gomock.Any(), gomock.Any()).Times(0)
+
+	controller := NewStringCommandController(mockStringCommandUseCase, mockErrorUseCase)
+	controller.Update(mockContext)
+}
