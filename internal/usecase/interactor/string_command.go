@@ -1,7 +1,6 @@
 package interactor
 
 import (
-	"fmt"
 	"github.com/duosonic62/go-strings-history/internal/domain/entity"
 	"github.com/duosonic62/go-strings-history/internal/domain/factory"
 	"github.com/duosonic62/go-strings-history/internal/domain/repository"
@@ -13,7 +12,7 @@ import (
 	"github.com/duosonic62/go-strings-history/pkg/usecase/input/command"
 )
 
-type StringCommandUseCaseImpl struct {
+type stringCommandUseCase struct {
 	authorizedService service.AuthorizationService
 	presenter         outputboundary.StringCommandPresenter
 	errorPresenter    outputboundary.ErrorPresenter
@@ -28,7 +27,7 @@ func NewStringCommandUseCase(
 	stringFactory factory.StringFactory,
 	stringRepository repository.StringCommandRepository,
 ) inputboundary.StringCommandUseCase {
-	return StringCommandUseCaseImpl{
+	return stringCommandUseCase{
 		authorizedService: authorizedService,
 		presenter:         presenter,
 		errorPresenter:    errorPresenter,
@@ -37,7 +36,7 @@ func NewStringCommandUseCase(
 	}
 }
 
-func (useCase StringCommandUseCaseImpl) Add(data command.StringRegisterInputData, token *valueobject.AuthorizationToken, ctx input.Context) {
+func (useCase stringCommandUseCase) Add(data command.StringRegisterInputData, token *valueobject.AuthorizationToken, ctx input.Context) {
 	if _, err := useCase.authorizedService.Authorized(token); err != nil {
 		useCase.errorPresenter.OutputError(ctx, err)
 		return
@@ -65,7 +64,7 @@ func (useCase StringCommandUseCaseImpl) Add(data command.StringRegisterInputData
 	useCase.presenter.OutputAddString(ctx)
 }
 
-func (useCase StringCommandUseCaseImpl) Update(id string, data command.StringRegisterInputData, token *valueobject.AuthorizationToken, ctx input.Context) {
+func (useCase stringCommandUseCase) Update(id string, data command.StringRegisterInputData, token *valueobject.AuthorizationToken, ctx input.Context) {
 	if _, err := useCase.authorizedService.Authorized(token); err != nil {
 		useCase.errorPresenter.OutputError(ctx, err)
 		return
@@ -88,9 +87,12 @@ func (useCase StringCommandUseCaseImpl) Update(id string, data command.StringReg
 		return
 	}
 
-	fmt.Println(guitarString)
-
+	// 弦情報をアップデート
 	err = useCase.stringRepository.Update(guitarString)
+	if err != nil {
+		useCase.errorPresenter.OutputError(ctx, entity.NewInternalServerError(err))
+		return
+	}
 
 	useCase.presenter.OutputUpdateString(ctx)
 }
