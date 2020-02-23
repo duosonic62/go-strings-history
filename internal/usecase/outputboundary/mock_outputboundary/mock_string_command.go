@@ -44,3 +44,15 @@ func (mr *MockStringCommandPresenterMockRecorder) OutputAddString(ctx interface{
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "OutputAddString", reflect.TypeOf((*MockStringCommandPresenter)(nil).OutputAddString), ctx)
 }
+
+// OutputUpdateString mocks base method
+func (m *MockStringCommandPresenter) OutputUpdateString(ctx input.Context) {
+	m.ctrl.T.Helper()
+	m.ctrl.Call(m, "OutputUpdateString", ctx)
+}
+
+// OutputUpdateString indicates an expected call of OutputUpdateString
+func (mr *MockStringCommandPresenterMockRecorder) OutputUpdateString(ctx interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "OutputUpdateString", reflect.TypeOf((*MockStringCommandPresenter)(nil).OutputUpdateString), ctx)
+}
