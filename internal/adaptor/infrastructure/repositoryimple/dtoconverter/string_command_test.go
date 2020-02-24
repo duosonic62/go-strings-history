@@ -1,8 +1,11 @@
 package dtoconverter
 
 import (
+	"github.com/duosonic62/go-strings-history/internal/adaptor/infrastructure/db/models"
 	"github.com/duosonic62/go-strings-history/internal/domain/entity"
 	"github.com/duosonic62/go-strings-history/internal/domain/valueobject"
+	"github.com/volatiletech/null"
+	"strconv"
 	"testing"
 )
 
@@ -36,5 +39,63 @@ func TestToStringModel(t *testing.T) {
 	}
 	if actual.Version != 1 {
 		t.Error("Expected: version is 1")
+	}
+}
+
+func TestToStringEntity_Positive(t *testing.T) {
+	stringModel := models.GuitarString{
+		ID:          "dummy_id",
+		Name:        "dummy_name",
+		Description: null.NewString("dummy_description", true),
+		Maker:       null.NewString("dummy_maker", true),
+		ThinGauge:   null.NewUint8(uint8(10), true),
+		ThickGauge:  null.NewUint8(uint8(46), true),
+		URL:         null.NewString("dummy_url", true),
+	}
+
+	actual, err := ToStringEntity(&stringModel)
+	if err != nil {
+		t.Error("Error occurred: ", err)
+	}
+
+	if actual.GetName() != "dummy_name" {
+		t.Error("Expected: dummy_name, but " + actual.GetName())
+	}
+
+	if actual.GetDescription() != "dummy_description" {
+		t.Error("Expected: dummy_description, but " + actual.GetDescription())
+	}
+
+	if actual.GetMaker() != "dummy_maker" {
+		t.Error("Expected: dummy_maker, but " + actual.GetMaker())
+	}
+
+	if actual.GetUrl() != "dummy_url" {
+		t.Error("Expected: dummy_url, but " + actual.GetUrl())
+	}
+
+	if actual.GetGauge().ThinGauge() != 10 {
+		t.Error("Expected: 10, but " + strconv.Itoa(actual.GetGauge().ThinGauge()))
+	}
+
+	if actual.GetGauge().ThickGauge() != 46 {
+		t.Error("Expected: 46, but " + strconv.Itoa(actual.GetGauge().ThickGauge()))
+	}
+}
+
+func TestToStringEntity_Negative(t *testing.T) {
+	stringModel := models.GuitarString{
+		ID:          "dummy_id",
+		Name:        "dummy_name",
+		Description: null.NewString("dummy_description", true),
+		Maker:       null.NewString("dummy_maker", true),
+		ThinGauge:   null.NewUint8(uint8(46), true),
+		ThickGauge:  null.NewUint8(uint8(10), true),
+		URL:         null.NewString("dummy_url", true),
+	}
+
+	_, err := ToStringEntity(&stringModel)
+	if err == nil {
+		t.Error("Error not occurred: ", err)
 	}
 }
