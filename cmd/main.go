@@ -27,5 +27,6 @@ func main() {
 	r.POST("/strings", func(context *gin.Context) { webApp.StringCommandController.Create(context) })
 	r.GET("/strings/search", func(context *gin.Context) { webApp.StringQueryController.SearchGuitarString(context)})
 	r.GET("/string/:id", func(context *gin.Context) { webApp.StringQueryController.GetGuitarString(context) })
+	r.PUT("/string/:id", func(context *gin.Context) { webApp.StringCommandController.Update(context)})
 	r.Run(":8080")
 }

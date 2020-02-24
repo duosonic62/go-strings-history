@@ -15,3 +15,7 @@ func NewStringCommandPresenter() outputboundary.StringCommandPresenter {
 func (presenter StringCommandPresenterImpl) OutputAddString(ctx input.Context) {
 	ctx.JSON(200, nil)
 }
+
+func (presenter StringCommandPresenterImpl) OutputUpdateString(ctx input.Context) {
+	ctx.JSON(200, nil)
+}

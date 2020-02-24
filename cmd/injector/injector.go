@@ -19,7 +19,7 @@ type WebApp struct {
 func Initialize() *WebApp {
 	// repository
 	var userCommandRepository = repositoryimple.NewUserCommandRepository()
-	var userQueryRepository = repositoryimple.NewUserQueryRpository()
+	var userQueryRepository = repositoryimple.NewUserQueryRepository()
 	var stringCommandRepository = repositoryimple.NewStringCommandRepository()
 	var stringQueryRepository = repositoryimple.NewStringQueryRepository()
 

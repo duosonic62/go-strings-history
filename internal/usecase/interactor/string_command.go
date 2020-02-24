@@ -12,7 +12,7 @@ import (
 	"github.com/duosonic62/go-strings-history/pkg/usecase/input/command"
 )
 
-type StringCommandUseCaseImpl struct {
+type stringCommandUseCase struct {
 	authorizedService service.AuthorizationService
 	presenter         outputboundary.StringCommandPresenter
 	errorPresenter    outputboundary.ErrorPresenter
@@ -27,7 +27,7 @@ func NewStringCommandUseCase(
 	stringFactory factory.StringFactory,
 	stringRepository repository.StringCommandRepository,
 ) inputboundary.StringCommandUseCase {
-	return StringCommandUseCaseImpl{
+	return stringCommandUseCase{
 		authorizedService: authorizedService,
 		presenter:         presenter,
 		errorPresenter:    errorPresenter,
@@ -36,7 +36,7 @@ func NewStringCommandUseCase(
 	}
 }
 
-func (useCase StringCommandUseCaseImpl) Add(data command.StringAddInputData, token *valueobject.AuthorizationToken, ctx input.Context) {
+func (useCase stringCommandUseCase) Add(data command.StringRegisterInputData, token *valueobject.AuthorizationToken, ctx input.Context) {
 	if _, err := useCase.authorizedService.Authorized(token); err != nil {
 		useCase.errorPresenter.OutputError(ctx, err)
 		return
@@ -62,4 +62,37 @@ func (useCase StringCommandUseCaseImpl) Add(data command.StringAddInputData, tok
 	}
 
 	useCase.presenter.OutputAddString(ctx)
+}
+
+func (useCase stringCommandUseCase) Update(id string, data command.StringRegisterInputData, token *valueobject.AuthorizationToken, ctx input.Context) {
+	if _, err := useCase.authorizedService.Authorized(token); err != nil {
+		useCase.errorPresenter.OutputError(ctx, err)
+		return
+	}
+
+	guitarString, err := useCase.stringRepository.FindByID(id)
+	if err != nil {
+		useCase.errorPresenter.OutputError(ctx, entity.NewBadRequestError(err))
+		return
+	}
+
+	// 変更を詰め替え
+	guitarString.ChangeName(data.Name)
+	guitarString.ChangeDescription(data.Description)
+	guitarString.ChangeMaker(data.Maker)
+	guitarString.ChangeUrl(data.Url)
+	err = guitarString.ChangeGauge(data.ThinGauge, data.ThickGauge)
+	if err != nil {
+		useCase.errorPresenter.OutputError(ctx, entity.NewBadRequestError(err))
+		return
+	}
+
+	// 弦情報をアップデート
+	err = useCase.stringRepository.Update(guitarString)
+	if err != nil {
+		useCase.errorPresenter.OutputError(ctx, entity.NewInternalServerError(err))
+		return
+	}
+
+	useCase.presenter.OutputUpdateString(ctx)
 }

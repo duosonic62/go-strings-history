@@ -36,7 +36,7 @@ func (m *MockStringCommandUseCase) EXPECT() *MockStringCommandUseCaseMockRecorde
 }
 
 // Add mocks base method
-func (m *MockStringCommandUseCase) Add(data command.StringAddInputData, token *valueobject.AuthorizationToken, ctx input.Context) {
+func (m *MockStringCommandUseCase) Add(data command.StringRegisterInputData, token *valueobject.AuthorizationToken, ctx input.Context) {
 	m.ctrl.T.Helper()
 	m.ctrl.Call(m, "Add", data, token, ctx)
 }
@@ -45,4 +45,16 @@ func (m *MockStringCommandUseCase) Add(data command.StringAddInputData, token *v
 func (mr *MockStringCommandUseCaseMockRecorder) Add(data, token, ctx interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Add", reflect.TypeOf((*MockStringCommandUseCase)(nil).Add), data, token, ctx)
+}
+
+// Update mocks base method
+func (m *MockStringCommandUseCase) Update(id string, data command.StringRegisterInputData, token *valueobject.AuthorizationToken, ctx input.Context) {
+	m.ctrl.T.Helper()
+	m.ctrl.Call(m, "Update", id, data, token, ctx)
+}
+
+// Update indicates an expected call of Update
+func (mr *MockStringCommandUseCaseMockRecorder) Update(id, data, token, ctx interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Update", reflect.TypeOf((*MockStringCommandUseCase)(nil).Update), id, data, token, ctx)
 }

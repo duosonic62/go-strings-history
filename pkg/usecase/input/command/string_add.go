@@ -1,6 +1,6 @@
 package command
 
-type StringAddInputData struct {
+type StringRegisterInputData struct {
 	Name        string `json:"name" binding:"required,min=1,max=256"`
 	Description string `json:"description" binding:"required,min=1,max=1024"`
 	Maker       string `json:"maker" binding:"required,min=1,max=64"`

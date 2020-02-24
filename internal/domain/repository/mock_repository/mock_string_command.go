@@ -46,3 +46,32 @@ func (mr *MockStringCommandRepositoryMockRecorder) Save(guitarString interface{}
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Save", reflect.TypeOf((*MockStringCommandRepository)(nil).Save), guitarString)
 }
+
+// Update mocks base method
+func (m *MockStringCommandRepository) Update(guitarString *entity.GuitarString) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "Update", guitarString)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// Update indicates an expected call of Update
+func (mr *MockStringCommandRepositoryMockRecorder) Update(guitarString interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Update", reflect.TypeOf((*MockStringCommandRepository)(nil).Update), guitarString)
+}
+
+// FindByID mocks base method
+func (m *MockStringCommandRepository) FindByID(iD string) (*entity.GuitarString, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "FindByID", iD)
+	ret0, _ := ret[0].(*entity.GuitarString)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// FindByID indicates an expected call of FindByID
+func (mr *MockStringCommandRepositoryMockRecorder) FindByID(iD interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "FindByID", reflect.TypeOf((*MockStringCommandRepository)(nil).FindByID), iD)
+}

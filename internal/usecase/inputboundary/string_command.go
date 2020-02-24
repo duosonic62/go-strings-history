@@ -7,5 +7,6 @@ import (
 )
 
 type StringCommandUseCase interface {
-	Add(data command.StringAddInputData, token *valueobject.AuthorizationToken, ctx input.Context)
+	Add(data command.StringRegisterInputData, token *valueobject.AuthorizationToken, ctx input.Context)
+	Update(id string, data command.StringRegisterInputData, token *valueobject.AuthorizationToken, ctx input.Context)
 }
